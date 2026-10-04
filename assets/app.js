@@ -17,6 +17,7 @@ const PLATFORM_LABELS = {
 const STATUS_LABELS = { active: "维护中", archived: "已归档", unknown: "未知" };
 
 let ALL = [];
+let NODE_MAP = { coreNodes: [], customNodes: [] };
 let currentView = "nodes";
 const filters = { text: "", category: "", platform: "", status: "" };
 
@@ -31,10 +32,16 @@ function esc(s) {
 async function init() {
   const container = document.getElementById("modules");
   try {
-    const res = await fetch("data/modules.json", { cache: "no-store" });
+    const [res, mapRes] = await Promise.all([
+      fetch("data/modules.json", { cache: "no-store" }),
+      fetch("data/node-map.json", { cache: "no-store" }),
+    ]);
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
     ALL = Array.isArray(data.modules) ? data.modules : [];
+    if (mapRes.ok) {
+      try { NODE_MAP = await mapRes.json(); } catch (_) {}
+    }
   } catch (e) {
     container.innerHTML =
       '<p class="empty">数据加载失败：' + esc(e.message) +
@@ -44,6 +51,7 @@ async function init() {
   renderStats();
   populateFilters();
   bindControls();
+  bindWorkflowUI();
   render();
 }
 
@@ -103,8 +111,13 @@ function bindControls() {
       document.querySelectorAll(".view-tabs .tab").forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
       currentView = btn.dataset.view;
-      document.querySelector(".controls").classList.toggle("view-platforms", currentView === "platforms");
-      render();
+      const isBrowse = currentView === "nodes" || currentView === "platforms";
+      document.getElementById("browse-view").hidden = !isBrowse;
+      document.getElementById("workflow-view").hidden = isBrowse;
+      if (isBrowse) {
+        document.querySelector(".controls").classList.toggle("view-platforms", currentView === "platforms");
+        render();
+      }
     });
   });
 }
@@ -225,6 +238,226 @@ function renderPlatforms() {
   }).join("");
   container.innerHTML = html;
   document.getElementById("count").textContent = `按平台共 ${total} 个模型条目`;
+}
+
+/* ============ 工作流分析器 ============ */
+
+function repoDir(repo) {
+  const m = String(repo || "").match(/github\.com\/[^/]+\/([^/#?]+)/i);
+  return m ? m[1].replace(/\.git$/i, "") : "custom_nodes";
+}
+
+function findModuleForType(type) {
+  const t = String(type || "").toLowerCase();
+  if (!t) return null;
+  if (NODE_MAP.coreNodes && NODE_MAP.coreNodes.some((c) => c.toLowerCase() === t)) return null;
+  const custom = NODE_MAP.customNodes || [];
+  for (const entry of custom) {
+    if ((entry.match || []).some((m) => t.includes(m.toLowerCase()))) {
+      return entry.moduleId;
+    }
+  }
+  return "__unknown__";
+}
+
+function extractNodeTypes(text) {
+  const data = JSON.parse(text);
+  const types = new Set();
+  const pushType = (v) => { if (v) types.add(v); };
+  // UI 默认保存格式：nodes 为数组，含 type 字段
+  if (data.nodes && Array.isArray(data.nodes)) {
+    for (const n of data.nodes) if (n && n.type) pushType(n.type);
+  } else if (data.nodes && typeof data.nodes === "object") {
+    // API 格式：nodes 为对象 map，含 class_type 字段
+    for (const k of Object.keys(data.nodes)) {
+      const n = data.nodes[k];
+      if (n && n.class_type) pushType(n.class_type);
+    }
+  }
+  // 老 API 格式：prompt 为对象 map，含 class_type
+  if (data.prompt && typeof data.prompt === "object") {
+    for (const k of Object.keys(data.prompt)) {
+      const n = data.prompt[k];
+      if (n && n.class_type) pushType(n.class_type);
+    }
+  }
+  return [...types];
+}
+
+function analyzeWorkflow(text) {
+  const types = extractNodeTypes(text);
+  const moduleIds = new Set();
+  const unknownTypes = [];
+  let coreCount = 0;
+  for (const t of types) {
+    const r = findModuleForType(t);
+    if (r === null) coreCount++;
+    else if (r === "__unknown__") unknownTypes.push(t);
+    else moduleIds.add(r);
+  }
+  const modulesHit = [...moduleIds].map((id) => ALL.find((m) => m.id === id)).filter(Boolean);
+  const modelMap = new Map();
+  for (const m of modulesHit) {
+    for (const mo of m.models || []) {
+      for (const s of mo.sources || []) {
+        const key = mo.name + "|" + s.url;
+        if (!modelMap.has(key)) {
+          modelMap.set(key, {
+            modelName: mo.name, modelType: mo.type, nodeName: m.name,
+            url: s.url, platform: s.platform, size: s.size, note: s.note,
+          });
+        }
+      }
+    }
+  }
+  return { total: types.length, hit: modulesHit, unknownTypes, coreCount, models: [...modelMap.values()] };
+}
+
+function renderWorkflow(r) {
+  const resultEl = document.getElementById("wf-result");
+  if (!r.total) {
+    resultEl.innerHTML = '<p class="empty">未从该 JSON 中识别到任何节点。请确认文件是 ComfyUI 工作流（顶层含 nodes / prompt）。</p>';
+    return;
+  }
+
+  const hitCards = r.hit.map((m) => {
+    const models = (m.models || []).map((mo) => {
+      const sources = (mo.sources || []).map((s) => {
+        const label = PLATFORM_LABELS[s.platform] || s.platform;
+        const cls = "p-" + String(s.platform).replace(/[^a-z-]/g, "");
+        const size = s.size ? `<span class="sz">${esc(s.size)}</span>` : "";
+        return `<a class="src" href="${esc(s.url)}" target="_blank" rel="noopener"><span class="p ${cls}">${esc(label)}</span>${size}</a>`;
+      }).join("");
+      return `<div class="model"><div><span class="mname">${esc(mo.name)}</span><span class="mtype">${esc(mo.type)}</span></div><div class="sources">${sources}</div></div>`;
+    }).join("");
+    const modelBlock = (m.models && m.models.length)
+      ? `<div class="wf-models">${models}</div>`
+      : `<div class="wf-models wf-empty-models">纯逻辑节点，无需额外模型</div>`;
+    const dir = repoDir(m.repo);
+    const cloneCmd = `git clone ${m.repo} ComfyUI/custom_nodes/${dir}`;
+    const cmCmd = `cm-cli install ${m.repo}`;
+    return `<article class="card wf-card">
+      <h3>${esc(m.name)}</h3>
+      <div class="meta-row"><span class="chip cat">${esc(m.category || "其他")}</span>${m.official ? '<span class="chip">官方</span>' : ""}${m.author ? `<span class="chip">@${esc(m.author)}</span>` : ""}</div>
+      <div class="wf-install">
+        <div class="wf-cmd"><code>${esc(cloneCmd)}</code><button class="copy" data-copy="${esc(cloneCmd)}">复制</button></div>
+        <div class="wf-cmd"><code>${esc(cmCmd)}</code><button class="copy" data-copy="${esc(cmCmd)}">复制</button></div>
+      </div>
+      <div class="repo"><a href="${esc(m.repo)}" target="_blank" rel="noopener">${esc(m.repo)}</a></div>
+      ${modelBlock}
+    </article>`;
+  }).join("");
+
+  const unknownHtml = r.unknownTypes.length
+    ? `<details class="wf-unknown">
+        <summary>⚠️ ${r.unknownTypes.length} 个未收录的自定义节点（需在 ComfyUI-Manager 中自行搜索安装）</summary>
+        <ul class="wf-unknown-list">${r.unknownTypes.map((t) => `<li><code>${esc(t)}</code></li>`).join("")}</ul>
+        <p class="wf-tip">提示：在 ComfyUI 中打开「管理器 (Manager) → Install Custom Nodes」搜索上述节点名即可安装。</p>
+      </details>`
+    : "";
+
+  const modelsHtml = r.models.length
+    ? `<section class="wf-models-summary">
+        <h3>📦 所需模型汇总（${r.models.length} 个，已去重）</h3>
+        <ul class="pm-list">${r.models.map((it) => {
+          const label = PLATFORM_LABELS[it.platform] || it.platform;
+          const cls = "p-" + String(it.platform).replace(/[^a-z-]/g, "");
+          const size = it.size ? `<span class="sz">${esc(it.size)}</span>` : "";
+          const note = it.note ? `<span class="note">${esc(it.note)}</span>` : "";
+          return `<li class="pm"><div class="pm-head"><a class="pm-name" href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.modelName)}</a>${size}</div><div class="pm-meta"><span class="p ${cls}">${esc(label)}</span> · 类型 <span class="mtype">${esc(it.modelType)}</span> · 来自 <span class="node">${esc(it.nodeName)}</span>${note}</div></li>`;
+        }).join("")}</ul>
+      </section>`
+    : "";
+
+  resultEl.innerHTML = `
+    <div class="wf-summary">
+      <div class="stat"><span class="num">${r.total}</span><span class="lbl">节点总数</span></div>
+      <div class="stat"><span class="num">${r.hit.length}</span><span class="lbl">命中本站节点</span></div>
+      <div class="stat"><span class="num">${r.unknownTypes.length}</span><span class="lbl">未收录自定义</span></div>
+      <div class="stat"><span class="num">${r.coreCount}</span><span class="lbl">核心原生节点</span></div>
+    </div>
+    ${r.hit.length
+      ? `<h3 class="wf-hit-title">✅ 需安装 / 已收录的自定义节点（${r.hit.length}）</h3><div class="wf-cards">${hitCards}</div>`
+      : `<p class="empty">未识别到已收录的自定义节点。可能该工作流仅使用 ComfyUI 原生节点。</p>`}
+    ${modelsHtml}
+    ${unknownHtml}
+    <p class="wf-note">💡 工作流通常还需<strong>基础底模</strong>（SDXL / FLUX / SD1.5 等）与可能的 <strong>LoRA / 放大模型</strong>，请到「按节点」视图的「基础模型 / 放大修复 / LoRA 精选」分类下载并放入 ComfyUI 对应 <code>models/</code> 目录。</p>
+  `;
+  bindCopyButtons();
+}
+
+function bindCopyButtons() {
+  document.querySelectorAll("#wf-result .copy").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const text = btn.dataset.copy || "";
+      let ok = false;
+      try {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      } catch (_) {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { ok = document.execCommand("copy"); } catch (e2) { ok = false; }
+        document.body.removeChild(ta);
+      }
+      const old = btn.textContent;
+      btn.textContent = ok ? "已复制 ✓" : "复制失败";
+      btn.classList.toggle("copied", ok);
+      setTimeout(() => { btn.textContent = old; btn.classList.remove("copied"); }, 1300);
+    });
+  });
+}
+
+function bindWorkflowUI() {
+  const fileInput = document.getElementById("wf-file");
+  const textArea = document.getElementById("wf-text");
+  const analyzeBtn = document.getElementById("wf-analyze");
+  const clearBtn = document.getElementById("wf-clear");
+  const errEl = document.getElementById("wf-error");
+
+  fileInput.addEventListener("change", async () => {
+    const file = fileInput.files && fileInput.files[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      textArea.value = text;
+      errEl.hidden = true;
+    } catch (e) {
+      errEl.hidden = false;
+      errEl.textContent = "读取文件失败：" + e.message;
+    }
+  });
+
+  analyzeBtn.addEventListener("click", () => {
+    const text = textArea.value.trim();
+    errEl.hidden = true;
+    if (!text) {
+      errEl.hidden = false;
+      errEl.textContent = "请先选择或粘贴一个工作流 .json 文件。";
+      return;
+    }
+    let result;
+    try {
+      result = analyzeWorkflow(text);
+    } catch (e) {
+      errEl.hidden = false;
+      errEl.textContent = "JSON 解析失败：" + e.message + "。请确认内容是正确的 ComfyUI 工作流 JSON。";
+      document.getElementById("wf-result").innerHTML = "";
+      return;
+    }
+    renderWorkflow(result);
+  });
+
+  clearBtn.addEventListener("click", () => {
+    fileInput.value = "";
+    textArea.value = "";
+    errEl.hidden = true;
+    document.getElementById("wf-result").innerHTML = "";
+  });
 }
 
 init();

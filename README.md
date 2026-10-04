@@ -11,7 +11,8 @@
 - 🔍 **搜索**：按节点名 / 模型名 / 标签检索
 - 🏷️ **筛选**：按分类、平台、维护状态快速定位
 - 🌐 **多平台覆盖**：HF、魔搭、Civitai、hf-mirror、哩布、Tensor.Art 等
-- 🤝 **PR 协作**：数据用 `data/modules.json` 维护，欢迎提 PR 补充
+- 🧩 **工作流分析器**：上传 / 粘贴 ComfyUI 工作流 `.json`，自动识别其中的自定义节点 → 给出 `git clone` / `cm-cli` 安装命令与缺失模型下载地址（复现工作流神器）
+- 🤝 **PR 协作**：节点数据用 `data/modules.json`、节点映射用 `data/node-map.json` 维护，欢迎提 PR
 - ⚙️ **自动部署**：push 到 `main` 即触发校验 + 部署到 GitHub Pages
 
 ---
@@ -20,7 +21,8 @@
 
 ```
 .
-├─ data/modules.json              # 数据源（核心，PR 维护）
+├─ data/modules.json              # 数据源：节点与所需模型（核心，PR 维护）
+├─ data/node-map.json             # 节点类名 → 模块 映射（工作流分析器用，PR 维护）
 ├─ index.html                     # 站点入口
 ├─ assets/
 │   ├─ styles.css                 # 样式
@@ -61,6 +63,8 @@ python3 -m http.server 8080
 **分类枚举**：基础模型 · 控制网络 · 风格控制 · 动画 · 人脸 · 放大修复 · 工作流增强 · 视频 · 其他
 **模型类型枚举**：checkpoint · lora · vae · controlnet · ipadapter · clip · unet · embeddings · upscale · insightface · other
 **平台枚举**：huggingface · modelscope · civitai · hf-mirror · liblibai · tensorart · seaart · replicate · github-release · kaggle · other
+
+**维护节点映射（工作流分析器用）**：`data/node-map.json` 把 ComfyUI 节点的 `class_type`（不区分大小写的子串匹配）映射到本站 `moduleId`，并在 `coreNodes` 中列出 ComfyUI 原生节点（避免误报为「需要安装」）。新增自定义节点包时，请在 `customNodes` 里补充其典型 `class_type` 关键词，否则工作流分析器无法识别它。
 
 提交 PR 后，GitHub Action 会自动校验格式并（合并后）部署。
 

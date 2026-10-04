@@ -134,3 +134,63 @@ body {
 
 .site-footer { border-top: 1px solid var(--border); margin-top: 40px; padding: 20px 0; color: var(--muted); font-size: 13px; }
 .site-footer a { color: var(--accent); }
+
+/* ===== 工作流分析器 ===== */
+#browse-view[hidden], #workflow-view[hidden] { display: none; }
+
+.workflow-view { margin-top: 24px; }
+.wf-intro h2 { margin: 0 0 8px; font-size: 22px; }
+.wf-intro p { color: var(--muted); margin: 0 0 18px; max-width: 780px; }
+.wf-intro code, .wf-note code { background: var(--bg-soft); padding: 1px 6px; border-radius: 6px; }
+
+.wf-input {
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 20px; margin-bottom: 22px;
+}
+.wf-file { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+.wf-file input { font-size: 14px; color: var(--muted); }
+.wf-or { color: var(--muted); margin: 14px 0 8px; font-size: 13px; }
+.wf-input textarea {
+  width: 100%; resize: vertical; border-radius: 10px; border: 1px solid var(--border);
+  background: var(--bg-soft); color: var(--text); padding: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px;
+}
+.wf-actions { display: flex; gap: 10px; margin-top: 14px; }
+.btn-primary {
+  padding: 10px 18px; border-radius: 10px; border: 1px solid #2c3b55;
+  background: var(--accent); color: #06122b; font-weight: 700; cursor: pointer; font-size: 14px; font-family: inherit;
+}
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-ghost {
+  padding: 10px 18px; border-radius: 10px; border: 1px solid var(--border);
+  background: var(--bg-soft); color: var(--muted); cursor: pointer; font-size: 14px; font-family: inherit;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+.wf-error { color: #ff6b6b; margin: 12px 0 0; font-size: 14px; }
+
+.wf-summary { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 10px; }
+.wf-hit-title { font-size: 16px; margin: 22px 0 12px; }
+.wf-cards { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); }
+.wf-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+.wf-card h3 { margin: 0 0 8px; font-size: 17px; }
+.wf-install { margin: 12px 0; }
+.wf-cmd { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.wf-cmd code {
+  flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 10px; font-size: 12px; color: #c8d3e6; overflow-x: auto; white-space: nowrap;
+}
+.wf-cmd .copy {
+  flex: none; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--bg-soft); color: var(--muted); cursor: pointer; font-size: 12px; font-family: inherit;
+}
+.wf-cmd .copy:hover { border-color: var(--accent); color: var(--text); }
+.wf-cmd .copy.copied { color: var(--green); border-color: #1f4d2a; }
+.wf-models { margin-top: 12px; border-top: 1px dashed var(--border); padding-top: 12px; }
+.wf-empty-models { color: var(--muted); font-size: 14px; }
+.wf-models-summary { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin: 22px 0; }
+.wf-models-summary h3 { font-size: 16px; margin: 0 0 12px; }
+.wf-unknown { background: #2a2113; border: 1px solid #4d401f; border-radius: 12px; padding: 14px 18px; margin: 20px 0; }
+.wf-unknown summary { cursor: pointer; font-weight: 600; color: var(--yellow); }
+.wf-unknown-list { list-style: none; padding: 0; margin: 12px 0 6px; display: flex; flex-wrap: wrap; gap: 8px; }
+.wf-unknown-list code { background: var(--bg-soft); padding: 3px 8px; border-radius: 6px; font-size: 12px; }
+.wf-tip { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+.wf-note { color: var(--muted); font-size: 14px; margin-top: 24px; border-top: 1px dashed var(--border); padding-top: 16px; }
