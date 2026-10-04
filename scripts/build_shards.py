@@ -67,6 +67,8 @@ def main():
     ap.add_argument("--outdir", default="data", help="产物输出目录")
     ap.add_argument("--shard-size", type=int, default=3000, help="每片条数（默认 3000）")
     ap.add_argument("--preview", type=int, default=120, help="内联到清单的预览条数（首屏立即渲染，默认 120）")
+    ap.add_argument("--rank-top", type=int, default=480,
+                    help="每个排序维度内联到清单的榜单条数（默认 480 = 10 屏，切换排序立即出结果）")
     args = ap.parse_args()
 
     with open(args.src, encoding="utf-8") as f:
@@ -94,6 +96,25 @@ def main():
         shards.append(name)
 
     preview = items[: args.preview]
+
+    # ---- 各排序维度的 Top 榜单 ----
+    # 背景：切换排序需要全局重排，若等全部分片（3.7MB）加载完，弱网下要等数分钟，
+    # 体感就是"排序选项不可用"。这里把每个维度的 Top-N 直接内联到清单，
+    # 切换排序时立即渲染榜单首屏，全量数据仍在后台继续加载。
+    def rank_key(dim):
+        if dim == "latest":
+            return lambda x: (x["t"] or "")
+        return lambda x: x["s"].get(dim) or 0
+
+    # 下载量(downloads)平台恒返回 0（全库30691 条无一非零），故不生成该维度榜单
+    ranks = {}
+    union = {}
+    for dim in ("u", "l", "c", "latest"):
+        top = sorted(items, key=rank_key(dim), reverse=True)[: args.rank_top]
+        ranks[dim] = [it["i"] for it in top]
+        for it in top:
+            union.setdefault(it["i"], it)
+
     manifest = {
         "source": data.get("source"),
         "sourceUrl": data.get("sourceUrl"),
@@ -109,18 +130,27 @@ def main():
         },
         "previewCount": len(preview),
         "preview": preview,  # 内联预览：首屏不等分片即可渲染
+        "rankTop": args.rank_top,
+        "rank": ranks,  # 各维度 Top-N 的 id 顺序榜单
+        "rankItems": list(union.values()),  # 榜单条目并集（按 id 索引）
         "shards": shards,
     }
     mpath = os.path.join(args.outdir, "wf-manifest.json")
     with open(mpath, "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, separators=(",", ":"))
+    # 清单同样预压缩（前端优先加载 .gz）
+    with open(mpath, "rb") as fin, gzip.open(mpath + ".gz", "wb", compresslevel=9) as fout:
+        fout.write(fin.read())
 
     gz_total = sum(os.path.getsize(os.path.join(args.outdir, s)) for s in shards)
     first = os.path.getsize(os.path.join(args.outdir, shards[0])) if shards else 0
     msize = os.path.getsize(mpath)
+    mgz = os.path.getsize(mpath + ".gz")
     print(f"✅ 分片构建完成 → {args.outdir}")
     print(f"   总条目   : {total}（分 {len(shards)} 片，每片 {args.shard_size}）")
-    print(f"   清单     : {msize/1024:.0f} KB（含内联预览 {len(preview)} 条）← 首次请求")
+    print(f"   清单     : {msize/1024:.0f} KB → gzip {mgz/1024:.0f} KB"
+          f"（内联预览 {len(preview)} + {len(union)} 条排序榜单条目）← 首次请求")
+    print(f"   排序榜单 : {', '.join(f'{k}=Top{len(v)}' for k, v in ranks.items())}")
     print(f"   首片     : {shards[0]}  {first/1024:.0f} KB（后台加载）")
     print(f"   全部分片 : {gz_total/1024:.0f} KB")
 
