@@ -16,10 +16,45 @@ const PLATFORM_LABELS = {
 
 const STATUS_LABELS = { active: "维护中", archived: "已归档", unknown: "未知" };
 
+// 模型类型 -> ComfyUI 放置目录（models/ 下）。数据缺省按类型推断，可在数据里用 targetDir 覆盖。
+const MODEL_DIR_BY_TYPE = {
+  checkpoint: "models/checkpoints",
+  lora: "models/loras",
+  locon: "models/loras",
+  lycoris: "models/loras",
+  vae: "models/vae",
+  controlnet: "models/controlnet",
+  controlnetaux: "models/controlnet",
+  ipadapter: "models/ipadapter",
+  upscale: "models/upscale_models",
+  insightface: "models/insightface",
+  clip: "models/clip",
+  unet: "models/unet",
+  embeddings: "models/embeddings",
+  diffusion_model: "models/diffusion_models",
+  llm: "models/LLM",
+  vae_approx: "models/vae_approx",
+  recognition: "models/recognization",
+};
+
+function modelTargetDir(mo) {
+  if (mo && mo.targetDir) return mo.targetDir;
+  const t = String((mo && mo.type) || "").toLowerCase().replace(/\s+/g, "");
+  return MODEL_DIR_BY_TYPE[t] || "models/" + (t || "others");
+}
+
+// 把 HF 链接转换为 hf-mirror 国内镜像链接
+function hfMirror(url) {
+  const u = String(url || "");
+  if (/huggingface\.co\//i.test(u)) return u.replace(/huggingface\.co\//i, "hf-mirror.com/");
+  return null;
+}
+
 let ALL = [];
 let NODE_MAP = { coreNodes: [], customNodes: [] };
 let currentView = "nodes";
 const filters = { text: "", category: "", platform: "", status: "" };
+let FAVS = loadFavs();
 
 function esc(s) {
   return String(s == null ? "" : s)
@@ -27,6 +62,23 @@ function esc(s) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+/* ============ 收藏（localStorage） ============ */
+function loadFavs() {
+  try {
+    const raw = localStorage.getItem("comfyui-atlas-favs");
+    const arr = raw ? JSON.parse(raw) : [];
+    return new Set(Array.isArray(arr) ? arr : []);
+  } catch (_) { return new Set(); }
+}
+function saveFavs() {
+  try { localStorage.setItem("comfyui-atlas-favs", JSON.stringify([...FAVS])); } catch (_) {}
+}
+function isFav(id) { return FAVS.has(id); }
+function toggleFav(id) {
+  if (FAVS.has(id)) FAVS.delete(id); else FAVS.add(id);
+  saveFavs();
 }
 
 async function init() {
@@ -111,7 +163,7 @@ function bindControls() {
       document.querySelectorAll(".view-tabs .tab").forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
       currentView = btn.dataset.view;
-      const isBrowse = currentView === "nodes" || currentView === "platforms";
+      const isBrowse = currentView === "nodes" || currentView === "platforms" || currentView === "fav";
       document.getElementById("browse-view").hidden = !isBrowse;
       document.getElementById("workflow-view").hidden = isBrowse;
       if (isBrowse) {
@@ -142,27 +194,54 @@ function matches(m) {
   return true;
 }
 
+function installBlock(m) {
+  const dir = repoDir(m.repo);
+  const cloneCmd = `git clone ${m.repo} ComfyUI/custom_nodes/${dir}`;
+  const cmCmd = `cm-cli install ${m.repo}`;
+  return `<details class="card-install">
+    <summary>🔧 安装命令</summary>
+    <div class="wf-install">
+      <div class="wf-cmd"><code>${esc(cloneCmd)}</code><button class="copy" data-copy="${esc(cloneCmd)}">复制</button></div>
+      <div class="wf-cmd"><code>${esc(cmCmd)}</code><button class="copy" data-copy="${esc(cmCmd)}">复制</button></div>
+    </div>
+    <p class="wf-tip">把节点克隆到 ComfyUI 的 <code>custom_nodes/</code> 目录；或用 ComfyUI-Manager 的 <code>cm-cli</code> 安装。</p>
+  </details>`;
+}
+
+function favStar(m) {
+  const starred = isFav(m.id);
+  return `<button class="fav-star ${starred ? "on" : ""}" data-id="${esc(m.id)}" data-name="${esc(m.name)}" title="${starred ? "取消收藏" : "收藏"}" aria-label="收藏">${starred ? "★" : "☆"}</button>`;
+}
+
+function modelSourcesHTML(mo) {
+  const sources = (mo.sources || []).map((s) => {
+    const label = PLATFORM_LABELS[s.platform] || s.platform;
+    const cls = "p-" + String(s.platform).replace(/[^a-z-]/g, "");
+    const size = s.size ? `<span class="sz">${esc(s.size)}</span>` : "";
+    const mirror = s.platform === "huggingface" ? hfMirror(s.url) : null;
+    const mirrorLink = mirror
+      ? `<a class="src mirror" href="${esc(mirror)}" target="_blank" rel="noopener" title="国内镜像下载">🔁 镜像</a>`
+      : "";
+    return `<a class="src" href="${esc(s.url)}" target="_blank" rel="noopener"><span class="p ${cls}">${esc(label)}</span>${size}</a>${mirrorLink}`;
+  }).join("");
+  const dir = modelTargetDir(mo);
+  return `<div class="model">
+      <div><span class="mname">${esc(mo.name)}</span><span class="mtype">${esc(mo.type)}</span><span class="mdir">📁 ${esc(dir)}</span></div>
+      <div class="sources">${sources}</div>
+    </div>`;
+}
+
 function cardHTML(m) {
   const status = m.maintenance || "unknown";
   const tags = (m.tags || []).map((t) => `<span class="chip">#${esc(t)}</span>`).join("");
-  const models = (m.models || []).map((mo) => {
-    const sources = (mo.sources || []).map((s) => {
-      const label = PLATFORM_LABELS[s.platform] || s.platform;
-      const cls = "p-" + String(s.platform).replace(/[^a-z-]/g, "");
-      const size = s.size ? `<span class="sz">${esc(s.size)}</span>` : "";
-      return `<a class="src" href="${esc(s.url)}" target="_blank" rel="noopener"><span class="p ${cls}">${esc(label)}</span>${size}</a>`;
-    }).join("");
-    return `<div class="model">
-        <div><span class="mname">${esc(mo.name)}</span><span class="mtype">${esc(mo.type)}</span></div>
-        <div class="sources">${sources}</div>
-      </div>`;
-  }).join("");
+  const models = (m.models || []).map(modelSourcesHTML).join("");
 
   const modelBlock = (m.models && m.models.length)
     ? `<div class="models"><h3>所需模型 (${m.models.length})</h3>${models}</div>`
     : `<div class="models empty-models">纯逻辑节点，无需额外模型文件</div>`;
 
   return `<article class="card">
+    ${favStar(m)}
     <h2>${esc(m.name)}</h2>
     <div class="meta-row">
       <span class="chip cat">${esc(m.category || "其他")}</span>
@@ -173,12 +252,14 @@ function cardHTML(m) {
     </div>
     ${m.description ? `<p class="desc">${esc(m.description)}</p>` : ""}
     <div class="repo"><a href="${esc(m.repo)}" target="_blank" rel="noopener">${esc(m.repo)}</a></div>
+    ${installBlock(m)}
     ${modelBlock}
   </article>`;
 }
 
 function render() {
   if (currentView === "platforms") { renderPlatforms(); return; }
+  if (currentView === "fav") { renderFav(); return; }
   renderNodes();
 }
 
@@ -189,6 +270,108 @@ function renderNodes() {
   container.innerHTML = list.map(cardHTML).join("");
   empty.hidden = list.length !== 0;
   document.getElementById("count").textContent = `显示 ${list.length} / ${ALL.length} 个节点`;
+  bindCopyButtons();
+  bindFavButtons();
+}
+
+function renderFav() {
+  const container = document.getElementById("modules");
+  const empty = document.getElementById("empty");
+  const list = ALL.filter((m) => isFav(m.id) && matches(m));
+  if (!list.length) {
+    container.innerHTML = "";
+    empty.hidden = false;
+    empty.textContent = FAVS.size ? "没有匹配的收藏节点，试试调整筛选条件。" : "还没有收藏任何节点。点击卡片右上角的 ☆ 即可收藏，方便日后快速下载与复现。";
+    document.getElementById("count").textContent = "";
+    return;
+  }
+  empty.hidden = true;
+  const cards = list.map(cardHTML).join("");
+
+  // 聚合收藏节点的模型下载清单
+  const modelMap = new Map();
+  for (const m of list) {
+    for (const mo of m.models || []) {
+      for (const s of mo.sources || []) {
+        const key = mo.name + "|" + s.url;
+        if (!modelMap.has(key)) {
+          modelMap.set(key, {
+            modelName: mo.name, modelType: mo.type, nodeName: m.name,
+            url: s.url, platform: s.platform, size: s.size, note: s.note,
+            dir: modelTargetDir(mo),
+          });
+        }
+      }
+    }
+  }
+  const favModels = [...modelMap.values()];
+  const listHtml = favModels.map((it) => {
+    const label = PLATFORM_LABELS[it.platform] || it.platform;
+    const cls = "p-" + String(it.platform).replace(/[^a-z-]/g, "");
+    const size = it.size ? `<span class="sz">${esc(it.size)}</span>` : "";
+    const mirror = it.platform === "huggingface" ? hfMirror(it.url) : null;
+    const mirrorLink = mirror ? `<a class="pm-mirror" href="${esc(mirror)}" target="_blank" rel="noopener">🔁 镜像</a>` : "";
+    return `<li class="pm"><div class="pm-head"><a class="pm-name" href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.modelName)}</a>${size}</div><div class="pm-meta"><span class="p ${cls}">${esc(label)}</span> · 类型 <span class="mtype">${esc(it.modelType)}</span> · 放置 <code>${esc(it.dir)}</code> · 来自 <span class="node">${esc(it.nodeName)}</span>${mirrorLink}${it.note ? `<span class="note">${esc(it.note)}</span>` : ""}</div></li>`;
+  }).join("");
+
+  container.innerHTML = `
+    <section class="fav-summary">
+      <div class="fav-actions">
+        <button id="fav-export" class="btn-ghost">📤 导出我的清单</button>
+        <button id="fav-clear" class="btn-ghost">🗑 清空收藏</button>
+      </div>
+      <div class="fav-cards">${cards}</div>
+      <section class="wf-models-summary">
+        <h3>📥 我的模型下载清单（${favModels.length} 个）</h3>
+        <ul class="pm-list">${listHtml}</ul>
+      </section>
+    </section>`;
+  document.getElementById("count").textContent = `⭐ 收藏 ${list.length} / ${ALL.length} 个节点`;
+  bindCopyButtons();
+  bindFavButtons();
+  bindFavView();
+}
+
+function bindFavView() {
+  const exportBtn = document.getElementById("fav-export");
+  if (exportBtn) exportBtn.addEventListener("click", exportFav);
+  const clearBtn = document.getElementById("fav-clear");
+  if (clearBtn) clearBtn.addEventListener("click", () => {
+    if (confirm("确定清空全部收藏？")) {
+      FAVS.clear(); saveFavs(); render();
+    }
+  });
+}
+
+function exportFav() {
+  const list = ALL.filter((m) => isFav(m.id));
+  let txt = "ComfyUI Atlas - 我的收藏清单\n生成时间: " + new Date().toLocaleString() + "\n\n";
+  txt += "== 节点（含安装命令）==\n";
+  for (const m of list) {
+    txt += `- ${m.name}\n  repo: ${m.repo}\n  git clone ${m.repo} ComfyUI/custom_nodes/${repoDir(m.repo)}\n`;
+  }
+  txt += "\n== 模型下载 ==\n";
+  const modelMap = new Map();
+  for (const m of list) {
+    for (const mo of m.models || []) {
+      for (const s of mo.sources || []) {
+        const key = mo.name + "|" + s.url;
+        if (!modelMap.has(key)) modelMap.set(key, { name: mo.name, type: mo.type, dir: modelTargetDir(mo), url: s.url, platform: s.platform, node: m.name, mirror: s.platform === "huggingface" ? hfMirror(s.url) : null });
+      }
+    }
+  }
+  for (const it of modelMap.values()) {
+    txt += `- ${it.name} [${it.type}] 放置 ${it.dir}\n  平台: ${PLATFORM_LABELS[it.platform] || it.platform}\n  下载: ${it.url}\n`;
+    if (it.mirror) txt += `  镜像: ${it.mirror}\n`;
+  }
+  const blob = new Blob([txt], { type: "text/plain;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "comfyui-atlas-favorites.txt";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
 }
 
 function renderPlatforms() {
@@ -205,7 +388,7 @@ function renderPlatforms() {
         }
         (groups[s.platform] = groups[s.platform] || []).push({
           modelName: mo.name, modelType: mo.type, nodeName: m.name,
-          url: s.url, size: s.size, note: s.note,
+          url: s.url, size: s.size, note: s.note, dir: modelTargetDir(mo),
         });
       }
     }
@@ -226,9 +409,11 @@ function renderPlatforms() {
       total++;
       const size = it.size ? `<span class="sz">${esc(it.size)}</span>` : "";
       const note = it.note ? `<span class="note">${esc(it.note)}</span>` : "";
+      const mirror = p === "huggingface" ? hfMirror(it.url) : null;
+      const mirrorLink = mirror ? `<a class="pm-mirror" href="${esc(mirror)}" target="_blank" rel="noopener">🔁 镜像</a>` : "";
       return `<li class="pm">
         <div class="pm-head"><a class="pm-name" href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.modelName)}</a>${size}</div>
-        <div class="pm-meta"><span class="mtype">${esc(it.modelType)}</span> · 来自 <span class="node">${esc(it.nodeName)}</span>${note}</div>
+        <div class="pm-meta"><span class="mtype">${esc(it.modelType)}</span> · 放置 <code>${esc(it.dir)}</code> · 来自 <span class="node">${esc(it.nodeName)}</span>${mirrorLink}${note}</div>
       </li>`;
     }).join("");
     return `<section class="platform-group">
@@ -264,17 +449,14 @@ function extractNodeTypes(text) {
   const data = JSON.parse(text);
   const types = new Set();
   const pushType = (v) => { if (v) types.add(v); };
-  // UI 默认保存格式：nodes 为数组，含 type 字段
   if (data.nodes && Array.isArray(data.nodes)) {
     for (const n of data.nodes) if (n && n.type) pushType(n.type);
   } else if (data.nodes && typeof data.nodes === "object") {
-    // API 格式：nodes 为对象 map，含 class_type 字段
     for (const k of Object.keys(data.nodes)) {
       const n = data.nodes[k];
       if (n && n.class_type) pushType(n.class_type);
     }
   }
-  // 老 API 格式：prompt 为对象 map，含 class_type
   if (data.prompt && typeof data.prompt === "object") {
     for (const k of Object.keys(data.prompt)) {
       const n = data.prompt[k];
@@ -306,6 +488,7 @@ function analyzeWorkflow(text) {
           modelMap.set(key, {
             modelName: mo.name, modelType: mo.type, nodeName: m.name,
             url: s.url, platform: s.platform, size: s.size, note: s.note,
+            dir: modelTargetDir(mo),
           });
         }
       }
@@ -322,15 +505,7 @@ function renderWorkflow(r) {
   }
 
   const hitCards = r.hit.map((m) => {
-    const models = (m.models || []).map((mo) => {
-      const sources = (mo.sources || []).map((s) => {
-        const label = PLATFORM_LABELS[s.platform] || s.platform;
-        const cls = "p-" + String(s.platform).replace(/[^a-z-]/g, "");
-        const size = s.size ? `<span class="sz">${esc(s.size)}</span>` : "";
-        return `<a class="src" href="${esc(s.url)}" target="_blank" rel="noopener"><span class="p ${cls}">${esc(label)}</span>${size}</a>`;
-      }).join("");
-      return `<div class="model"><div><span class="mname">${esc(mo.name)}</span><span class="mtype">${esc(mo.type)}</span></div><div class="sources">${sources}</div></div>`;
-    }).join("");
+    const models = (m.models || []).map(modelSourcesHTML).join("");
     const modelBlock = (m.models && m.models.length)
       ? `<div class="wf-models">${models}</div>`
       : `<div class="wf-models wf-empty-models">纯逻辑节点，无需额外模型</div>`;
@@ -338,6 +513,7 @@ function renderWorkflow(r) {
     const cloneCmd = `git clone ${m.repo} ComfyUI/custom_nodes/${dir}`;
     const cmCmd = `cm-cli install ${m.repo}`;
     return `<article class="card wf-card">
+      ${favStar(m)}
       <h3>${esc(m.name)}</h3>
       <div class="meta-row"><span class="chip cat">${esc(m.category || "其他")}</span>${m.official ? '<span class="chip">官方</span>' : ""}${m.author ? `<span class="chip">@${esc(m.author)}</span>` : ""}</div>
       <div class="wf-install">
@@ -370,6 +546,19 @@ function renderWorkflow(r) {
       </details>`
     : "";
 
+  // 国内镜像下载指引（仅 HF 源）
+  const mirrorModels = r.models.filter((it) => it.platform === "huggingface" && it.url);
+  const mirrorHtml = mirrorModels.length
+    ? `<details class="wf-mirror-guide">
+        <summary>📥 国内镜像下载（hf-mirror，共 ${mirrorModels.length} 个 HF 模型）</summary>
+        <p class="wf-tip">下方为对应 hf-mirror.com 镜像链接，国内访问更快。把模型下载后放入对应 <code>models/</code> 目录即可。</p>
+        <ul class="pm-list">${mirrorModels.map((it) => {
+          const m = hfMirror(it.url);
+          return `<li class="pm"><div class="pm-head"><a class="pm-name" href="${esc(m)}" target="_blank" rel="noopener">${esc(it.modelName)}</a></div><div class="pm-meta">放置 <code>${esc(it.dir)}</code> · <a href="${esc(m)}" target="_blank" rel="noopener">🔁 hf-mirror 镜像</a></div></li>`;
+        }).join("")}</ul>
+      </details>`
+    : "";
+
   const modelsHtml = r.models.length
     ? `<section class="wf-models-summary">
         <h3>📦 所需模型汇总（${r.models.length} 个，已去重）</h3>
@@ -378,7 +567,9 @@ function renderWorkflow(r) {
           const cls = "p-" + String(it.platform).replace(/[^a-z-]/g, "");
           const size = it.size ? `<span class="sz">${esc(it.size)}</span>` : "";
           const note = it.note ? `<span class="note">${esc(it.note)}</span>` : "";
-          return `<li class="pm"><div class="pm-head"><a class="pm-name" href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.modelName)}</a>${size}</div><div class="pm-meta"><span class="p ${cls}">${esc(label)}</span> · 类型 <span class="mtype">${esc(it.modelType)}</span> · 来自 <span class="node">${esc(it.nodeName)}</span>${note}</div></li>`;
+          const mirror = it.platform === "huggingface" ? hfMirror(it.url) : null;
+          const mirrorLink = mirror ? `<a class="pm-mirror" href="${esc(mirror)}" target="_blank" rel="noopener">🔁 镜像</a>` : "";
+          return `<li class="pm"><div class="pm-head"><a class="pm-name" href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.modelName)}</a>${size}</div><div class="pm-meta"><span class="p ${cls}">${esc(label)}</span> · 类型 <span class="mtype">${esc(it.modelType)}</span> · 放置 <code>${esc(it.dir)}</code> · 来自 <span class="node">${esc(it.nodeName)}</span>${mirrorLink}${note}</div></li>`;
         }).join("")}</ul>
       </section>`
     : "";
@@ -394,12 +585,27 @@ function renderWorkflow(r) {
       ? `<h3 class="wf-hit-title">✅ 需安装 / 已收录的自定义节点（${r.hit.length}）</h3><div class="wf-cards">${hitCards}</div>`
       : `<p class="empty">未识别到已收录的自定义节点。可能该工作流仅使用 ComfyUI 原生节点。</p>`}
     ${modelsHtml}
+    ${mirrorHtml}
     ${coreHtml}
     ${unknownHtml}
     <p class="wf-note">💡 工作流通常还需<strong>基础底模</strong>（SDXL / FLUX / SD1.5 等）与可能的 <strong>LoRA / 放大模型</strong>，请到「按节点」视图的「基础模型 / 放大修复 / LoRA 精选」分类下载并放入 ComfyUI 对应 <code>models/</code> 目录。</p>
   `;
   bindUnknownFilter();
   bindCopyButtons();
+  bindFavButtons();
+}
+
+function bindFavButtons() {
+  document.querySelectorAll(".fav-star").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      toggleFav(id);
+      btn.classList.toggle("on", isFav(id));
+      btn.textContent = isFav(id) ? "★" : "☆";
+      btn.title = isFav(id) ? "取消收藏" : "收藏";
+      if (currentView === "fav") render();
+    });
+  });
 }
 
 function bindUnknownFilter() {
@@ -415,7 +621,6 @@ function bindUnknownFilter() {
     const counter = document.getElementById("wf-unknown-count");
     if (counter) counter.textContent = q ? `（匹配 ${visible} 个）` : "";
   });
-  // 显示匹配计数
   const summary = document.querySelector(".wf-unknown > summary");
   if (summary && !document.getElementById("wf-unknown-count")) {
     const span = document.createElement("span");
@@ -426,7 +631,9 @@ function bindUnknownFilter() {
 }
 
 function bindCopyButtons() {
-  document.querySelectorAll("#wf-result .copy").forEach((btn) => {
+  document.querySelectorAll(".copy").forEach((btn) => {
+    if (btn.dataset.bound) return;
+    btn.dataset.bound = "1";
     btn.addEventListener("click", async () => {
       const text = btn.dataset.copy || "";
       let ok = false;

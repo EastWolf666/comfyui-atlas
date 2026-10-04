@@ -98,6 +98,9 @@
     { "moduleId": "comfyui-rgthree", "match": ["rgthree"] },
     { "moduleId": "comfyui-cutoff", "match": ["cutoff"] },
     { "moduleId": "comfyui-detail-daemon", "match": ["detaildaemon", "detail daemon", "detail_daemon"] },
-    { "moduleId": "comfyui-tiled-ksampler", "match": ["tiledksampler", "tiled_ksampler", "tiled ksampler"] }
+    { "moduleId": "comfyui-tiled-ksampler", "match": ["tiledksampler", "tiled_ksampler", "tiled ksampler"] },
+    { "moduleId": "comfyui-essentials", "match": ["(cubiq)", "essentials"] },
+    { "moduleId": "comfyui-crystool", "match": ["crystools", "crystool"] },
+    { "moduleId": "comfyui-logic", "match": ["(spawner00)", "spawner00"] }
   ]
 }

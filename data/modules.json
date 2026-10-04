@@ -1020,6 +1020,54 @@
       "description": "Tiled KSampler：分块采样，低显存也能跑大图 / 高分辨率。",
       "tags": ["分块", "显存", "tiled"],
       "models": []
+    },
+    {
+      "id": "comfyui-essentials",
+      "name": "ComfyUI_essentials",
+      "repo": "https://github.com/cubiq/ComfyUI_essentials",
+      "category": "工作流增强",
+      "author": "cubiq",
+      "official": false,
+      "maintenance": "active",
+      "description": "cubiq 出品的基础工具包：分辨率选择器、图像缩放/裁剪/旋转/翻转/混合、遮罩处理、数值计算、批量加载等，几乎装机必装。",
+      "tags": ["工具", "图像处理", "遮罩", "基础"],
+      "models": []
+    },
+    {
+      "id": "comfyui-crystool",
+      "name": "ComfyUI-Crystool",
+      "repo": "https://github.com/crystian/ComfyUI-Crystool",
+      "category": "工作流增强",
+      "author": "crystian",
+      "official": false,
+      "maintenance": "active",
+      "description": "性能与元数据工具：显存/耗时监控、节点耗时统计、图像信息(EXIF/prompt)读取、metadata 编辑等。",
+      "tags": ["性能", "元数据", "监控", "工具"],
+      "models": []
+    },
+    {
+      "id": "comfyui-logic",
+      "name": "ComfyUI-Logic",
+      "repo": "https://github.com/spawner00/comfyui-logic",
+      "category": "工作流增强",
+      "author": "spawner00",
+      "official": false,
+      "maintenance": "active",
+      "description": "逻辑控制节点：开关、比较、布尔、条件分支，方便在 workflow 里做动态路由。",
+      "tags": ["逻辑", "条件", "控制流"],
+      "models": []
+    },
+    {
+      "id": "comfyui-derfuu",
+      "name": "ComfyUI Derfuu ModdedNodes",
+      "repo": "https://github.com/Derfuu/ComfyUI_Derfuu_ModdedNodes",
+      "category": "工作流增强",
+      "author": "Derfuu",
+      "official": false,
+      "maintenance": "active",
+      "description": "Derfuu 实用修改节点：像素缩放、数学运算、条件/数值工具等老牌工具集。",
+      "tags": ["工具", "数学", "缩放"],
+      "models": []
     }
   ]
 }

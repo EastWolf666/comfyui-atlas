@@ -63,6 +63,7 @@ body {
 .card {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 14px; padding: 18px; display: flex; flex-direction: column;
+  position: relative;
 }
 .card h2 { margin: 0 0 4px; font-size: 18px; }
 .card .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; align-items: center; }
@@ -83,7 +84,13 @@ body {
 .model { margin-bottom: 10px; }
 .model .mname { font-size: 14px; font-weight: 600; }
 .model .mtype { font-size: 11px; color: var(--muted); margin-left: 6px; }
+.model .mdir { font-size: 11px; color: var(--green); margin-left: 6px; }
 .sources { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+.src.mirror { color: var(--green); border-color: #1f4d2a; }
+.src.mirror:hover { border-color: var(--green); }
+.pm-mirror { color: var(--green); text-decoration: none; font-size: 13px; margin-left: 6px; }
+.pm-mirror:hover { text-decoration: underline; }
+
 .src {
   font-size: 12px; text-decoration: none; padding: 3px 9px; border-radius: 8px;
   border: 1px solid var(--border); color: var(--text); background: var(--bg-soft);
@@ -208,3 +215,28 @@ body {
 .wf-core { background: #11261a; border: 1px solid #1f5135; border-radius: 12px; padding: 14px 18px; margin: 20px 0; }
 .wf-core summary { cursor: pointer; font-weight: 600; color: #4ade80; }
 .wf-note { color: var(--muted); font-size: 14px; margin-top: 24px; border-top: 1px dashed var(--border); padding-top: 16px; }
+
+/* ===== 收藏星标 ===== */
+.fav-star {
+  position: absolute; top: 14px; right: 14px;
+  width: 34px; height: 34px; border-radius: 9px;
+  border: 1px solid var(--border); background: var(--bg-soft);
+  color: var(--muted); font-size: 18px; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: .15s;
+}
+.fav-star:hover { border-color: var(--accent); color: var(--text); }
+.fav-star.on { color: #ffd21e; border-color: #4d401f; background: #2a2410; }
+
+/* ===== 卡片内安装命令 ===== */
+.card-install { margin: 4px 0 10px; border-top: 1px dashed var(--border); padding-top: 10px; }
+.card-install summary { cursor: pointer; font-size: 13px; color: var(--accent); font-weight: 600; }
+.card-install .wf-install { margin: 10px 0 4px; }
+.card-install .wf-models { margin: 10px 0 0; border-top: none; padding-top: 0; }
+
+/* ===== 收藏视图 ===== */
+.fav-summary { width: 100%; }
+.fav-actions { display: flex; gap: 10px; margin: 0 0 18px; }
+.fav-cards { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); margin-bottom: 22px; }
+.wf-mirror-guide { background: #2a2113; border: 1px solid #4d401f; border-radius: 12px; padding: 14px 18px; margin: 20px 0; }
+.wf-mirror-guide summary { cursor: pointer; font-weight: 600; color: var(--yellow); }
+
