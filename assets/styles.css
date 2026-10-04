@@ -341,6 +341,25 @@ body {
 .loadmore-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 26px 0 10px; }
 .loadmore-wrap .btn-primary[hidden] { display: none; }
 
+/* 分片加载：忙碌指示 */
+.busy {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin: 20px 0; color: var(--muted); font-size: 14px;
+}
+.busy[hidden] { display: none; }
+.busy .spinner.sm {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--border); border-top-color: var(--accent);
+  animation: wf-spin .8s linear infinite;
+}
+
+/* 作者首字头像（替代远程头像，省去海量图片请求） */
+.avatar-init {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; flex: none;
+}
+
 /* ===== 加载旋转图示 ===== */
 .loading-wrap {
   display: flex; flex-direction: column; align-items: center; justify-content: center;

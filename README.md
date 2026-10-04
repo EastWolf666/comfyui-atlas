@@ -12,7 +12,7 @@
 - 🏷️ **筛选**：按分类、平台、维护状态快速定位
 - 🌐 **多平台覆盖**：HF、魔搭、Civitai、hf-mirror、哩布、Tensor.Art 等
 - 🗂️ **工作流库**（`workflows.html`）：汇集 RunningHub 公开的可运行 ComfyUI 工作流，每条含**预览图**、作者、使用/下载/点赞/收藏热度、发布时间与标签；支持**搜索、标签筛选、按热度/下载/点赞/收藏/最新排序**，一键跳转来源在线运行
-  - 加载性能：数据 **gzip 预压缩 + 浏览器 `DecompressionStream` 原生解压**（传输量约为原始 15%），配合**增量渲染**（每批 48 张 + 「加载更多」/滚动自动加载），万级数据也能秒开
+  - 加载性能：**分片按需加载**（首屏只拉最热一片，滚动自动续片）+ 每片 gzip + 浏览器 `DecompressionStream` 原生解压 + 增量渲染，万级数据也流畅
   - 数据来源与扩充见下方「工作流数据管线」
 - 🧩 **工作流分析器**：上传 / 粘贴 ComfyUI 工作流 `.json`，自动识别其中的自定义节点 → 给出 `git clone` / `cm-cli` 安装命令与缺失模型下载地址（复现工作流神器）
   - **四级匹配**：① 本站精选节点（带模型信息）② **预置 `github-extra.json` 高置信仓库映射**③ **ComfyUI-Manager 官方注册表精确命中**（覆盖全网 ~5900 个自定义节点，精确对应到「父插件」仓库）④ **运行时按需调用 GitHub 搜索 API**（仅对注册表都没收录的节点启用，结果会**反查官方注册表核实**：命中已知扩展标「🔒 可信」，否则标「🤔 推测」请人工确认——很多节点只是大插件的子模块）
@@ -30,21 +30,23 @@
 ├─ data/node-map.json             # 节点类名 → 模块 映射（工作流分析器用，PR 维护）
 ├─ data/registry-nodes.json       # ComfyUI-Manager 官方注册表（节点类名→仓库，~5900 仓库）
 ├─ data/github-extra.json         # 离线解析出的「未知节点→GitHub 高置信仓库」映射（第 4 级）
-├─ data/workflows.json            # 数据源：工作流库元信息（RunningHub，脚本生成）
-├─ data/workflows.json.gz         # 工作流数据的 gzip 预压缩版（前端加载走这个）
+├─ data/workflows.json            # 完整工作流元信息（本地构建输入，已 gitignore，不上线）
+├─ data/wf-manifest.json          # 工作流分片清单（来源/总数/分片列表）← 前端加载这个
+├─ data/wf-shard-*.json.gz        # 工作流 gzip 分片（按热度切分，前端按需加载）
 ├─ index.html                     # 站点入口（模块索引）
 ├─ workflows.html                 # 工作流库页面
 ├─ assets/
 │   ├─ styles.css                 # 样式
 │   ├─ app.js                     # 模块索引：读取 JSON → 渲染/搜索/筛选/工作流分析
-│   └─ workflows.js               # 工作流库：gzip 解压 + 增量渲染 + 排序/筛选
+│   └─ workflows.js               # 工作流库：分片按需加载 + gzip 解压 + 增量渲染 + 排序/筛选
 ├─ scripts/
 │   ├─ validate.py                # 部署前 JSON 结构与必填项校验
 │   ├─ check_links.py             # 链接健康检查（404/失效/反爬拦截排查）
 │   ├─ github_resolve.py          # 离线：用 GitHub 搜索 API 生成 github-extra.json
 │   ├─ expand_modules.py          # 扩充 modules.json（节点与模型条目）
-│   ├─ scrape_runninghub.py       # 抓取 RunningHub 工作流 → data/workflows.json(+.gz)
-│   └─ build_data.py              # 优化工作流数据：精简描述 + 紧凑化 + 生成 .gz
+│   ├─ scrape_runninghub.py       # 抓取 RunningHub 工作流 → data/workflows.json
+│   ├─ build_data.py              # 优化完整数据：精简描述 + 紧凑化（中间产物）
+│   └─ build_shards.py            # 把完整数据切成 gzip 分片（前端按需加载的产物）
 ├─ .github/workflows/
 │   ├─ deploy.yml                 # GitHub Action：校验 → 部署 Pages
 │   └─ link-check.yml             # 定时/手动 链接健康检查，报告上传为 Artifact
@@ -115,22 +117,36 @@ python3 scripts/scrape_runninghub.py --keyword "视频" --pages 50
 
 > **接口说明**：`POST https://www.runninghub.cn/api/search/workflow` 仅接受 `current`(页码) / `size`(每页条数，最大 50) 用于翻页；`orderBy` / `keyword` 服务端忽略，**永远按发布时间倒序**返回。因此「按热度/下载/点赞排序」由前端在本地完成。
 
-### 加载性能优化（重要）
+### 加载性能优化（分片 + gzip + 增量渲染）
 
-数据量增大后，页面若一次性把上万张卡片塞进 DOM 会明显卡顿，且 GitHub Pages **不会自动 gzip**（实测响应无 `content-encoding`）。本项目采用三招解决：
+数据量增大后，一次性把上万张卡片塞进 DOM 会明显卡顿，且 GitHub Pages **不会自动 gzip**（实测响应无 `content-encoding`）。本项目采用组合优化：
 
 | 优化 | 做法 | 效果 |
 |------|------|------|
-| **传输压缩** | 抓取/构建时生成 `data/workflows.json.gz`；前端 `fetch` 二进制后用浏览器原生 `DecompressionStream('gzip')` 解压再 `JSON.parse`（带魔数兜底 + 不支持时回退普通 JSON） | 传输量约为原始 **15%**（约 6.7×压缩） |
-| **载荷精简** | 卡片不渲染 `description`，故构建时截断到 100 字符仅用于搜索命中；JSON 以紧凑格式（无缩进）存储 | 显著减小体积、加快解析 |
-| **增量渲染** | 首屏只渲染 48 张卡片，其余通过「加载更多」按钮或滚动到底自动追加（仅插入新卡片，不重绘） | 万级数据也能秒开 |
+| **分片按需加载** | 构建时按热度排序切成多个 gzip 分片（默认 3000 条/片）。**首屏只拉第 0 片**，滚动到底自动续下一片；只有「搜索 / 换排序 / 标签筛选」需要全局数据时，才一次性加载全部分片 | 首屏下载量降至约 **1/9** |
+| **传输压缩** | 每个分片独立 gzip，前端用浏览器原生 `DecompressionStream('gzip')` 解压（带魔数兜底 + 不支持时回退） | 传输量约为原始 **15%** |
+| **精简载荷** | 字段用短键（`i/n/a/im/t/s/g/d`），去掉可派生的 `sourceUrl`、改用首字头像替代远程头像 | 减小体积、免去海量头像请求 |
+| **增量渲染** | 每批只渲染 48 张，滚动自动追加（仅插入新卡片，不重绘） | 万级数据也流畅 |
 
-重新处理已有数据（生成 .gz）：
+工作流库的数据产物（客户端只加载这些）：
+
+```
+data/wf-manifest.json         # 清单：总数/分片列表/字段schema
+data/wf-shard-000.json.gz     # 第 0 片（最热 3000 条）← 首屏只拉这个
+data/wf-shard-001.json.gz     # 后续分片，滚动/搜索时按需拉取
+...
+```
+
+重新抓取 / 构建 / 分片：
 
 ```bash
-python3 scripts/build_data.py            # 精简描述 + 紧凑化 + 生成 workflows.json.gz
-python3 scripts/build_data.py --desc-len 120   # 自定义描述截断长度
+# 抓取（默认 40 页；--append 续采，--start-page 指定起始页）
+python3 scripts/scrape_runninghub.py --append --start-page 615 --pages 200
+# 把完整数据切成 gzip 分片（默认 3000 条/片）
+python3 scripts/build_shards.py --shard-size 3000
 ```
+
+> 完整数据 `data/workflows.json` 仅作为本地抓取/分片构建的输入（已 gitignore），不入库；线上只部署分片。
 
 ---
 

@@ -10,3 +10,8 @@ venv/
 
 # 本地预览 / 日志
 *.log
+
+# 工作流数据中间产物（客户端只加载 data/wf-shard-*.json.gz 分片；
+# 完整 workflows.json 仅作为本地抓取/分片构建的输入，不入库）
+data/workflows.json
+data/workflows.json.gz

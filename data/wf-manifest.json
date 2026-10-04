@@ -1,0 +1,32 @@
+{
+  "source": "RunningHub",
+  "sourceUrl": "https://www.runninghub.cn/explore",
+  "postBase": "https://www.runninghub.cn/post/",
+  "updatedAt": "2026-10-04T15:32:05Z",
+  "platformTotal": 88571,
+  "count": 30691,
+  "shardSize": 3000,
+  "schema": {
+    "i": "id",
+    "n": "name",
+    "a": "author",
+    "im": "image",
+    "t": "publishedAt",
+    "s": "stats{u,d,l,c}=使用/下载/点赞/收藏",
+    "g": "tags",
+    "d": "description"
+  },
+  "shards": [
+    "wf-shard-000.json.gz",
+    "wf-shard-001.json.gz",
+    "wf-shard-002.json.gz",
+    "wf-shard-003.json.gz",
+    "wf-shard-004.json.gz",
+    "wf-shard-005.json.gz",
+    "wf-shard-006.json.gz",
+    "wf-shard-007.json.gz",
+    "wf-shard-008.json.gz",
+    "wf-shard-009.json.gz",
+    "wf-shard-010.json.gz"
+  ]
+}
