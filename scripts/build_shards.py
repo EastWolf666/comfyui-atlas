@@ -28,6 +28,17 @@ import os
 
 POST_BASE = "https://www.runninghub.cn/post/"
 
+# 七牛云缩略参数：原图平均 ~600KB，加载 48 张就是 ~12MB（真正的加载瓶颈）。
+# 统一改写为 480x300 缩略图，体积可降 80~90%。卡片 CSS 为 aspect-ratio 16/10。
+THUMB_QUERY = "?imageView2/2/w/480/h/300/format/jpg"
+
+
+def thumb(url):
+    """把原图 URL 改写为缩略图 URL（剥掉原查询串，换成缩略参数）。"""
+    if not url:
+        return None
+    return url.split("?")[0] + THUMB_QUERY
+
 
 def lean(it):
     """压缩为渲染所需的最小字段（短键）。"""
@@ -37,7 +48,7 @@ def lean(it):
         "i": it.get("id"),
         "n": it.get("name") or "",
         "a": it.get("author") or "",
-        "im": it.get("image"),
+        "im": thumb(it.get("image")),
         "t": it.get("publishedAt") or "",
         "s": {
             "u": int(s.get("uses") or 0),
