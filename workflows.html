@@ -41,9 +41,13 @@
       <div class="loading-wrap" id="loading">
         <span class="spinner"></span>
         <p>正在加载工作流数据…</p>
-        <p class="sub">首次加载需拉取数据文件，请稍候</p>
+        <p class="sub">数据已压缩传输，请稍候</p>
       </div>
     </section>
+    <div class="loadmore-wrap">
+      <button id="loadmore" class="btn-primary" hidden>加载更多</button>
+      <p id="loadmore-info" class="wf-lib-note"></p>
+    </div>
     <p id="empty" class="empty" hidden>没有匹配的工作流，试试调整搜索或筛选条件。</p>
     <p class="wf-lib-note" id="note"></p>
   </main>

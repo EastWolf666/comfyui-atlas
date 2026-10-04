@@ -337,6 +337,10 @@ body {
 .wf-lib-note { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
 .wf-lib-note a { color: var(--accent); }
 
+/* 加载更多 */
+.loadmore-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 26px 0 10px; }
+.loadmore-wrap .btn-primary[hidden] { display: none; }
+
 /* ===== 加载旋转图示 ===== */
 .loading-wrap {
   display: flex; flex-direction: column; align-items: center; justify-content: center;

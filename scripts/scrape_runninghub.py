@@ -22,8 +22,10 @@ RunningHub 工作流抓取脚本
         #（会从第 1 页重新扫以补上间隔期新发布的工作流，再向后翻页扩充总量）
 """
 import argparse
+import gzip
 import json
 import os
+import shutil
 import sys
 import time
 import urllib.request
@@ -74,7 +76,9 @@ def map_record(r):
     tag_names = [t.get("name") for t in tags if t.get("name")]
     name = (r.get("name") or "").strip()
     desc = " ".join((r.get("desc") or "").split())
-    desc = desc[:600]
+    # 描述仅用于搜索命中，卡片不渲染，截断到 100 字符以减小体积
+    if len(desc) > 100:
+        desc = desc[:100] + "…"
     image = None
     if cover:
         image = cover.get("thumbnailUri") or cover.get("url")
@@ -183,8 +187,16 @@ def main():
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
 
+    # 同时生成 gzip，供前端 DecompressionStream 原生解压加载
+    gz_path = args.out + ".gz"
+    with open(args.out, "rb") as fin, gzip.open(gz_path, "wb", compresslevel=9) as fout:
+        shutil.copyfileobj(fin, fout)
+
+    jb = os.path.getsize(args.out)
+    gb = os.path.getsize(gz_path)
     print(f"\n✅ 已写入 {args.out}：共 {len(items)} 条工作流"
           + (f"（全平台约 {total} 条，本次索引 {round(100*len(items)/total)}%）" if isinstance(total, int) and total else ""))
+    print(f"   紧凑 JSON {jb/1024:.0f} KB ｜ gzip {gb/1024:.0f} KB（{100*gb/jb:.0f}%，前端加载走 gzip）")
 
 
 if __name__ == "__main__":
