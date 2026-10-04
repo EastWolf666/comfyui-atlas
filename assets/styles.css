@@ -337,6 +337,20 @@ body {
 .wf-lib-note { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
 .wf-lib-note a { color: var(--accent); }
 
+/* ===== 加载旋转图示 ===== */
+.loading-wrap {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px; padding: 80px 0; color: var(--muted); text-align: center;
+  grid-column: 1 / -1;
+}
+.loading-wrap .spinner {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 3px solid var(--border); border-top-color: var(--accent);
+  animation: wf-spin .8s linear infinite;
+}
+.loading-wrap p { margin: 0; font-size: 14px; }
+.loading-wrap .sub { font-size: 12px; opacity: .7; }
+
 /* ===== 收藏视图 ===== */
 .fav-summary { width: 100%; }
 .fav-actions { display: flex; gap: 10px; margin: 0 0 18px; }
