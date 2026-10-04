@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ComfyUI 模块—模型索引站 (Atlas)</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1>ComfyUI 模块 — 模型索引站 <span class="badge-atlas">Atlas</span></h1>
+      <p class="subtitle">集中展示 ComfyUI 自定义节点（modules）及其在 Hugging Face / 魔搭 / Civitai 等平台的模型下载地址。</p>
+      <div class="stats" id="stats">
+        <div class="stat"><span class="num" id="stat-modules">–</span><span class="lbl">节点</span></div>
+        <div class="stat"><span class="num" id="stat-models">–</span><span class="lbl">模型条目</span></div>
+        <div class="stat"><span class="num" id="stat-platforms">–</span><span class="lbl">覆盖平台</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="view-tabs">
+      <button class="tab active" data-view="nodes">按节点</button>
+      <button class="tab" data-view="platforms">按平台</button>
+    </section>
+    <section class="controls">
+      <input type="search" id="search" placeholder="搜索节点名 / 模型名 / 标签…" autocomplete="off" />
+      <select id="filter-category"><option value="">全部分类</option></select>
+      <select id="filter-platform"><option value="">全部平台</option></select>
+      <select id="filter-status"><option value="">全部状态</option></select>
+      <span class="result-count" id="count"></span>
+    </section>
+
+    <section id="modules" class="modules-grid"></section>
+    <p id="empty" class="empty" hidden>没有匹配的节点，试试调整筛选条件。</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>本站仅收录公开下载地址，不托管模型文件。数据由社区维护，欢迎提 PR 补充。详见 <a href="docs/需求文档.md">需求文档</a>。</p>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
