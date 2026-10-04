@@ -349,10 +349,15 @@ function renderWorkflow(r) {
   }).join("");
 
   const unknownHtml = r.unknownTypes.length
-    ? `<details class="wf-unknown">
-        <summary>⚠️ ${r.unknownTypes.length} 个未收录的自定义节点（需在 ComfyUI-Manager 中自行搜索安装）</summary>
-        <ul class="wf-unknown-list">${r.unknownTypes.map((t) => `<li><code>${esc(t)}</code></li>`).join("")}</ul>
-        <p class="wf-tip">提示：在 ComfyUI 中打开「管理器 (Manager) → Install Custom Nodes」搜索上述节点名即可安装。</p>
+    ? `<details class="wf-unknown" open>
+        <summary>⚠️ ${r.unknownTypes.length} 个未收录的自定义节点（点击节点名可在 GitHub 搜索安装）</summary>
+        <p class="wf-tip">这些节点类名不在本站收录库中。点击下方任一节点名即可在 GitHub 按该 ComfyUI 自定义节点名搜索仓库并安装；也可用上方输入框在列表中快速筛选。</p>
+        <input type="search" id="wf-unknown-search" class="wf-unknown-search" placeholder="在本列表中按节点名筛选…" autocomplete="off" />
+        <ul class="wf-unknown-list" id="wf-unknown-list">${r.unknownTypes.map((t) => {
+          const gh = "https://github.com/search?q=" + encodeURIComponent(t + " ComfyUI") + "&type=repositories";
+          const inManager = "https://www.google.com/search?q=" + encodeURIComponent("ComfyUI " + t + " custom node manager");
+          return `<li><a class="wf-unknown-link" href="${gh}" target="_blank" rel="noopener"><code>${esc(t)}</code><span class="ext">↗ GitHub</span></a><a class="wf-unknown-alt" href="${inManager}" target="_blank" rel="noopener" title="备用：Google 搜索">🌐</a></li>`;
+        }).join("")}</ul>
       </details>`
     : "";
 
@@ -383,7 +388,31 @@ function renderWorkflow(r) {
     ${unknownHtml}
     <p class="wf-note">💡 工作流通常还需<strong>基础底模</strong>（SDXL / FLUX / SD1.5 等）与可能的 <strong>LoRA / 放大模型</strong>，请到「按节点」视图的「基础模型 / 放大修复 / LoRA 精选」分类下载并放入 ComfyUI 对应 <code>models/</code> 目录。</p>
   `;
+  bindUnknownFilter();
   bindCopyButtons();
+}
+
+function bindUnknownFilter() {
+  const input = document.getElementById("wf-unknown-search");
+  if (!input) return;
+  input.addEventListener("input", () => {
+    const q = input.value.trim().toLowerCase();
+    document.querySelectorAll("#wf-unknown-list li").forEach((li) => {
+      const name = (li.textContent || "").toLowerCase();
+      li.hidden = !!q && !name.includes(q);
+    });
+    const visible = [...document.querySelectorAll("#wf-unknown-list li")].filter((li) => !li.hidden).length;
+    const counter = document.getElementById("wf-unknown-count");
+    if (counter) counter.textContent = q ? `（匹配 ${visible} 个）` : "";
+  });
+  // 显示匹配计数
+  const summary = document.querySelector(".wf-unknown > summary");
+  if (summary && !document.getElementById("wf-unknown-count")) {
+    const span = document.createElement("span");
+    span.id = "wf-unknown-count";
+    span.className = "wf-unknown-count";
+    summary.appendChild(span);
+  }
 }
 
 function bindCopyButtons() {
