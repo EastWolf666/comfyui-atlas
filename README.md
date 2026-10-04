@@ -124,15 +124,27 @@ python3 scripts/scrape_runninghub.py --keyword "视频" --pages 50
 | 优化 | 做法 | 效果 |
 |------|------|------|
 | **分片按需加载** | 构建时按热度排序切成多个 gzip 分片（默认 3000 条/片）。**首屏只拉第 0 片**，滚动到底自动续下一片；只有「搜索 / 换排序 / 标签筛选」需要全局数据时，才一次性加载全部分片 | 首屏下载量降至约 **1/9** |
+| **内联预览** | 清单里直接内联最热 120 条（`preview`），首屏**不等分片**即可渲染卡片 | 首屏「白屏等待」时间降为 0 |
 | **传输压缩** | 每个分片独立 gzip，前端用浏览器原生 `DecompressionStream('gzip')` 解压（带魔数兜底 + 不支持时回退） | 传输量约为原始 **15%** |
 | **精简载荷** | 字段用短键（`i/n/a/im/t/s/g/d`），去掉可派生的 `sourceUrl`、改用首字头像替代远程头像 | 减小体积、免去海量头像请求 |
 | **预览图缩略** | 图片 URL 统一改写为七牛缩略参数 `?imageView2/2/w/480/h/300/format/jpg`（匹配卡片 16:10），避免拉原图 | 图片体积降 **80~97%**（原图平均 ~600KB/张） |
 | **增量渲染** | 每批只渲染 48 张，滚动自动追加（仅插入新卡片，不重绘） | 万级数据也流畅 |
+| **健壮降级** | 超时覆盖「响应体读取」全过程；首片失败时保留预览并给「重试」按钮，`loadingShard` 标志必被释放 | 弱网下不再卡死 |
+
+> **超时必须覆盖 body 读取**（踩坑记录）：`AbortController` 只在 `fetch()` 尚未完成时有效，响应头一到 `fetch` 就 resolve，后续 `res.arrayBuffer()` 完全不受保护。实测慢网下读 438KB 分片耗时 27s，导致 Promise 永久悬挂、页面卡在加载态。因此这里把 `arrayBuffer()` 也放进 abort 保护范围：
+>
+> ```js
+> return fetch(url, { signal: ctl.signal })
+>   .then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })
+>   .finally(() => clearTimeout(t));
+> ```
+>
+> 另：不要用 `cache: "no-store"`，它会绕过 CDN 导致每次回源（GitHub Pages 响应本身带 `max-age=600`）。
 
 工作流库的数据产物（客户端只加载这些）：
 
 ```
-data/wf-manifest.json         # 清单：总数/分片列表/字段schema
+data/wf-manifest.json         # 清单：总数/分片列表/字段schema + 内联最热 120 条预览
 data/wf-shard-000.json.gz     # 第 0 片（最热 3000 条）← 首屏只拉这个
 data/wf-shard-001.json.gz     # 后续分片，滚动/搜索时按需拉取
 ...
