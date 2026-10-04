@@ -267,6 +267,76 @@ body {
 .card-install .wf-install { margin: 10px 0 4px; }
 .card-install .wf-models { margin: 10px 0 0; border-top: none; padding-top: 0; }
 
+/* ===== 顶部导航（跨页） ===== */
+.site-nav { margin: 16px 0 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.site-nav a {
+  font-size: 14px; color: var(--muted); text-decoration: none;
+  padding: 6px 13px; border: 1px solid var(--border); border-radius: 10px;
+  background: var(--bg-soft);
+}
+.site-nav a:hover { border-color: var(--accent); color: var(--text); }
+.site-nav a.active { color: var(--accent); border-color: #2c3b55; background: #1a2233; }
+
+/* ===== 工作流库 ===== */
+.wf-lib-controls {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+  margin: 26px 0 18px;
+}
+.wf-lib-controls input[type="search"] {
+  flex: 1 1 260px; min-width: 220px;
+  padding: 10px 14px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--bg-soft); color: var(--text);
+}
+.wf-lib-controls select {
+  padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--bg-soft); color: var(--text);
+}
+.wf-lib-controls .result-count { color: var(--muted); font-size: 14px; margin-left: auto; }
+
+.wf-lib-grid {
+  display: grid; gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.wf-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden; display: flex;
+  flex-direction: column; position: relative;
+}
+.wf-card:hover { border-color: #36425a; }
+.wf-card .thumb-link { display: block; text-decoration: none; }
+.wf-card .thumb {
+  width: 100%; aspect-ratio: 16 / 10; object-fit: cover;
+  background: var(--bg-soft); display: block;
+}
+.wf-card .thumb-fallback {
+  width: 100%; aspect-ratio: 16 / 10; background: var(--bg-soft);
+  display: none; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 13px;
+}
+.wf-card .body { padding: 14px 16px 16px; display: flex; flex-direction: column; flex: 1; }
+.wf-card h2 { margin: 0 0 8px; font-size: 16px; line-height: 1.4; }
+.wf-card .author { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; color: var(--muted); font-size: 13px; }
+.wf-card .author img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; background: var(--bg-soft); }
+.wf-card .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.wf-card .badge {
+  font-size: 12px; padding: 2px 8px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--bg-soft); color: var(--muted);
+}
+.wf-card .badge b { color: var(--text); font-weight: 700; }
+.wf-card .date { color: var(--muted); font-size: 12px; margin-bottom: 10px; }
+.wf-card .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.wf-card .tags .chip { cursor: pointer; }
+.wf-card .tags .chip:hover { border-color: var(--accent); color: var(--text); }
+.wf-card .open {
+  margin-top: auto; text-align: center; text-decoration: none;
+  padding: 9px 14px; border-radius: 10px; border: 1px solid #2c3b55;
+  background: var(--accent); color: #06122b; font-weight: 700; font-size: 14px;
+}
+.wf-card .open:hover { filter: brightness(1.08); }
+
+.wf-lib-note { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+.wf-lib-note a { color: var(--accent); }
+
 /* ===== 收藏视图 ===== */
 .fav-summary { width: 100%; }
 .fav-actions { display: flex; gap: 10px; margin: 0 0 18px; }

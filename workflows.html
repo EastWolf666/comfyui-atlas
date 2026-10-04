@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ComfyUI 工作流库 — Atlas</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1>ComfyUI 工作流库 <span class="badge-atlas">Atlas</span></h1>
+      <p class="subtitle">汇集各平台可一键运行的 ComfyUI 工作流，附预览图、热度与使用数据，按你的需要排序筛选。</p>
+      <div class="stats" id="stats">
+        <div class="stat"><span class="num" id="stat-total">–</span><span class="lbl">平台总量</span></div>
+        <div class="stat"><span class="num" id="stat-indexed">–</span><span class="lbl">已收录</span></div>
+        <div class="stat"><span class="num" id="stat-source">–</span><span class="lbl">来源</span></div>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">模块索引</a>
+        <a href="workflows.html" class="active">工作流库</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="wf-lib-controls">
+      <input type="search" id="search" placeholder="搜索工作流名称 / 作者 / 描述 / 标签…" autocomplete="off" />
+      <select id="filter-tag"><option value="">全部标签</option></select>
+      <select id="sort">
+        <option value="uses">排序：热度（使用量）</option>
+        <option value="downloads">排序：下载量</option>
+        <option value="likes">排序：点赞数</option>
+        <option value="collects">排序：收藏数</option>
+        <option value="latest">排序：最新发布</option>
+      </select>
+      <span class="result-count" id="count"></span>
+    </section>
+
+    <section id="grid" class="wf-lib-grid"></section>
+    <p id="empty" class="empty" hidden>没有匹配的工作流，试试调整搜索或筛选条件。</p>
+    <p class="wf-lib-note" id="note"></p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>工作流数据来源于第三方平台，版权归原作者所有，请遵守各平台使用协议。收录与展示仅供学习索引之用。</p>
+    </div>
+  </footer>
+
+  <script src="assets/workflows.js"></script>
+</body>
+</html>
