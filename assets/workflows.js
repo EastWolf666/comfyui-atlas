@@ -65,53 +65,87 @@ function setLoadError(err) {
 }
 
 /* ========= 数据加载（分片 + 超时重试） ========= */
-function fetchWithTimeout(url, ms) {
+/* 注意：超时必须覆盖「读取响应体」全过程。
+   AbortController 只在 fetch 未完成时有效；一旦响应头到达，fetch() 即 resolve，
+   后续 arrayBuffer() 的慢速读取不受 abort 保护，会造成 Promise 永久悬挂。 */
+function fetchBytes(url, ms) {
   const ctl = new AbortController();
   const t = setTimeout(() => ctl.abort(), ms || 20000);
-  return fetch(url, { cache: "no-store", signal: ctl.signal }).finally(() => clearTimeout(t));
+  return fetch(url, { signal: ctl.signal })
+    .then((res) => {
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.arrayBuffer(); // 仍在 abort 保护范围内
+    })
+    .finally(() => clearTimeout(t));
 }
 
 async function loadManifest() {
   let lastErr;
   for (let i = 0; i < 2; i++) {
     try {
-      const res = await fetchWithTimeout("data/wf-manifest.json", 15000);
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      return await res.json();
+      const buf = await fetchBytes("data/wf-manifest.json", 20000);
+      return JSON.parse(await gunzipText(buf));
     } catch (e) {
       lastErr = e;
+      await new Promise((r) => setTimeout(r, 600));
     }
   }
   throw lastErr;
 }
 
 async function loadShard(name, skip) {
-  const res = await fetchWithTimeout("data/" + name, 25000);
-  if (!res.ok) throw new Error("分片 " + name + " HTTP " + res.status);
-  const buf = await res.arrayBuffer();
+  const buf = await fetchBytes("data/" + name, 30000);
   let arr = JSON.parse(await gunzipText(buf));
   if (skip > 0) arr = arr.slice(skip); // 去掉与内联预览重复的条目
   POOL.push(...arr);
   nextShard++;
 }
 
+/* 首片加载失败时的降级：预览条目仍可用，只是不能继续向下翻页 */
+function degradeGracefully(err) {
+  console.warn("首片加载失败，已降级为仅预览模式：", err);
+  const info = document.getElementById("loadmore-info");
+  if (!info) return;
+  const btn = document.getElementById("loadmore");
+  if (btn) btn.hidden = true; // 避免"加载更多"反复失败
+  info.classList.add("is-degraded");
+  info.innerHTML =
+    "预览已加载，但完整数据拉取失败（网络较慢）。" +
+    '<button id="loadmore-retry" class="btn-mini" type="button">重试</button>';
+  const retry = document.getElementById("loadmore-retry");
+  if (retry) {
+    retry.addEventListener("click", () => {
+      nextShard = 0;
+      loadingShard = false;
+      info.classList.remove("is-degraded");
+      info.textContent = "";
+      init();
+    });
+  }
+}
+
 async function ensureAllLoaded() {
   if (allLoaded || !MANIFEST) return;
-  // 等当前分片加载完，避免并发
-  while (loadingShard) await new Promise((r) => setTimeout(r, 60));
-  const total = MANIFEST.shards.length;
-  while (nextShard < total) {
-    setBusy(true, `正在加载全部数据（${nextShard + 1}/${total}）以支持搜索 / 排序…`);
-    try {
-      await loadShard(MANIFEST.shards[nextShard]);
-    } catch (e) {
-      setBusy(false);
-      setLoadError(e);
-      return;
-    }
+  // 等当前分片加载完，避免并发（设上限防死等）
+  let waited = 0;
+  while (loadingShard && waited < 35000) {
+    await new Promise((r) => setTimeout(r, 100));
+    waited += 100;
   }
-  allLoaded = true;
-  setBusy(false);
+  const total = MANIFEST.shards.length;
+  loadingShard = true;
+  try {
+    while (nextShard < total) {
+      setBusy(true, `正在加载全部数据（${nextShard + 1}/${total}）以支持搜索 / 排序…`);
+      await loadShard(MANIFEST.shards[nextShard]);
+    }
+    allLoaded = true;
+  } catch (e) {
+    setLoadError(e);
+  } finally {
+    setBusy(false);
+    loadingShard = false;
+  }
 }
 
 /* ========= 是否需要全量数据 ========= */
@@ -317,10 +351,16 @@ async function init() {
     }
 
     // 2) 后台补全首片（跳过已在预览里的条目），供滚动继续加载
-    await loadShard(MANIFEST.shards[0], pv.length);
+    let degraded = false;
+    try {
+      await loadShard(MANIFEST.shards[0], pv.length);
+    } catch (e) {
+      degraded = true; // 首片失败不阻断已渲染的预览
+      degradeGracefully(e);
+    }
     buildTagOptions();
     if (rendered === 0) applyFilter();
-    else { recomputeFiltered(); renderMore(); }
+    else if (!degraded) { recomputeFiltered(); renderMore(); } // 降级时勿覆盖提示文案
   } catch (err) {
     setLoadError(err);
   } finally {
