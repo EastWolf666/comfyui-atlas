@@ -26,7 +26,9 @@ data/github-extra.json，供前端作为「第 4 级匹配」直接使用（无�
   仓库名(去掉 comfyui/nodes 后) 与类名完全一致 / 包含         → 0.90~0.95（高置信，可直接安装）
   类名 出现在 仓库描述 或 topics 中                           → 0.60（中置信，需人工确认）
   仓库 full_name 含 comfyui                                   → 0.50（弱信号，建议人工确认）
-  低于 --min-confidence(默认 0.6) 的不会写入结果。
+  ★ 反查官方 ComfyUI-Manager 注册表：候选仓库若在注册表中     → 标为「可信」(≥0.82)，否则按匹配强度标「推测」
+  ★ 说明：很多节点只是大插件的子模块，故“推测”结果仅供人工核实，不要直接当作真源
+  默认 --min-confidence 0.5（保留推测项但明确标注 speculative）
 """
 import argparse
 import json
@@ -40,6 +42,21 @@ import requests
 API = "https://api.github.com/search/repositories"
 UA = "ComfyUIAtlasResolver/1.0"
 TOKEN = os.environ.get("GH_TOKEN")
+REGISTRY_PATH = "data/registry-nodes.json"
+
+
+def load_registry_repos():
+    """读取官方注册表，建立『已知 ComfyUI 扩展仓库』集合（统一为 owner/repo 小写），用于反查核实。"""
+    try:
+        d = json.load(open(REGISTRY_PATH, encoding="utf-8"))
+        s = set()
+        for r in (d.get("repos") or []):
+            m = re.search(r"github\.com/([^/#?]+)", str(r), re.I)
+            if m:
+                s.add(m.group(1).lower().replace(".git", ""))
+        return s
+    except Exception:
+        return set()
 
 
 def search(typeq):
@@ -62,12 +79,12 @@ def search(typeq):
         return None, str(e)[:120]
 
 
-def score(type, items):
+def score(type, items, known_repos=None):
     t = type.lower()
     tc = re.sub(r"[^a-z0-9]", "", t)
     best = None
     for it in items or []:
-        full = (it.get("full_name") or "").lower()
+        full = (it.get("full_name") or "").lower().replace(".git", "")
         name = (it.get("name") or "").lower()
         rn = re.sub(r"[^a-z0-9]", "", name.replace("comfyui", "").replace("nodes", "").replace("node", ""))
         desc = (it.get("description") or "").lower()
@@ -84,14 +101,24 @@ def score(type, items):
         elif "comfyui" in full:
             conf = 0.50
             reason = "ComfyUI 相关仓库（需人工确认）"
-        if conf and (best is None or conf > best["confidence"]):
-            best = {
-                "repo": it.get("html_url"),
-                "full_name": it.get("full_name"),
-                "stars": it.get("stargazers_count"),
-                "confidence": conf,
-                "reason": reason,
-            }
+        if conf:
+            speculative = True
+            # 反查官方注册表：命中已知扩展则提升为“可信”，否则视匹配强度标“推测”
+            if known_repos and full in known_repos:
+                speculative = False
+                conf = max(conf, 0.82)
+                reason = "已收录于官方 ComfyUI-Manager 注册表，可信"
+            elif conf < 0.60:
+                reason += "（未在官方注册表核实，可能只是同名/相关仓库，请人工确认）"
+            if best is None or conf > best["confidence"]:
+                best = {
+                    "repo": it.get("html_url"),
+                    "full_name": it.get("full_name"),
+                    "stars": it.get("stargazers_count"),
+                    "confidence": conf,
+                    "reason": reason,
+                    "speculative": speculative,
+                }
     return best
 
 
@@ -100,7 +127,7 @@ def main():
     ap.add_argument("infile", nargs="?", help="节点类型列表文件（每行一个，# 开头为注释）")
     ap.add_argument("--types", help="逗号分隔的节点类型")
     ap.add_argument("--out", default="data/github-extra.json")
-    ap.add_argument("--min-confidence", type=float, default=0.6)
+    ap.add_argument("--min-confidence", type=float, default=0.5)
     args = ap.parse_args()
 
     types = []
@@ -117,7 +144,9 @@ def main():
         print("没有提供节点类型。示例：python3 scripts/github_resolve.py --types \"SeargeSDXL,CR Color Tint\"")
         sys.exit(1)
 
-    print(f"开始解析 {len(types)} 个节点类型…（{'已设 GH_TOKEN，限流宽松' if TOKEN else '未登录，10 次/分钟，自动节流'}）\n")
+    known_repos = load_registry_repos()
+    print(f"开始解析 {len(types)} 个节点类型…（{'已设 GH_TOKEN，限流宽松' if TOKEN else '未登录，10 次/分钟，自动节流'}）")
+    print(f"官方注册表已知扩展仓库：{len(known_repos)} 个，将用于反查核实搜索结果是否可信。\n")
     out = {}
     for i, t in enumerate(types):
         items, err = search(t)
@@ -127,17 +156,19 @@ def main():
                 print("        触发限流，请设置 GH_TOKEN 或稍后重试。")
             time.sleep(6)
             continue
-        b = score(t, items)
+        b = score(t, items, known_repos=known_repos)
         if b and b["confidence"] >= args.min_confidence:
             out[t.lower()] = {
                 "repo": b["repo"],
                 "confidence": b["confidence"],
                 "reason": b["reason"],
                 "stars": b["stars"],
+                "speculative": b.get("speculative", True),
             }
-            print(f"  ✓ {t} -> {b['full_name']}  置信 {b['confidence']:.0%}  ({b['reason']})")
+            tag = "可信" if not b.get("speculative") else "推测"
+            print(f"  ✓ {t} -> {b['full_name']}  [{tag}] 置信 {b['confidence']:.0%}  ({b['reason']})")
         else:
-            print(f"  · {t}: 无高置信匹配")
+            print(f"  · {t}: 无匹配（低于阈值 {args.min_confidence:.0%}）")
         # 节流：未登录严格 10/min；已登录稍歇即可
         time.sleep(0 if TOKEN else 6.5)
 

@@ -448,16 +448,29 @@ function findModuleForType(type) {
 // 官方注册表（ComfyUI-Manager 收录的全部自定义节点 -> 精确仓库），按需懒加载，避免拖累首屏
 let REGISTRY = null;
 let REGISTRY_PROMISE = null;
+// 官方注册表加载后，构建「已知 ComfyUI 扩展仓库」集合（统一为 owner/repo 小写），用于反查核实 GitHub 搜索结果
+let REGISTRY_REPO_SET = null;
+function registryRepoSet() {
+  if (REGISTRY_REPO_SET && REGISTRY_REPO_SET.size) return REGISTRY_REPO_SET;
+  if (!REGISTRY || !REGISTRY.repos) return REGISTRY_REPO_SET || (REGISTRY_REPO_SET = new Set());
+  REGISTRY_REPO_SET = new Set();
+  for (const r of (REGISTRY.repos || [])) {
+    const m = String(r).match(/github\.com\/([^\/#?]+)/i);
+    if (m) REGISTRY_REPO_SET.add(m[1].toLowerCase().replace(/\.git$/i, ""));
+  }
+  return REGISTRY_REPO_SET;
+}
 function ensureRegistry() {
   if (REGISTRY) return Promise.resolve(REGISTRY);
   if (REGISTRY_PROMISE) return REGISTRY_PROMISE;
   REGISTRY_PROMISE = fetch("data/registry-nodes.json", { cache: "no-store" })
     .then((r) => (r.ok ? r.json() : null))
-    .then((d) => { REGISTRY = d; return d; })
+    .then((d) => { REGISTRY = d; if (d) registryRepoSet(); return d; })
     .catch(() => null);
   return REGISTRY_PROMISE;
 }
 // 在官方注册表里按 class_type(小写) 精确命中仓库；命中 ComfyUI 主仓库的视为核心节点
+// 返回 nodeCount：该仓库（父插件）共含多少个子节点，用于向用户说明“这是一个大插件里的子模块”
 function findRegistry(type) {
   if (!REGISTRY || !REGISTRY.map) return null;
   const t = String(type || "").toLowerCase().trim();
@@ -466,7 +479,8 @@ function findRegistry(type) {
   const repo = REGISTRY.repos[hit[0]];
   const title = REGISTRY.titles[hit[1]] || repo;
   if (/comfyanonymous\/ComfyUI(\b|\/|$)/i.test(repo)) return null;
-  return { repo, title };
+  const nodeCount = (REGISTRY.repoNodeCount && REGISTRY.repoNodeCount[hit[0]]) || 0;
+  return { repo, title, nodeCount };
 }
 
 // 第 4 级匹配：预置的 GitHub 高置信映射（离线脚本 scripts/github_resolve.py 生成）
@@ -516,7 +530,7 @@ function analyzeWorkflow(text) {
     if (r === null) { coreCount++; coreTypes.push(t); }
     else if (r === "__unknown__") {
       const reg = findRegistry(t);
-      if (reg) registryMatched.push({ type: t, repo: reg.repo, title: reg.title });
+      if (reg) registryMatched.push({ type: t, repo: reg.repo, title: reg.title, nodeCount: reg.nodeCount });
       else {
         const ex = GH_EXTRA && GH_EXTRA[String(t).toLowerCase()];
         if (ex) ghExtra.push({ type: t, repo: ex.repo, confidence: ex.confidence, reason: ex.reason, stars: ex.stars });
@@ -574,30 +588,31 @@ function renderWorkflow(r) {
 
   const registryHtml = r.registryMatched.length
     ? `<details class="wf-registry" open>
-        <summary>🔎 ${r.registryMatched.length} 个节点已定位到官方仓库（ComfyUI-Manager 收录，本站未收录模型信息）</summary>
-        <p class="wf-tip">这些自定义节点已通过 ComfyUI-Manager 官方注册表精确匹配到 GitHub 仓库，可点击直达安装；但由于本站尚未收录其模型信息，相关模型请到「按节点 / 基础模型」等分类补充下载。顶部输入框可按节点名筛选。</p>
+        <summary>🔎 ${r.registryMatched.length} 个节点已定位到官方仓库（ComfyUI-Manager 收录，精确匹配）</summary>
+        <p class="wf-tip">⚠️ 注意：ComfyUI 的很多「节点」其实只是某个<strong>大插件里的一个子模块</strong>。下方仓库是官方注册表按节点类名<strong>精确对应</strong>的「父插件」——你只要<strong>安装整个父插件</strong>（点「复制 clone」或打开仓库），该节点自然就包含在内，<strong>不要</strong>去搜一个以该子节点命名的独立仓库（多半不存在或不是真源）。含节点数较多的仓库即为典型的大插件。顶部输入框可按节点名筛选。</p>
         <input type="search" id="wf-registry-search" class="wf-unknown-search" placeholder="在本列表中按节点名筛选…" autocomplete="off" />
         <ul class="wf-unknown-list" id="wf-registry-list">${r.registryMatched.map((x) => {
           const isRepo = /^https?:\/\/github\.com\/[^\/]+\/[^\/#?]+$/i.test(x.repo);
           const dir = isRepo ? repoDir(x.repo) : "";
           const clone = isRepo ? `git clone ${x.repo} ComfyUI/custom_nodes/${dir}` : "";
           const cloneBtn = isRepo ? `<button class="copy" data-copy="${esc(clone)}">复制 clone</button>` : `<span class="wf-file-only" title="单文件/非标准仓库，请直接打开查看">📄 文件</span>`;
-          return `<li><span class="wf-reg-type"><code>${esc(x.type)}</code></span><a class="wf-unknown-link" href="${esc(x.repo)}" target="_blank" rel="noopener"><span class="ext">↗ 打开</span></a>${cloneBtn}</li>`;
+          const parentBadge = x.nodeCount >= 20
+            ? `<span class="conf parent" title="这是一个大插件，本节点只是其中 ${x.nodeCount} 个子节点之一">🧩 父插件·含 ${x.nodeCount} 节点</span>`
+            : `<span class="conf ok" title="已在官方注册表精确命中">✅ 精确</span>`;
+          return `<li><span class="wf-reg-type"><code>${esc(x.type)}</code></span>${parentBadge}<a class="wf-unknown-link" href="${esc(x.repo)}" target="_blank" rel="noopener"><span class="ext">↗ 打开</span></a>${cloneBtn}</li>`;
         }).join("")}</ul>
       </details>`
     : "";
 
   const ghHtml = (r.ghExtra && r.ghExtra.length)
     ? `<details class="wf-gh" open>
-        <summary>🔎 ${r.ghExtra.length} 个节点通过 GitHub 匹配到仓库（高/中置信，建议核实后安装）</summary>
-        <p class="wf-tip">这些节点在本站与官方注册表中都未收录，已通过 GitHub 仓库名/描述与节点类名的重合度匹配到可能仓库。🔒 高置信（≥85%）通常可直接安装；⚠️ 中置信请先打开仓库确认是否为该节点。</p>
+        <summary>🔎 ${r.ghExtra.length} 个节点通过 GitHub 匹配到仓库（建议核实后安装）</summary>
+        <p class="wf-tip">这些节点在本站与官方注册表中都未收录，已通过 GitHub 仓库名/描述与节点类名的重合度匹配到可能仓库。🔒 <strong>可信</strong>＝已在官方 ComfyUI-Manager 注册表核实，可直接安装；🤔 <strong>推测</strong>＝仅按名模糊匹配、未在官方注册表核实，可能只是同名/相关仓库（很多节点其实是大插件的子模块，请先打开仓库确认是否含该节点，再决定是否安装整个父插件）。</p>
         <ul class="wf-unknown-list">${r.ghExtra.map((x) => {
           const isRepo = /^https?:\/\/github\.com\/[^\/]+\/[^\/#?]+$/i.test(x.repo);
           const dir = isRepo ? repoDir(x.repo) : "";
           const clone = isRepo ? `git clone ${x.repo} ComfyUI/custom_nodes/${dir}` : "";
-          const badge = x.confidence >= 0.85
-            ? `<span class="conf high">🔒 ${Math.round(x.confidence * 100)}%</span>`
-            : `<span class="conf mid">⚠️ ${Math.round(x.confidence * 100)}%</span>`;
+          const badge = ghConfBadge(x);
           const cloneBtn = isRepo
             ? `<button class="copy" data-copy="${esc(clone)}">复制 clone</button>`
             : `<span class="wf-file-only" title="单文件/非标准仓库，请直接打开查看">📄 文件</span>`;
@@ -609,7 +624,7 @@ function renderWorkflow(r) {
   const unknownHtml = r.unknownTypes.length
     ? `<details class="wf-unknown" open>
         <summary>⚠️ ${r.unknownTypes.length} 个节点未找到对应仓库（可调用 GitHub API 自动补全）</summary>
-        <p class="wf-tip">这些节点类名既不在本站收录库，也不在 ComfyUI-Manager 官方注册表中（可能是非常见/本地/已废弃节点）。点击下方「用 GitHub API 补全」按钮，会自动按节点名在 GitHub 搜索并给出置信度；也可直接点节点名手动搜索。</p>
+        <p class="wf-tip">这些节点类名既不在本站收录库，也不在 ComfyUI-Manager 官方注册表中（可能是非常见/本地/已废弃节点）。点击下方「用 GitHub API 补全」按钮，会自动按节点名在 GitHub 搜索并给出置信度；也可直接点节点名手动搜索。<strong>提示：很多节点只是大插件的子模块，若 GitHub 给出的是「推测」结果，请先打开仓库确认是否真的包含该节点，再安装整个父插件。</strong></p>
         <input type="search" id="wf-unknown-search" class="wf-unknown-search" placeholder="在本列表中按节点名筛选…" autocomplete="off" />
         <ul class="wf-unknown-list" id="wf-unknown-list">${r.unknownTypes.map((t) => {
           const gh = "https://github.com/search?q=" + encodeURIComponent(t + " ComfyUI") + "&type=repositories";
@@ -732,14 +747,16 @@ function ghCacheSet(type, val) {
 function scoreGithub(type, items) {
   const t = String(type || "").toLowerCase();
   const tc = t.replace(/[^a-z0-9]/g, "");
+  const known = registryRepoSet();
   let best = null;
   for (const it of (items || [])) {
-    const full = (it.full_name || "").toLowerCase();
+    const full = (it.full_name || "").toLowerCase().replace(/\.git$/i, "");
     const name = (it.name || "").toLowerCase();
+    // 去除常见前缀/后缀，便于“仓库名 vs 节点类名”比对
     const rn = name.replace(/comfyui/g, "").replace(/nodes?/g, "").replace(/[^a-z0-9]/g, "");
     const desc = (it.description || "").toLowerCase();
     const topics = ((it.topics || []).join(" ")).toLowerCase();
-    let conf = 0, reason = "";
+    let conf = 0, reason = "", speculative = true;
     if (tc && rn && (rn === tc || rn.startsWith(tc) || tc.startsWith(rn)
         || (tc.length >= 5 && tc.includes(rn)) || (rn.length >= 5 && rn.includes(tc)))) {
       conf = rn === tc ? 0.95 : 0.90;
@@ -749,11 +766,32 @@ function scoreGithub(type, items) {
     } else if (full.includes("comfyui")) {
       conf = 0.50; reason = "ComfyUI 相关仓库（需人工确认）";
     }
-    if (conf && (!best || conf > best.confidence)) {
-      best = { repo: it.html_url, full_name: it.full_name, stars: it.stargazers_count, confidence: conf, reason };
+    if (conf) {
+      // 反查官方注册表：命中已知扩展则提升为“可信”，否则视匹配强度标“推测”
+      if (known.has(full)) {
+        speculative = false;
+        conf = Math.max(conf, 0.82);
+        reason = "已收录于官方 ComfyUI-Manager 注册表，可信";
+      } else if (conf < 0.60) {
+        reason += "（未在官方注册表核实，可能只是同名/相关仓库，请人工确认）";
+      }
+      if (!best || conf > best.confidence) {
+        best = { repo: it.html_url, full_name: it.full_name, stars: it.stargazers_count, confidence: conf, reason, speculative };
+      }
     }
   }
   return best;
+}
+
+// 统一置信度徽章：可信（注册表核实/高置信）/ 中置信 / 推测（未核实）
+function ghConfBadge(x) {
+  if (x.speculative) {
+    return `<span class="conf spec">🤔 ${Math.round((x.confidence || 0) * 100)}% 推测</span>`;
+  }
+  if (x.confidence >= 0.85) {
+    return `<span class="conf high">🔒 ${Math.round(x.confidence * 100)}% 可信</span>`;
+  }
+  return `<span class="conf mid">⚠️ ${Math.round(x.confidence * 100)}%</span>`;
 }
 
 async function githubSearchType(type) {
@@ -790,9 +828,7 @@ function updateUnknownLi(type, res) {
   const isRepo = /^https?:\/\/github\.com\/[^\/]+\/[^\/#?]+$/i.test(res.repo);
   const dir = isRepo ? repoDir(res.repo) : "";
   const clone = isRepo ? `git clone ${res.repo} ComfyUI/custom_nodes/${dir}` : "";
-  const badge = res.confidence >= 0.85
-    ? `<span class="conf high">🔒 ${Math.round(res.confidence * 100)}%</span>`
-    : `<span class="conf mid">⚠️ ${Math.round(res.confidence * 100)}%</span>`;
+  const badge = ghConfBadge(res);
   const cloneBtn = isRepo
     ? `<button class="copy" data-copy="${esc(clone)}">复制 clone</button>`
     : `<span class="wf-file-only">📄 文件</span>`;

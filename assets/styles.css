@@ -231,6 +231,9 @@ body {
 .conf.high { background: #14361f; color: #4ade80; border: 1px solid #1f5135; }
 .conf.mid { background: #3a2f12; color: #f5c451; border: 1px solid #4d401f; }
 .conf.low { background: #2a2113; color: var(--muted); border: 1px solid #4d401f; }
+.conf.spec { background: #3a2412; color: #f59e51; border: 1px solid #6b4423; }
+.conf.ok { background: #14361f; color: #4ade80; border: 1px solid #1f5135; }
+.conf.parent { background: #2a2350; color: #b39ddb; border: 1px solid #4a3f8a; }
 .wf-autofill { margin-top: 12px; }
 
 /* ===== 收藏星标 ===== */
