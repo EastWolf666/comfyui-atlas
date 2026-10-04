@@ -98,7 +98,7 @@
     {
       "id": "comfyui-animatelcm",
       "name": "ComfyUI-AnimateLCM",
-      "repo": "https://github.com/kijai/ComfyUI-AnimateLCM",
+      "repo": "https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved",
       "category": "动画",
       "author": "kijai",
       "official": false,
@@ -141,7 +141,7 @@
     {
       "id": "comfyui-photomaker",
       "name": "ComfyUI-PhotoMaker",
-      "repo": "https://github.com/yolain/ComfyUI-PhotoMaker",
+      "repo": "https://github.com/shiimizu/ComfyUI-PhotoMaker-Plus",
       "category": "人脸",
       "author": "yolain",
       "official": false,
@@ -155,7 +155,7 @@
     {
       "id": "comfyui-pulid",
       "name": "ComfyUI-PuLID",
-      "repo": "https://github.com/balazik/ComfyUI-PuLID",
+      "repo": "https://github.com/cubiq/PuLID_ComfyUI",
       "category": "人脸",
       "author": "balazik",
       "official": false,
@@ -184,7 +184,7 @@
     {
       "id": "comfyui-ic-light",
       "name": "ComfyUI-IC-Light",
-      "repo": "https://github.com/huchenlei/ComfyUI-IC-Light",
+      "repo": "https://github.com/huchenlei/ComfyUI-IC-Light-Native",
       "category": "风格控制",
       "author": "huchenlei",
       "official": false,
@@ -241,7 +241,7 @@
     {
       "id": "comfyui-birefnet",
       "name": "ComfyUI-BiRefNet",
-      "repo": "https://github.com/kijai/ComfyUI-BiRefNet",
+      "repo": "https://github.com/lldacing/ComfyUI_BiRefNet_ll",
       "category": "其他",
       "author": "kijai",
       "official": false,
@@ -255,7 +255,7 @@
     {
       "id": "comfyui-sam2",
       "name": "ComfyUI-SAM2",
-      "repo": "https://github.com/kijai/ComfyUI-SAM2",
+      "repo": "https://github.com/kijai/ComfyUI-segment-anything-2",
       "category": "其他",
       "author": "kijai",
       "official": false,
@@ -269,7 +269,7 @@
     {
       "id": "comfyui-layerdiffusion",
       "name": "ComfyUI-LayerDiffusion",
-      "repo": "https://github.com/huchenlei/LayerDiffuse",
+      "repo": "https://github.com/huchenlei/ComfyUI-layerdiffuse",
       "category": "其他",
       "author": "huchenlei",
       "official": false,
@@ -283,7 +283,7 @@
     {
       "id": "comfyui-brushnet",
       "name": "ComfyUI-BrushNet",
-      "repo": "https://github.com/Artiprocher/ComfyUI-BrushNet",
+      "repo": "https://github.com/kijai/ComfyUI-BrushNet-Wrapper",
       "category": "其他",
       "author": "Artiprocher",
       "official": false,
@@ -312,7 +312,7 @@
     {
       "id": "comfyui-hunyuanvideo",
       "name": "ComfyUI-HunyuanVideo",
-      "repo": "https://github.com/kijai/ComfyUI-HunyuanVideo",
+      "repo": "https://github.com/kijai/ComfyUI-HunyuanVideoWrapper",
       "category": "视频",
       "author": "Tencent / kijai",
       "official": true,

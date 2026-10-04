@@ -1,0 +1,41 @@
+name: Link Health Check
+
+# 定期检查站点里的访问链接（节点仓库 + 模型直链 + 注册表仓库抽样）是否失效。
+# 非阻塞：只生成报告并上传为 Artifact，不会让部署失败。可手动触发，也每周自动跑一次。
+on:
+  schedule:
+    - cron: "17 4 * * 1"   # 每周一 04:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: link-check
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Run link checker
+        run: python3 scripts/check_links.py --registry --sample 200 --workers 8 --json link_report.json
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: link-report
+          path: link_report.json
+          retention-days: 30

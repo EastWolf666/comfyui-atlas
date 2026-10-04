@@ -469,6 +469,19 @@ function findRegistry(type) {
   return { repo, title };
 }
 
+// 第 4 级匹配：预置的 GitHub 高置信映射（离线脚本 scripts/github_resolve.py 生成）
+let GH_EXTRA = null;
+let GH_EXTRA_PROMISE = null;
+function ensureGithubExtra() {
+  if (GH_EXTRA) return Promise.resolve(GH_EXTRA);
+  if (GH_EXTRA_PROMISE) return GH_EXTRA_PROMISE;
+  GH_EXTRA_PROMISE = fetch("data/github-extra.json", { cache: "no-store" })
+    .then((r) => (r.ok ? r.json() : {}))
+    .then((d) => { GH_EXTRA = d || {}; return GH_EXTRA; })
+    .catch(() => { GH_EXTRA = {}; return GH_EXTRA; });
+  return GH_EXTRA_PROMISE;
+}
+
 function extractNodeTypes(text) {
   const data = JSON.parse(text);
   const types = new Set();
@@ -495,6 +508,7 @@ function analyzeWorkflow(text) {
   const moduleIds = new Set();
   const unknownTypes = [];
   const registryMatched = [];
+  const ghExtra = [];
   const coreTypes = [];
   let coreCount = 0;
   for (const t of types) {
@@ -503,7 +517,11 @@ function analyzeWorkflow(text) {
     else if (r === "__unknown__") {
       const reg = findRegistry(t);
       if (reg) registryMatched.push({ type: t, repo: reg.repo, title: reg.title });
-      else unknownTypes.push(t);
+      else {
+        const ex = GH_EXTRA && GH_EXTRA[String(t).toLowerCase()];
+        if (ex) ghExtra.push({ type: t, repo: ex.repo, confidence: ex.confidence, reason: ex.reason, stars: ex.stars });
+        else unknownTypes.push(t);
+      }
     }
     else moduleIds.add(r);
   }
@@ -523,7 +541,7 @@ function analyzeWorkflow(text) {
       }
     }
   }
-  return { total: types.length, hit: modulesHit, unknownTypes, registryMatched, coreCount, coreTypes, models: [...modelMap.values()] };
+  return { total: types.length, hit: modulesHit, unknownTypes, registryMatched, ghExtra, coreCount, coreTypes, models: [...modelMap.values()] };
 }
 
 function renderWorkflow(r) {
@@ -569,16 +587,36 @@ function renderWorkflow(r) {
       </details>`
     : "";
 
+  const ghHtml = (r.ghExtra && r.ghExtra.length)
+    ? `<details class="wf-gh" open>
+        <summary>🔎 ${r.ghExtra.length} 个节点通过 GitHub 匹配到仓库（高/中置信，建议核实后安装）</summary>
+        <p class="wf-tip">这些节点在本站与官方注册表中都未收录，已通过 GitHub 仓库名/描述与节点类名的重合度匹配到可能仓库。🔒 高置信（≥85%）通常可直接安装；⚠️ 中置信请先打开仓库确认是否为该节点。</p>
+        <ul class="wf-unknown-list">${r.ghExtra.map((x) => {
+          const isRepo = /^https?:\/\/github\.com\/[^\/]+\/[^\/#?]+$/i.test(x.repo);
+          const dir = isRepo ? repoDir(x.repo) : "";
+          const clone = isRepo ? `git clone ${x.repo} ComfyUI/custom_nodes/${dir}` : "";
+          const badge = x.confidence >= 0.85
+            ? `<span class="conf high">🔒 ${Math.round(x.confidence * 100)}%</span>`
+            : `<span class="conf mid">⚠️ ${Math.round(x.confidence * 100)}%</span>`;
+          const cloneBtn = isRepo
+            ? `<button class="copy" data-copy="${esc(clone)}">复制 clone</button>`
+            : `<span class="wf-file-only" title="单文件/非标准仓库，请直接打开查看">📄 文件</span>`;
+          return `<li><code>${esc(x.type)}</code> ${badge} <a class="wf-unknown-link" href="${esc(x.repo)}" target="_blank" rel="noopener"><span class="ext">↗ 打开</span></a>${cloneBtn}<div class="wf-reason">${esc(x.reason || "")}${x.stars != null ? " · ⭐" + x.stars : ""}</div></li>`;
+        }).join("")}</ul>
+      </details>`
+    : "";
+
   const unknownHtml = r.unknownTypes.length
     ? `<details class="wf-unknown" open>
-        <summary>⚠️ ${r.unknownTypes.length} 个节点未找到对应仓库（建议在 GitHub 搜索安装）</summary>
-        <p class="wf-tip">这些节点类名既不在本站收录库，也不在 ComfyUI-Manager 官方注册表中（可能是非常见/本地/已废弃节点）。点击下方任一节点名即可在 GitHub 按该 ComfyUI 自定义节点名搜索仓库并安装；顶部输入框可按节点名筛选。</p>
+        <summary>⚠️ ${r.unknownTypes.length} 个节点未找到对应仓库（可调用 GitHub API 自动补全）</summary>
+        <p class="wf-tip">这些节点类名既不在本站收录库，也不在 ComfyUI-Manager 官方注册表中（可能是非常见/本地/已废弃节点）。点击下方「用 GitHub API 补全」按钮，会自动按节点名在 GitHub 搜索并给出置信度；也可直接点节点名手动搜索。</p>
         <input type="search" id="wf-unknown-search" class="wf-unknown-search" placeholder="在本列表中按节点名筛选…" autocomplete="off" />
         <ul class="wf-unknown-list" id="wf-unknown-list">${r.unknownTypes.map((t) => {
           const gh = "https://github.com/search?q=" + encodeURIComponent(t + " ComfyUI") + "&type=repositories";
           const inManager = "https://www.google.com/search?q=" + encodeURIComponent("ComfyUI " + t + " custom node manager");
-          return `<li><a class="wf-unknown-link" href="${gh}" target="_blank" rel="noopener"><code>${esc(t)}</code><span class="ext">↗ GitHub</span></a><a class="wf-unknown-alt" href="${inManager}" target="_blank" rel="noopener" title="备用：Google 搜索">🌐</a></li>`;
+          return `<li data-type="${esc(t)}"><a class="wf-unknown-link" href="${gh}" target="_blank" rel="noopener"><code>${esc(t)}</code><span class="ext">↗ GitHub</span></a><a class="wf-unknown-alt" href="${inManager}" target="_blank" rel="noopener" title="备用：Google 搜索">🌐</a></li>`;
         }).join("")}</ul>
+        <button id="wf-gh-autofill" class="btn-ghost wf-autofill">🔍 用 GitHub API 自动补全剩余 ${r.unknownTypes.length} 个（按置信度）</button>
       </details>`
     : "";
 
@@ -633,11 +671,13 @@ function renderWorkflow(r) {
     ${mirrorHtml}
     ${coreHtml}
     ${registryHtml}
+    ${ghHtml}
     ${unknownHtml}
     <p class="wf-note">💡 工作流通常还需<strong>基础底模</strong>（SDXL / FLUX / SD1.5 等）与可能的 <strong>LoRA / 放大模型</strong>，请到「按节点」视图的「基础模型 / 放大修复 / LoRA 精选」分类下载并放入 ComfyUI 对应 <code>models/</code> 目录。</p>
   `;
   bindTypeListFilter("wf-registry-search", "wf-registry-list");
   bindTypeListFilter("wf-unknown-search", "wf-unknown-list");
+  bindGithubAutofill(r);
   bindCopyButtons();
   bindFavButtons();
 }
@@ -674,6 +714,118 @@ function bindTypeListFilter(searchId, listId) {
       summary.appendChild(counter);
     }
     if (counter) counter.textContent = q ? `（匹配 ${visible} 个）` : "";
+  });
+}
+
+/* ============ 第 4 级：运行时按需调用 GitHub 搜索补全未知节点 ============ */
+
+function ghCache() {
+  try { return JSON.parse(localStorage.getItem("comfyui-atlas-ghsearch") || "{}"); }
+  catch (_) { return {}; }
+}
+function ghCacheSet(type, val) {
+  const c = ghCache(); c[type] = val;
+  try { localStorage.setItem("comfyui-atlas-ghsearch", JSON.stringify(c)); } catch (_) {}
+}
+
+// 按「仓库名/描述/话题 与节点类名的重合度」给候选仓库打分
+function scoreGithub(type, items) {
+  const t = String(type || "").toLowerCase();
+  const tc = t.replace(/[^a-z0-9]/g, "");
+  let best = null;
+  for (const it of (items || [])) {
+    const full = (it.full_name || "").toLowerCase();
+    const name = (it.name || "").toLowerCase();
+    const rn = name.replace(/comfyui/g, "").replace(/nodes?/g, "").replace(/[^a-z0-9]/g, "");
+    const desc = (it.description || "").toLowerCase();
+    const topics = ((it.topics || []).join(" ")).toLowerCase();
+    let conf = 0, reason = "";
+    if (tc && rn && (rn === tc || rn.startsWith(tc) || tc.startsWith(rn)
+        || (tc.length >= 5 && tc.includes(rn)) || (rn.length >= 5 && rn.includes(tc)))) {
+      conf = rn === tc ? 0.95 : 0.90;
+      reason = "仓库名与节点类名高度吻合";
+    } else if (tc && (desc.includes(tc) || topics.includes(tc))) {
+      conf = 0.60; reason = "仓库描述/话题提及该节点";
+    } else if (full.includes("comfyui")) {
+      conf = 0.50; reason = "ComfyUI 相关仓库（需人工确认）";
+    }
+    if (conf && (!best || conf > best.confidence)) {
+      best = { repo: it.html_url, full_name: it.full_name, stars: it.stargazers_count, confidence: conf, reason };
+    }
+  }
+  return best;
+}
+
+async function githubSearchType(type) {
+  const c = ghCache();
+  if (c[type]) return c[type];
+  const url = "https://api.github.com/search/repositories?q=" +
+    encodeURIComponent(type + " ComfyUI") + "&sort=stars&order=desc&per_page=5";
+  let res;
+  try {
+    const r = await fetch(url, { headers: { "Accept": "application/vnd.github+json" } });
+    if (!r.ok) res = { type, status: r.status };
+    else {
+      const d = await r.json();
+      const b = scoreGithub(type, d.items || []);
+      res = b ? { type, ...b } : { type, none: true };
+    }
+  } catch (e) {
+    res = { type, error: String(e) };
+  }
+  ghCacheSet(type, res);
+  return res;
+}
+
+function updateUnknownLi(type, res) {
+  let li = null;
+  document.querySelectorAll("#wf-unknown-list li").forEach((el) => { if (el.dataset.type === type) li = el; });
+  if (!li) return;
+  if (res.none || !res.repo) {
+    li.innerHTML = `<code>${esc(type)}</code> <span class="conf low">无高置信仓库</span> ` +
+      `<a class="wf-unknown-link" href="https://github.com/search?q=${encodeURIComponent(type + " ComfyUI")}&type=repositories" target="_blank" rel="noopener"><span class="ext">↗ 手动搜</span></a>`;
+    li.classList.add("resolved");
+    return;
+  }
+  const isRepo = /^https?:\/\/github\.com\/[^\/]+\/[^\/#?]+$/i.test(res.repo);
+  const dir = isRepo ? repoDir(res.repo) : "";
+  const clone = isRepo ? `git clone ${res.repo} ComfyUI/custom_nodes/${dir}` : "";
+  const badge = res.confidence >= 0.85
+    ? `<span class="conf high">🔒 ${Math.round(res.confidence * 100)}%</span>`
+    : `<span class="conf mid">⚠️ ${Math.round(res.confidence * 100)}%</span>`;
+  const cloneBtn = isRepo
+    ? `<button class="copy" data-copy="${esc(clone)}">复制 clone</button>`
+    : `<span class="wf-file-only">📄 文件</span>`;
+  li.innerHTML = `<code>${esc(type)}</code> ${badge} ` +
+    `<a class="wf-unknown-link" href="${esc(res.repo)}" target="_blank" rel="noopener"><span class="ext">↗ 打开</span></a>${cloneBtn}` +
+    `<div class="wf-reason">${esc(res.reason || "")}${res.stars != null ? " · ⭐" + res.stars : ""}</div>`;
+  li.classList.add("resolved");
+  bindCopyButtons();
+}
+
+function bindGithubAutofill(result) {
+  const btn = document.getElementById("wf-gh-autofill");
+  if (!btn) return;
+  // 先把本地已有的查询结果（上次搜索/预置缓存）直接反映到列表
+  const cache = ghCache();
+  for (const t of (result.unknownTypes || [])) {
+    if (cache[t]) updateUnknownLi(t, cache[t]);
+  }
+  btn.addEventListener("click", async () => {
+    const types = (result.unknownTypes || []).filter((t) => !ghCache()[t]);
+    const total = types.length;
+    if (!total) { btn.textContent = "已全部查询过 ✓"; return; }
+    btn.disabled = true;
+    let done = 0;
+    for (const t of types) {
+      btn.textContent = `正在查询 GitHub… ${done}/${total}（${t}）`;
+      const res = await githubSearchType(t);
+      updateUnknownLi(t, res);
+      done++;
+      if (done < total) await new Promise((r) => setTimeout(r, 6500)); // 未登录 10/min 节流
+    }
+    btn.textContent = `✅ 已补全 ${total} 个（无高置信的请手动搜索）`;
+    btn.disabled = false;
   });
 }
 
@@ -734,6 +886,7 @@ function bindWorkflowUI() {
       return;
     }
     try { await ensureRegistry(); } catch (_) {}
+    try { await ensureGithubExtra(); } catch (_) {}
     let result;
     try {
       result = analyzeWorkflow(text);

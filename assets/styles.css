@@ -220,6 +220,19 @@ body {
 .wf-reg-type code { background: var(--bg-soft); padding: 3px 8px; border-radius: 6px; font-size: 12px; }
 .wf-note { color: var(--muted); font-size: 14px; margin-top: 24px; border-top: 1px dashed var(--border); padding-top: 16px; }
 
+/* ===== GitHub 置信度匹配块 ===== */
+.wf-gh { background: #15233a; border: 1px solid #2a4a7a; border-radius: 12px; padding: 14px 18px; margin: 20px 0; }
+.wf-gh summary { cursor: pointer; font-weight: 600; color: #6db3ff; }
+.wf-gh .wf-unknown-list { flex-direction: column; align-items: stretch; }
+.wf-gh .wf-unknown-list li,
+.wf-unknown .wf-unknown-list li.resolved { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 7px 10px; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 8px; }
+.wf-reason { color: var(--muted); font-size: 12px; flex: 1 1 100%; }
+.conf { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+.conf.high { background: #14361f; color: #4ade80; border: 1px solid #1f5135; }
+.conf.mid { background: #3a2f12; color: #f5c451; border: 1px solid #4d401f; }
+.conf.low { background: #2a2113; color: var(--muted); border: 1px solid #4d401f; }
+.wf-autofill { margin-top: 12px; }
+
 /* ===== 收藏星标 ===== */
 .fav-star {
   position: absolute; top: 14px; right: 14px;
