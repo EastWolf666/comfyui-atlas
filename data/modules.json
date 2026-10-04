@@ -15,10 +15,39 @@
       "official": true,
       "maintenance": "active",
       "description": "Stable Diffusion XL 基础文生图模型，ComfyUI 核心加载。",
-      "tags": ["sdxl", "checkpoint", "基础模型"],
+      "tags": [
+        "sdxl",
+        "checkpoint",
+        "基础模型"
+      ],
       "models": [
-        { "name": "stable-diffusion-xl-base-1.0.safetensors", "type": "checkpoint", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/tree/main", "size": "6.9 GB" }, { "platform": "hf-mirror", "url": "https://hf-mirror.com/stabilityai/stable-diffusion-xl-base-1.0/tree/main", "size": "6.9 GB" } ] },
-        { "name": "sdxl_vae.safetensors", "type": "vae", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/stabilityai/sdxl-vae/tree/main", "size": "0.3 GB" } ] }
+        {
+          "name": "stable-diffusion-xl-base-1.0.safetensors",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/tree/main",
+              "size": "6.9 GB"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/stable-diffusion-xl-base-1.0/tree/main",
+              "size": "6.9 GB"
+            }
+          ]
+        },
+        {
+          "name": "sdxl_vae.safetensors",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/sdxl-vae/tree/main",
+              "size": "0.3 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -30,9 +59,28 @@
       "official": true,
       "maintenance": "active",
       "description": "Stable Diffusion 1.5 基础模型，社区生态最庞大。",
-      "tags": ["sd15", "checkpoint", "基础模型"],
+      "tags": [
+        "sd15",
+        "checkpoint",
+        "基础模型"
+      ],
       "models": [
-        { "name": "v1-5-pruned-emaonly.safetensors", "type": "checkpoint", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/tree/main", "size": "4.3 GB" }, { "platform": "hf-mirror", "url": "https://hf-mirror.com/stable-diffusion-v1-5/stable-diffusion-v1-5/tree/main", "size": "4.3 GB" } ] }
+        {
+          "name": "v1-5-pruned-emaonly.safetensors",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/tree/main",
+              "size": "4.3 GB"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stable-diffusion-v1-5/stable-diffusion-v1-5/tree/main",
+              "size": "4.3 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -44,10 +92,39 @@
       "official": true,
       "maintenance": "active",
       "description": "FLUX.1 系列文生图模型（schnell 快 / dev 高质量），需 fp8/GGUF 量化以省显存。",
-      "tags": ["flux", "checkpoint", "基础模型"],
+      "tags": [
+        "flux",
+        "checkpoint",
+        "基础模型"
+      ],
       "models": [
-        { "name": "FLUX.1-schnell", "type": "checkpoint", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/tree/main", "size": "23 GB" }, { "platform": "hf-mirror", "url": "https://hf-mirror.com/black-forest-labs/FLUX.1-schnell/tree/main", "size": "23 GB" } ] },
-        { "name": "FLUX.1-dev", "type": "checkpoint", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/black-forest-labs/FLUX.1-dev/tree/main", "size": "23 GB" } ] }
+        {
+          "name": "FLUX.1-schnell",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/tree/main",
+              "size": "23 GB"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/black-forest-labs/FLUX.1-schnell/tree/main",
+              "size": "23 GB"
+            }
+          ]
+        },
+        {
+          "name": "FLUX.1-dev",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/black-forest-labs/FLUX.1-dev/tree/main",
+              "size": "23 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -59,11 +136,52 @@
       "official": false,
       "maintenance": "active",
       "description": "图像风格/特征迁移节点，用参考图控制生成结果。",
-      "tags": ["ip-adapter", "风格迁移", "参考图"],
+      "tags": [
+        "ip-adapter",
+        "风格迁移",
+        "参考图"
+      ],
       "models": [
-        { "name": "ip-adapter_sd15.safetensors", "type": "ipadapter", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/h94/IP-Adapter/tree/main/models", "size": "0.4 GB", "note": "需配合 SD1.5 clip" }, { "platform": "modelscope", "url": "https://modelscope.cn/models/cubiq/IP-Adapter/files", "size": "0.4 GB" } ] },
-        { "name": "ip-adapter_sdxl.safetensors", "type": "ipadapter", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/h94/IP-Adapter/tree/main/sdxl_models", "size": "1.0 GB" } ] },
-        { "name": "insightface buffalo_l", "type": "insightface", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/MonsterMMORPG/tools/tree/main", "size": "0.3 GB", "note": "部分 IPAdapter 变体需要人脸编码器" } ] }
+        {
+          "name": "ip-adapter_sd15.safetensors",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/h94/IP-Adapter/tree/main/models",
+              "size": "0.4 GB",
+              "note": "需配合 SD1.5 clip"
+            },
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/cubiq/IP-Adapter/files",
+              "size": "0.4 GB"
+            }
+          ]
+        },
+        {
+          "name": "ip-adapter_sdxl.safetensors",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/h94/IP-Adapter/tree/main/sdxl_models",
+              "size": "1.0 GB"
+            }
+          ]
+        },
+        {
+          "name": "insightface buffalo_l",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/MonsterMMORPG/tools/tree/main",
+              "size": "0.3 GB",
+              "note": "部分 IPAdapter 变体需要人脸编码器"
+            }
+          ]
+        }
       ]
     },
     {
@@ -75,9 +193,30 @@
       "official": false,
       "maintenance": "active",
       "description": "增强版 ControlNet 加载与控制（支持多 ControlNet 串联）。",
-      "tags": ["controlnet", "姿态", "边缘", "深度"],
+      "tags": [
+        "controlnet",
+        "姿态",
+        "边缘",
+        "深度"
+      ],
       "models": [
-        { "name": "control_v11p_sd15 (全套)", "type": "controlnet", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/lllyasviel/ControlNet-v1-1/tree/main", "size": "约 1.5 GB/个", "note": "canny/depth/pose/openpose 等" }, { "platform": "hf-mirror", "url": "https://hf-mirror.com/lllyasviel/ControlNet-v1-1/tree/main", "size": "约 1.5 GB/个" } ] }
+        {
+          "name": "control_v11p_sd15 (全套)",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/lllyasviel/ControlNet-v1-1/tree/main",
+              "size": "约 1.5 GB/个",
+              "note": "canny/depth/pose/openpose 等"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/lllyasviel/ControlNet-v1-1/tree/main",
+              "size": "约 1.5 GB/个"
+            }
+          ]
+        }
       ]
     },
     {
@@ -89,10 +228,36 @@
       "official": false,
       "maintenance": "active",
       "description": "动画生成节点，需加载 motion module 权重。",
-      "tags": ["animatediff", "动画", "视频"],
+      "tags": [
+        "animatediff",
+        "动画",
+        "视频"
+      ],
       "models": [
-        { "name": "mm_sd15_v2.safetensors", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/Kosinkadink/AnimateDiff/tree/main", "size": "1.9 GB", "version": "v2" } ] },
-        { "name": "mm_sdxl_v10_beta", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/Kosinkadink/AnimateDiff/tree/main", "size": "2.4 GB", "version": "sdxl" } ] }
+        {
+          "name": "mm_sd15_v2.safetensors",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Kosinkadink/AnimateDiff/tree/main",
+              "size": "1.9 GB",
+              "version": "v2"
+            }
+          ]
+        },
+        {
+          "name": "mm_sdxl_v10_beta",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Kosinkadink/AnimateDiff/tree/main",
+              "size": "2.4 GB",
+              "version": "sdxl"
+            }
+          ]
+        }
       ]
     },
     {
@@ -104,9 +269,23 @@
       "official": false,
       "maintenance": "active",
       "description": "LCM 加速的动画模型，可快速生成短视频。",
-      "tags": ["animatelcm", "动画", "lcm"],
+      "tags": [
+        "animatelcm",
+        "动画",
+        "lcm"
+      ],
       "models": [
-        { "name": "AnimateLCM_sd15_t2v.ckpt", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/wangfuyun/AnimateLCM/tree/main", "size": "1.9 GB" } ] }
+        {
+          "name": "AnimateLCM_sd15_t2v.ckpt",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/wangfuyun/AnimateLCM/tree/main",
+              "size": "1.9 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -118,9 +297,24 @@
       "official": false,
       "maintenance": "active",
       "description": "功能增强包（含 FaceDetailer 等），人脸修复需 insightface。",
-      "tags": ["impact", "face-detailer", "增强"],
+      "tags": [
+        "impact",
+        "face-detailer",
+        "增强"
+      ],
       "models": [
-        { "name": "insightface buffalo_l", "type": "insightface", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/MonsterMMORPG/tools/tree/main", "size": "0.3 GB", "note": "FaceDetailer 人脸检测需要" } ] }
+        {
+          "name": "insightface buffalo_l",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/MonsterMMORPG/tools/tree/main",
+              "size": "0.3 GB",
+              "note": "FaceDetailer 人脸检测需要"
+            }
+          ]
+        }
       ]
     },
     {
@@ -132,10 +326,34 @@
       "official": false,
       "maintenance": "active",
       "description": "保持人脸一致性的身份控制节点。",
-      "tags": ["instantid", "人脸", "identity"],
+      "tags": [
+        "instantid",
+        "人脸",
+        "identity"
+      ],
       "models": [
-        { "name": "instantid_sdxl.pth", "type": "ipadapter", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/InstantX/InstantID/tree/main", "size": "1.2 GB" } ] },
-        { "name": "insightface buffalo_l", "type": "insightface", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/MonsterMMORPG/tools/tree/main", "size": "0.3 GB" } ] }
+        {
+          "name": "instantid_sdxl.pth",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/InstantX/InstantID/tree/main",
+              "size": "1.2 GB"
+            }
+          ]
+        },
+        {
+          "name": "insightface buffalo_l",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/MonsterMMORPG/tools/tree/main",
+              "size": "0.3 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -147,9 +365,24 @@
       "official": false,
       "maintenance": "active",
       "description": "用少量参考图定制人物身份，生成一致人像。",
-      "tags": ["photomaker", "人脸", "identity"],
+      "tags": [
+        "photomaker",
+        "人脸",
+        "identity"
+      ],
       "models": [
-        { "name": "PhotoMaker-v2.bin", "type": "ipadapter", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/TencentARC/PhotoMaker/tree/main", "size": "1.0 GB", "version": "v2" } ] }
+        {
+          "name": "PhotoMaker-v2.bin",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/TencentARC/PhotoMaker/tree/main",
+              "size": "1.0 GB",
+              "version": "v2"
+            }
+          ]
+        }
       ]
     },
     {
@@ -161,10 +394,35 @@
       "official": false,
       "maintenance": "active",
       "description": "高精度人脸 ID 注入节点，保真度优于 IPAdapter。",
-      "tags": ["pulid", "人脸", "identity"],
+      "tags": [
+        "pulid",
+        "人脸",
+        "identity"
+      ],
       "models": [
-        { "name": "pulid_v1.1.safetensors", "type": "ipadapter", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/guozinan/PuLID/tree/main", "size": "1.3 GB", "version": "v1.1" } ] },
-        { "name": "insightface buffalo_l", "type": "insightface", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/MonsterMMORPG/tools/tree/main", "size": "0.3 GB" } ] }
+        {
+          "name": "pulid_v1.1.safetensors",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/guozinan/PuLID/tree/main",
+              "size": "1.3 GB",
+              "version": "v1.1"
+            }
+          ]
+        },
+        {
+          "name": "insightface buffalo_l",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/MonsterMMORPG/tools/tree/main",
+              "size": "0.3 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -176,9 +434,23 @@
       "official": false,
       "maintenance": "active",
       "description": "人脸替换/修复节点（基于 insightface）。",
-      "tags": ["reactor", "换脸", "人脸"],
+      "tags": [
+        "reactor",
+        "换脸",
+        "人脸"
+      ],
       "models": [
-        { "name": "insightface buffalo_l", "type": "insightface", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/MonsterMMORPG/tools/tree/main", "size": "0.3 GB" } ] }
+        {
+          "name": "insightface buffalo_l",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/MonsterMMORPG/tools/tree/main",
+              "size": "0.3 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -190,10 +462,36 @@
       "official": false,
       "maintenance": "active",
       "description": "智能重打光节点，可调整图像光照方向与氛围。",
-      "tags": ["ic-light", "光照", "重打光"],
+      "tags": [
+        "ic-light",
+        "光照",
+        "重打光"
+      ],
       "models": [
-        { "name": "iclight_sd15_fbc.safetensors", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/huchenlei/IC-Light/tree/main", "size": "4.1 GB", "note": "SD1.5 版" } ] },
-        { "name": "iclight_sdxl_fbc.safetensors", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/huchenlei/IC-Light/tree/main", "size": "15 GB", "note": "SDXL 版" } ] }
+        {
+          "name": "iclight_sd15_fbc.safetensors",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/huchenlei/IC-Light/tree/main",
+              "size": "4.1 GB",
+              "note": "SD1.5 版"
+            }
+          ]
+        },
+        {
+          "name": "iclight_sdxl_fbc.safetensors",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/huchenlei/IC-Light/tree/main",
+              "size": "15 GB",
+              "note": "SDXL 版"
+            }
+          ]
+        }
       ]
     },
     {
@@ -205,9 +503,24 @@
       "official": false,
       "maintenance": "active",
       "description": "高质量 AI 放大/修复（基于 SDXL）。",
-      "tags": ["supir", "放大", "修复"],
+      "tags": [
+        "supir",
+        "放大",
+        "修复"
+      ],
       "models": [
-        { "name": "SUPIR-v0F.ckpt", "type": "checkpoint", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/xpixel/SUPIR/tree/main", "size": "13 GB", "note": "需配合 SDXL VAE" } ] }
+        {
+          "name": "SUPIR-v0F.ckpt",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/xpixel/SUPIR/tree/main",
+              "size": "13 GB",
+              "note": "需配合 SDXL VAE"
+            }
+          ]
+        }
       ]
     },
     {
@@ -219,9 +532,24 @@
       "official": false,
       "maintenance": "active",
       "description": "分块超分节点，配合 ESRGAN 模型放大。",
-      "tags": ["upscale", "放大", "esrgan"],
+      "tags": [
+        "upscale",
+        "放大",
+        "esrgan"
+      ],
       "models": [
-        { "name": "4x-UltraSharp.pth", "type": "upscale", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/openmodeldb/4x-UltraSharp/tree/main", "size": "0.07 GB", "note": "ESRGAN 模型，同类还有 4x_NMKD 等" } ] }
+        {
+          "name": "4x-UltraSharp.pth",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/openmodeldb/4x-UltraSharp/tree/main",
+              "size": "0.07 GB",
+              "note": "ESRGAN 模型，同类还有 4x_NMKD 等"
+            }
+          ]
+        }
       ]
     },
     {
@@ -233,9 +561,23 @@
       "official": false,
       "maintenance": "active",
       "description": "图片/视频人脸驱动（表情迁移、口型）。",
-      "tags": ["liveportrait", "人脸驱动", "视频"],
+      "tags": [
+        "liveportrait",
+        "人脸驱动",
+        "视频"
+      ],
       "models": [
-        { "name": "LivePortrait (base)", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/KwaiVGI/LivePortrait/tree/main", "size": "1.4 GB" } ] }
+        {
+          "name": "LivePortrait (base)",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/KwaiVGI/LivePortrait/tree/main",
+              "size": "1.4 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -247,9 +589,23 @@
       "official": false,
       "maintenance": "active",
       "description": "高精度通用抠图/前景分割节点。",
-      "tags": ["birefnet", "抠图", "分割"],
+      "tags": [
+        "birefnet",
+        "抠图",
+        "分割"
+      ],
       "models": [
-        { "name": "BiRefNet (general)", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/ZhengPeng7/BiRefNet/tree/main", "size": "0.9 GB" } ] }
+        {
+          "name": "BiRefNet (general)",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ZhengPeng7/BiRefNet/tree/main",
+              "size": "0.9 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -261,9 +617,23 @@
       "official": false,
       "maintenance": "active",
       "description": "Segment Anything 2 自动/交互分割节点。",
-      "tags": ["sam2", "分割", "mask"],
+      "tags": [
+        "sam2",
+        "分割",
+        "mask"
+      ],
       "models": [
-        { "name": "sam2_hiera_large", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/facebook/sam2/tree/main", "size": "0.9 GB" } ] }
+        {
+          "name": "sam2_hiera_large",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/facebook/sam2/tree/main",
+              "size": "0.9 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -275,9 +645,24 @@
       "official": false,
       "maintenance": "active",
       "description": "生成带透明背景的图像/图层。",
-      "tags": ["layerdiffusion", "透明", "图层"],
+      "tags": [
+        "layerdiffusion",
+        "透明",
+        "图层"
+      ],
       "models": [
-        { "name": "layer_xl_transparent_attn.safetensors", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/lllyasviel/layerdiffusion/tree/main", "size": "13 GB", "note": "SDXL 版" } ] }
+        {
+          "name": "layer_xl_transparent_attn.safetensors",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/lllyasviel/layerdiffusion/tree/main",
+              "size": "13 GB",
+              "note": "SDXL 版"
+            }
+          ]
+        }
       ]
     },
     {
@@ -289,9 +674,23 @@
       "official": false,
       "maintenance": "active",
       "description": "局部重绘修复节点，比原生 inpaint 更自然。",
-      "tags": ["brushnet", "inpaint", "修复"],
+      "tags": [
+        "brushnet",
+        "inpaint",
+        "修复"
+      ],
       "models": [
-        { "name": "brushnet_generic", "type": "controlnet", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/masactrl/BrushNet/tree/main", "size": "3.4 GB" } ] }
+        {
+          "name": "brushnet_generic",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/masactrl/BrushNet/tree/main",
+              "size": "3.4 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -303,10 +702,41 @@
       "official": true,
       "maintenance": "active",
       "description": "Wan2.1 文生视频/图生视频（国产，魔搭直连快）。",
-      "tags": ["wan", "视频", "t2v", "i2v"],
+      "tags": [
+        "wan",
+        "视频",
+        "t2v",
+        "i2v"
+      ],
       "models": [
-        { "name": "Wan2.1-T2V-1.3B", "type": "checkpoint", "sources": [ { "platform": "modelscope", "url": "https://modelscope.cn/models/Wan-AI/Wan2.1-T2V-1.3B", "size": "5.4 GB", "note": "国内直连，推荐" }, { "platform": "huggingface", "url": "https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B/tree/main", "size": "5.4 GB" } ] },
-        { "name": "Wan2.1-I2V-14B", "type": "checkpoint", "sources": [ { "platform": "modelscope", "url": "https://modelscope.cn/models/Wan-AI/Wan2.1-I2V-14B", "size": "28 GB" } ] }
+        {
+          "name": "Wan2.1-T2V-1.3B",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/Wan-AI/Wan2.1-T2V-1.3B",
+              "size": "5.4 GB",
+              "note": "国内直连，推荐"
+            },
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B/tree/main",
+              "size": "5.4 GB"
+            }
+          ]
+        },
+        {
+          "name": "Wan2.1-I2V-14B",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/Wan-AI/Wan2.1-I2V-14B",
+              "size": "28 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -318,9 +748,28 @@
       "official": true,
       "maintenance": "active",
       "description": "腾讯混元视频文生视频模型（国产，魔搭直连）。",
-      "tags": ["hunyuan", "视频", "t2v"],
+      "tags": [
+        "hunyuan",
+        "视频",
+        "t2v"
+      ],
       "models": [
-        { "name": "hunyuan-video-t2v-720p", "type": "checkpoint", "sources": [ { "platform": "modelscope", "url": "https://modelscope.cn/models/Tencent-Hunyuan/HunyuanVideo", "size": "13 GB" }, { "platform": "huggingface", "url": "https://huggingface.co/tencent/HunyuanVideo/tree/main", "size": "13 GB" } ] }
+        {
+          "name": "hunyuan-video-t2v-720p",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/Tencent-Hunyuan/HunyuanVideo",
+              "size": "13 GB"
+            },
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/tencent/HunyuanVideo/tree/main",
+              "size": "13 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -332,9 +781,29 @@
       "official": false,
       "maintenance": "active",
       "description": "智谱 CogVideoX 文生视频模型。",
-      "tags": ["cogvideox", "视频", "t2v"],
+      "tags": [
+        "cogvideox",
+        "视频",
+        "t2v"
+      ],
       "models": [
-        { "name": "CogVideoX-5b", "type": "checkpoint", "sources": [ { "platform": "modelscope", "url": "https://modelscope.cn/models/ZhipuAI/CogVideoX-5b", "size": "10 GB", "note": "国内直连" }, { "platform": "huggingface", "url": "https://huggingface.co/THUDM/CogVideoX-5b/tree/main", "size": "10 GB" } ] }
+        {
+          "name": "CogVideoX-5b",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/ZhipuAI/CogVideoX-5b",
+              "size": "10 GB",
+              "note": "国内直连"
+            },
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/THUDM/CogVideoX-5b/tree/main",
+              "size": "10 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -346,9 +815,23 @@
       "official": false,
       "maintenance": "active",
       "description": "Genmo Mochi 开源文生视频模型。",
-      "tags": ["mochi", "视频", "t2v"],
+      "tags": [
+        "mochi",
+        "视频",
+        "t2v"
+      ],
       "models": [
-        { "name": "mochi-1-preview", "type": "checkpoint", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/genmo/mochi-1-preview/tree/main", "size": "25 GB" } ] }
+        {
+          "name": "mochi-1-preview",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/genmo/mochi-1-preview/tree/main",
+              "size": "25 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -360,9 +843,24 @@
       "official": false,
       "maintenance": "active",
       "description": "LTX-Video 实时文生/图生视频模型。",
-      "tags": ["ltx", "视频", "t2v", "i2v"],
+      "tags": [
+        "ltx",
+        "视频",
+        "t2v",
+        "i2v"
+      ],
       "models": [
-        { "name": "ltx-video-2b-v0.9.5", "type": "checkpoint", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/Lightricks/LTX-Video/tree/main", "size": "8 GB" } ] }
+        {
+          "name": "ltx-video-2b-v0.9.5",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Lightricks/LTX-Video/tree/main",
+              "size": "8 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -374,7 +872,11 @@
       "official": true,
       "maintenance": "active",
       "description": "节点管理工具：安装/更新/缺失节点检测。纯逻辑，无需额外模型。",
-      "tags": ["manager", "管理", "安装"],
+      "tags": [
+        "manager",
+        "管理",
+        "安装"
+      ],
       "models": []
     },
     {
@@ -386,7 +888,11 @@
       "official": false,
       "maintenance": "active",
       "description": "常用 UI 增强脚本集合（收藏、快捷键等）。纯逻辑节点。",
-      "tags": ["scripts", "ui", "增强"],
+      "tags": [
+        "scripts",
+        "ui",
+        "增强"
+      ],
       "models": []
     },
     {
@@ -398,7 +904,11 @@
       "official": false,
       "maintenance": "active",
       "description": "简化工作流的一站式节点集合。纯逻辑节点。",
-      "tags": ["easy-use", "简化", "工具"],
+      "tags": [
+        "easy-use",
+        "简化",
+        "工具"
+      ],
       "models": []
     },
     {
@@ -410,7 +920,11 @@
       "official": false,
       "maintenance": "active",
       "description": "常用工具/胶水节点集合（数学、调度、GLSL 等）。纯逻辑节点。",
-      "tags": ["kjnodes", "工具", "节点"],
+      "tags": [
+        "kjnodes",
+        "工具",
+        "节点"
+      ],
       "models": []
     },
     {
@@ -422,7 +936,11 @@
       "official": false,
       "maintenance": "active",
       "description": "视频读写/帧处理辅助节点。纯逻辑节点。",
-      "tags": ["video", "辅助", "帧"],
+      "tags": [
+        "video",
+        "辅助",
+        "帧"
+      ],
       "models": []
     },
     {
@@ -434,9 +952,29 @@
       "official": true,
       "maintenance": "active",
       "description": "快手开源中英双语文生图模型，中文提示词理解强。",
-      "tags": ["kolors", "中文", "基础模型"],
+      "tags": [
+        "kolors",
+        "中文",
+        "基础模型"
+      ],
       "models": [
-        { "name": "Kolors.safetensors", "type": "checkpoint", "sources": [ { "platform": "modelscope", "url": "https://modelscope.cn/models/Kwai-Kolors/Kolors", "size": "11 GB", "note": "国内直连" }, { "platform": "huggingface", "url": "https://huggingface.co/Kwai-Kolors/Kolors/tree/main", "size": "11 GB" } ] }
+        {
+          "name": "Kolors.safetensors",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/Kwai-Kolors/Kolors",
+              "size": "11 GB",
+              "note": "国内直连"
+            },
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Kwai-Kolors/Kolors/tree/main",
+              "size": "11 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -448,9 +986,23 @@
       "official": false,
       "maintenance": "active",
       "description": "开源 Flux 类文生图模型，兼容 Flux 工作流。",
-      "tags": ["auraflow", "flux类", "基础模型"],
+      "tags": [
+        "auraflow",
+        "flux类",
+        "基础模型"
+      ],
       "models": [
-        { "name": "AuraFlow-v0.3", "type": "checkpoint", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/fal/AuraFlow-v0.3/tree/main", "size": "23 GB" } ] }
+        {
+          "name": "AuraFlow-v0.3",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/fal/AuraFlow-v0.3/tree/main",
+              "size": "23 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -462,9 +1014,23 @@
       "official": false,
       "maintenance": "active",
       "description": "Stable Cascade 级联文生图（高效、可微调）。",
-      "tags": ["cascade", "stable", "基础模型"],
+      "tags": [
+        "cascade",
+        "stable",
+        "基础模型"
+      ],
       "models": [
-        { "name": "stable-cascade", "type": "checkpoint", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/stabilityai/stable-cascade/tree/main", "size": "12 GB" } ] }
+        {
+          "name": "stable-cascade",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/stable-cascade/tree/main",
+              "size": "12 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -476,9 +1042,23 @@
       "official": false,
       "maintenance": "active",
       "description": "高效 Transformer 文生图模型（快、省显存）。",
-      "tags": ["pixart", "transformer", "基础模型"],
+      "tags": [
+        "pixart",
+        "transformer",
+        "基础模型"
+      ],
       "models": [
-        { "name": "PixArt-XL-2-1024-MS", "type": "checkpoint", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/PixArt-alpha/PixArt-XL-2-1024-MS/tree/main", "size": "5.2 GB" } ] }
+        {
+          "name": "PixArt-XL-2-1024-MS",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/PixArt-alpha/PixArt-XL-2-1024-MS/tree/main",
+              "size": "5.2 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -490,9 +1070,30 @@
       "official": false,
       "maintenance": "active",
       "description": "腾讯混元 DiT 中英双语文生图模型。",
-      "tags": ["hunyuan", "dit", "中文", "基础模型"],
+      "tags": [
+        "hunyuan",
+        "dit",
+        "中文",
+        "基础模型"
+      ],
       "models": [
-        { "name": "HunyuanDiT-v1.2", "type": "checkpoint", "sources": [ { "platform": "modelscope", "url": "https://modelscope.cn/models/Tencent-Hunyuan/HunyuanDiT", "size": "7 GB", "note": "国内直连" }, { "platform": "huggingface", "url": "https://huggingface.co/Tencent-Hunyuan/HunyuanDiT/tree/main", "size": "7 GB" } ] }
+        {
+          "name": "HunyuanDiT-v1.2",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/Tencent-Hunyuan/HunyuanDiT",
+              "size": "7 GB",
+              "note": "国内直连"
+            },
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Tencent-Hunyuan/HunyuanDiT/tree/main",
+              "size": "7 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -504,9 +1105,27 @@
       "official": true,
       "maintenance": "active",
       "description": "Stable Diffusion 3.5 文生图（medium/large 变体）。",
-      "tags": ["sd3", "基础模型"],
+      "tags": [
+        "sd3",
+        "基础模型"
+      ],
       "models": [
-        { "name": "stable-diffusion-3.5-medium", "type": "checkpoint", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/stabilityai/stable-diffusion-3.5-medium/tree/main", "size": "8 GB" }, { "platform": "hf-mirror", "url": "https://hf-mirror.com/stabilityai/stable-diffusion-3.5-medium/tree/main", "size": "8 GB" } ] }
+        {
+          "name": "stable-diffusion-3.5-medium",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/stable-diffusion-3.5-medium/tree/main",
+              "size": "8 GB"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/stable-diffusion-3.5-medium/tree/main",
+              "size": "8 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -518,9 +1137,23 @@
       "official": false,
       "maintenance": "active",
       "description": "人脸修复/增强（CodeFormer 盲脸修复）。",
-      "tags": ["codeformer", "人脸修复", "增强"],
+      "tags": [
+        "codeformer",
+        "人脸修复",
+        "增强"
+      ],
       "models": [
-        { "name": "CodeFormer.pth", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/sczhou/CodeFormer/tree/main", "size": "0.2 GB" } ] }
+        {
+          "name": "CodeFormer.pth",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/sczhou/CodeFormer/tree/main",
+              "size": "0.2 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -532,9 +1165,23 @@
       "official": false,
       "maintenance": "active",
       "description": "经典人脸修复/清晰化模型。",
-      "tags": ["gfpgan", "人脸修复", "清晰化"],
+      "tags": [
+        "gfpgan",
+        "人脸修复",
+        "清晰化"
+      ],
       "models": [
-        { "name": "GFPGANv1.4.pth", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/TencentARC/GFPGAN/tree/main", "size": "0.3 GB" } ] }
+        {
+          "name": "GFPGANv1.4.pth",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/TencentARC/GFPGAN/tree/main",
+              "size": "0.3 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -546,9 +1193,24 @@
       "official": false,
       "maintenance": "active",
       "description": "音频驱动人脸/口型动画（数字人）。",
-      "tags": ["hallo", "数字人", "口型", "音频驱动"],
+      "tags": [
+        "hallo",
+        "数字人",
+        "口型",
+        "音频驱动"
+      ],
       "models": [
-        { "name": "hallo2", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/fudan-generative-ai/hallo2/tree/main", "size": "4 GB" } ] }
+        {
+          "name": "hallo2",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/fudan-generative-ai/hallo2/tree/main",
+              "size": "4 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -560,9 +1222,23 @@
       "official": false,
       "maintenance": "active",
       "description": "实时数字人口型同步（MuseTalk）。",
-      "tags": ["musetalk", "数字人", "口型"],
+      "tags": [
+        "musetalk",
+        "数字人",
+        "口型"
+      ],
       "models": [
-        { "name": "MuseTalk", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/TMElyralab/MuseTalk/tree/main", "size": "1.5 GB" } ] }
+        {
+          "name": "MuseTalk",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/TMElyralab/MuseTalk/tree/main",
+              "size": "1.5 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -574,9 +1250,23 @@
       "official": false,
       "maintenance": "active",
       "description": "经典口型同步模型（Wav2Lip）。",
-      "tags": ["wav2lip", "口型", "数字人"],
+      "tags": [
+        "wav2lip",
+        "口型",
+        "数字人"
+      ],
       "models": [
-        { "name": "wav2lip.pth / wav2lip_gan.pth", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/Rudrabha/Wav2Lip/tree/main", "size": "0.4 GB" } ] }
+        {
+          "name": "wav2lip.pth / wav2lip_gan.pth",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Rudrabha/Wav2Lip/tree/main",
+              "size": "0.4 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -588,9 +1278,24 @@
       "official": false,
       "maintenance": "active",
       "description": "帧插值补帧（RIFE），让视频更流畅。",
-      "tags": ["rife", "补帧", "插值", "视频"],
+      "tags": [
+        "rife",
+        "补帧",
+        "插值",
+        "视频"
+      ],
       "models": [
-        { "name": "RIFE", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/ac960/RIFE/tree/main", "size": "0.06 GB" } ] }
+        {
+          "name": "RIFE",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ac960/RIFE/tree/main",
+              "size": "0.06 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -602,9 +1307,23 @@
       "official": false,
       "maintenance": "active",
       "description": "通用深度估计（Depth Anything），可用于景深/3D。",
-      "tags": ["depth", "深度估计", "感知"],
+      "tags": [
+        "depth",
+        "深度估计",
+        "感知"
+      ],
       "models": [
-        { "name": "depth-anything-large", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/LiheYoung/Depth-Anything-Large-hf/tree/main", "size": "0.6 GB" } ] }
+        {
+          "name": "depth-anything-large",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/LiheYoung/Depth-Anything-Large-hf/tree/main",
+              "size": "0.6 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -616,9 +1335,24 @@
       "official": false,
       "maintenance": "active",
       "description": "视觉理解/图像打标/ grounding（Florence-2）。",
-      "tags": ["florence2", "打标", "视觉理解", "vlm"],
+      "tags": [
+        "florence2",
+        "打标",
+        "视觉理解",
+        "vlm"
+      ],
       "models": [
-        { "name": "Florence-2-large", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/microsoft/Florence-2-large/tree/main", "size": "2.3 GB" } ] }
+        {
+          "name": "Florence-2-large",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/microsoft/Florence-2-large/tree/main",
+              "size": "2.3 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -630,9 +1364,24 @@
       "official": false,
       "maintenance": "active",
       "description": "自动为图像生成 Danbooru 风格标签（打标）。",
-      "tags": ["wd14", "打标", "tagger", "danbooru"],
+      "tags": [
+        "wd14",
+        "打标",
+        "tagger",
+        "danbooru"
+      ],
       "models": [
-        { "name": "wd-v1-4-vit-tagger-v2", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/SmilingWolf/wd-v1-4-vit-tagger-v2/tree/main", "size": "0.4 GB" } ] }
+        {
+          "name": "wd-v1-4-vit-tagger-v2",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/SmilingWolf/wd-v1-4-vit-tagger-v2/tree/main",
+              "size": "0.4 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -644,9 +1393,24 @@
       "official": false,
       "maintenance": "active",
       "description": "语音识别/字幕生成（Whisper）。",
-      "tags": ["whisper", "语音识别", "字幕", "asr"],
+      "tags": [
+        "whisper",
+        "语音识别",
+        "字幕",
+        "asr"
+      ],
       "models": [
-        { "name": "whisper-large-v3", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/openai/whisper-large-v3/tree/main", "size": "3 GB" } ] }
+        {
+          "name": "whisper-large-v3",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/openai/whisper-large-v3/tree/main",
+              "size": "3 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -658,9 +1422,28 @@
       "official": false,
       "maintenance": "active",
       "description": "轻量控制网络（比 ControlNet 更小更快）。",
-      "tags": ["t2i-adapter", "控制网络", "轻量"],
+      "tags": [
+        "t2i-adapter",
+        "控制网络",
+        "轻量"
+      ],
       "models": [
-        { "name": "t2i-adapter (sketch/color/depth)", "type": "controlnet", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/TencentARC/T2I-Adapter/tree/main", "size": "0.2 GB" }, { "platform": "modelscope", "url": "https://modelscope.cn/models/TencentARC/T2I-Adapter/files", "size": "0.2 GB" } ] }
+        {
+          "name": "t2i-adapter (sketch/color/depth)",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/TencentARC/T2I-Adapter/tree/main",
+              "size": "0.2 GB"
+            },
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/TencentARC/T2I-Adapter/files",
+              "size": "0.2 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -672,10 +1455,46 @@
       "official": true,
       "maintenance": "active",
       "description": "LoRA 由核心 LoRA Loader 加载，模型多在 Civitai / 哩布等社区平台分发。下方为搜索入口，按需查找具体风格/LoRA。",
-      "tags": ["lora", "风格", "civitai", "哩布", "社区"],
+      "tags": [
+        "lora",
+        "风格",
+        "civitai",
+        "哩布",
+        "社区"
+      ],
       "models": [
-        { "name": "Detail Tweaker / Add More Details 等风格 LoRA", "type": "lora", "sources": [ { "platform": "civitai", "url": "https://civitai.com/models?query=Detail%20Tweaker%20LoRA", "note": "C 站搜索，按需下载" }, { "platform": "liblibai", "url": "https://www.liblib.art/search?searchText=detail%20tweaker", "note": "哩布搜索" } ] },
-        { "name": "角色 / 画风 LoRA", "type": "lora", "sources": [ { "platform": "civitai", "url": "https://civitai.com/models?query=style%20lora", "note": "C 站风格 LoRA 合集" }, { "platform": "liblibai", "url": "https://www.liblib.art/search?searchText=%E7%94%BB%E9%A3%8E%20lora", "note": "哩布画风 LoRA" } ] }
+        {
+          "name": "Detail Tweaker / Add More Details 等风格 LoRA",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models?query=Detail%20Tweaker%20LoRA",
+              "note": "C 站搜索，按需下载"
+            },
+            {
+              "platform": "liblibai",
+              "url": "https://www.liblib.art/search?searchText=detail%20tweaker",
+              "note": "哩布搜索"
+            }
+          ]
+        },
+        {
+          "name": "角色 / 画风 LoRA",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models?query=style%20lora",
+              "note": "C 站风格 LoRA 合集"
+            },
+            {
+              "platform": "liblibai",
+              "url": "https://www.liblib.art/search?searchText=%E7%94%BB%E9%A3%8E%20lora",
+              "note": "哩布画风 LoRA"
+            }
+          ]
+        }
       ]
     },
     {
@@ -687,9 +1506,29 @@
       "official": false,
       "maintenance": "active",
       "description": "指令驱动的局部重绘/生图/参考编辑（ACE++）。",
-      "tags": ["ace", "局部重绘", "参考编辑"],
+      "tags": [
+        "ace",
+        "局部重绘",
+        "参考编辑"
+      ],
       "models": [
-        { "name": "ACE_Plus", "type": "other", "sources": [ { "platform": "modelscope", "url": "https://modelscope.cn/models/iic/ACE_Plus", "size": "12 GB", "note": "国内直连" }, { "platform": "huggingface", "url": "https://huggingface.co/ali-vilab/ACE_Plus/tree/main", "size": "12 GB" } ] }
+        {
+          "name": "ACE_Plus",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/iic/ACE_Plus",
+              "size": "12 GB",
+              "note": "国内直连"
+            },
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ali-vilab/ACE_Plus/tree/main",
+              "size": "12 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -701,7 +1540,11 @@
       "official": false,
       "maintenance": "active",
       "description": "分块绘制，用低显存出大图。纯逻辑节点。",
-      "tags": ["tiled", "分块", "大图"],
+      "tags": [
+        "tiled",
+        "分块",
+        "大图"
+      ],
       "models": []
     },
     {
@@ -713,7 +1556,11 @@
       "official": false,
       "maintenance": "active",
       "description": "常用排版/调度/动画辅助节点集合。纯逻辑节点。",
-      "tags": ["comfyroll", "工具", "动画辅助"],
+      "tags": [
+        "comfyroll",
+        "工具",
+        "动画辅助"
+      ],
       "models": []
     },
     {
@@ -725,7 +1572,11 @@
       "official": false,
       "maintenance": "active",
       "description": "缓存加速推理，缩短生图时间。纯逻辑节点。",
-      "tags": ["deepcache", "加速", "性能"],
+      "tags": [
+        "deepcache",
+        "加速",
+        "性能"
+      ],
       "models": []
     },
     {
@@ -737,10 +1588,13 @@
       "official": false,
       "maintenance": "active",
       "description": "自动调节 CFG，改善画质/稳定性。纯逻辑节点。",
-      "tags": ["cfg", "自动", "调参"],
+      "tags": [
+        "cfg",
+        "自动",
+        "调参"
+      ],
       "models": []
     },
-
     {
       "id": "anything-v5",
       "name": "Anything V5 (二次元底模)",
@@ -750,9 +1604,25 @@
       "official": false,
       "maintenance": "active",
       "description": "经典二次元/动漫专用 SD1.5 底模，出动漫角色/场景效果好。",
-      "tags": ["二次元", "动漫", "checkpoint", "sd1.5"],
+      "tags": [
+        "二次元",
+        "动漫",
+        "checkpoint",
+        "sd1.5"
+      ],
       "models": [
-        { "name": "AnythingV5_v5PrtRE.safetensors", "type": "checkpoint", "sources": [ { "platform": "civitai", "url": "https://civitai.com/models/9409", "size": "4 GB", "note": "C 站，按需下载" } ] }
+        {
+          "name": "AnythingV5_v5PrtRE.safetensors",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/9409",
+              "size": "4 GB",
+              "note": "C 站，按需下载"
+            }
+          ]
+        }
       ]
     },
     {
@@ -764,9 +1634,25 @@
       "official": false,
       "maintenance": "active",
       "description": "偏日系动漫风格的高质量底模，色彩明快。",
-      "tags": ["二次元", "动漫", "checkpoint", "日系"],
+      "tags": [
+        "二次元",
+        "动漫",
+        "checkpoint",
+        "日系"
+      ],
       "models": [
-        { "name": "meinamix_v11.safetensors", "type": "checkpoint", "sources": [ { "platform": "civitai", "url": "https://civitai.com/models/6952", "size": "4 GB", "note": "C 站" } ] }
+        {
+          "name": "meinamix_v11.safetensors",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/6952",
+              "size": "4 GB",
+              "note": "C 站"
+            }
+          ]
+        }
       ]
     },
     {
@@ -778,9 +1664,25 @@
       "official": false,
       "maintenance": "active",
       "description": "3D 渲染感强的二次元底模，常被用于写实向二次元。",
-      "tags": ["二次元", "动漫", "checkpoint", "3d"],
+      "tags": [
+        "二次元",
+        "动漫",
+        "checkpoint",
+        "3d"
+      ],
       "models": [
-        { "name": "AOM3A1B_orangemixHard.safetensors", "type": "checkpoint", "sources": [ { "platform": "civitai", "url": "https://civitai.com/models/5414", "size": "4 GB", "note": "C 站" } ] }
+        {
+          "name": "AOM3A1B_orangemixHard.safetensors",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/5414",
+              "size": "4 GB",
+              "note": "C 站"
+            }
+          ]
+        }
       ]
     },
     {
@@ -792,9 +1694,24 @@
       "official": false,
       "maintenance": "active",
       "description": "Civitai 上更多动漫底模（Counterfeit、Cetus-Mix、BluePencil 等）的搜索入口，按需挑选。",
-      "tags": ["二次元", "动漫", "合集", "搜索"],
+      "tags": [
+        "二次元",
+        "动漫",
+        "合集",
+        "搜索"
+      ],
       "models": [
-        { "name": "各类动漫底模", "type": "checkpoint", "sources": [ { "platform": "civitai", "url": "https://civitai.com/models?query=anime%20checkpoint", "note": "C 站搜索" } ] }
+        {
+          "name": "各类动漫底模",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models?query=anime%20checkpoint",
+              "note": "C 站搜索"
+            }
+          ]
+        }
       ]
     },
     {
@@ -806,9 +1723,30 @@
       "official": false,
       "maintenance": "active",
       "description": "专为二次元图设计的 ESRGAN 放大模型，线条更锐利。",
-      "tags": ["二次元", "放大", "upscale", "esrgan"],
+      "tags": [
+        "二次元",
+        "放大",
+        "upscale",
+        "esrgan"
+      ],
       "models": [
-        { "name": "4x-AnimeSharp.pth", "type": "upscale", "sources": [ { "platform": "civitai", "url": "https://civitai.com/models/83810", "size": "0.07 GB", "note": "C 站" }, { "platform": "liblibai", "url": "https://www.liblib.art/search?searchText=4x-AnimeSharp", "note": "哩布搜索" } ] }
+        {
+          "name": "4x-AnimeSharp.pth",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/83810",
+              "size": "0.07 GB",
+              "note": "C 站"
+            },
+            {
+              "platform": "liblibai",
+              "url": "https://www.liblib.art/search?searchText=4x-AnimeSharp",
+              "note": "哩布搜索"
+            }
+          ]
+        }
       ]
     },
     {
@@ -820,12 +1758,26 @@
       "official": false,
       "maintenance": "active",
       "description": "通用 ESRGAN 放大模型，写实/二次元均可用。",
-      "tags": ["放大", "upscale", "通用"],
+      "tags": [
+        "放大",
+        "upscale",
+        "通用"
+      ],
       "models": [
-        { "name": "4x-UltraSharp.pth", "type": "upscale", "sources": [ { "platform": "civitai", "url": "https://civitai.com/models/104660", "size": "0.07 GB", "note": "C 站" } ] }
+        {
+          "name": "4x-UltraSharp.pth",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/104660",
+              "size": "0.07 GB",
+              "note": "C 站"
+            }
+          ]
+        }
       ]
     },
-
     {
       "id": "ootdiffusion",
       "name": "OOTDiffusion (虚拟试衣)",
@@ -835,9 +1787,25 @@
       "official": false,
       "maintenance": "active",
       "description": "基于双流扩散的换装/试衣模型，电商模特图生成常用。",
-      "tags": ["电商", "试衣", "换装", "virtual-try-on"],
+      "tags": [
+        "电商",
+        "试衣",
+        "换装",
+        "virtual-try-on"
+      ],
       "models": [
-        { "name": "OOTDiffusion (viton + openpose)", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/levihsu/OOTDiffusion/tree/main", "size": "8 GB", "note": "含 viton 与 openpose 权重" } ] }
+        {
+          "name": "OOTDiffusion (viton + openpose)",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/levihsu/OOTDiffusion/tree/main",
+              "size": "8 GB",
+              "note": "含 viton 与 openpose 权重"
+            }
+          ]
+        }
       ]
     },
     {
@@ -849,9 +1817,24 @@
       "official": false,
       "maintenance": "active",
       "description": "单张服装图 + 人物图的高保真虚拟试衣。",
-      "tags": ["电商", "试衣", "换装", "virtual-try-on"],
+      "tags": [
+        "电商",
+        "试衣",
+        "换装",
+        "virtual-try-on"
+      ],
       "models": [
-        { "name": "StableVITON", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/rlawjdghek/StableVITON/tree/main", "size": "7 GB" } ] }
+        {
+          "name": "StableVITON",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/rlawjdghek/StableVITON/tree/main",
+              "size": "7 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -863,9 +1846,24 @@
       "official": false,
       "maintenance": "active",
       "description": "高保真虚拟试衣（IDM-VTON）的 ComfyUI 封装，细节还原好。",
-      "tags": ["电商", "试衣", "换装", "virtual-try-on"],
+      "tags": [
+        "电商",
+        "试衣",
+        "换装",
+        "virtual-try-on"
+      ],
       "models": [
-        { "name": "IDM-VTON", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/yisol/IDM-VTON/tree/main", "size": "12 GB" } ] }
+        {
+          "name": "IDM-VTON",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/yisol/IDM-VTON/tree/main",
+              "size": "12 GB"
+            }
+          ]
+        }
       ]
     },
     {
@@ -877,12 +1875,32 @@
       "official": false,
       "maintenance": "active",
       "description": "通用高质量抠图，电商白底图/商品去背景首选，体积小速度快。",
-      "tags": ["电商", "抠图", "去背景", "matting"],
+      "tags": [
+        "电商",
+        "抠图",
+        "去背景",
+        "matting"
+      ],
       "models": [
-        { "name": "RMBG-2.0", "type": "other", "sources": [ { "platform": "huggingface", "url": "https://huggingface.co/briaai/RMBG-2.0/tree/main", "size": "0.18 GB" }, { "platform": "modelscope", "url": "https://modelscope.cn/models/briaai/RMBG-2.0/files", "size": "0.18 GB", "note": "国内直连" } ] }
+        {
+          "name": "RMBG-2.0",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/briaai/RMBG-2.0/tree/main",
+              "size": "0.18 GB"
+            },
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/briaai/RMBG-2.0/files",
+              "size": "0.18 GB",
+              "note": "国内直连"
+            }
+          ]
+        }
       ]
     },
-
     {
       "id": "detail-tweaker-lora",
       "name": "Detail Tweaker LoRA (精细度)",
@@ -892,9 +1910,25 @@
       "official": false,
       "maintenance": "active",
       "description": "提升画面细节与质感的常用 LoRA，几乎通用于各类底模。",
-      "tags": ["lora", "细节", "画质", "enhance"],
+      "tags": [
+        "lora",
+        "细节",
+        "画质",
+        "enhance"
+      ],
       "models": [
-        { "name": "Detail Tweaker LoRA", "type": "lora", "sources": [ { "platform": "civitai", "url": "https://civitai.com/models/58390", "size": "0.14 GB", "note": "C 站具体 ID" } ] }
+        {
+          "name": "Detail Tweaker LoRA",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/58390",
+              "size": "0.14 GB",
+              "note": "C 站具体 ID"
+            }
+          ]
+        }
       ]
     },
     {
@@ -906,9 +1940,25 @@
       "official": false,
       "maintenance": "active",
       "description": "增强纹理与细枝末节，配合任意底模提升完成度。",
-      "tags": ["lora", "细节", "增强", "enhance"],
+      "tags": [
+        "lora",
+        "细节",
+        "增强",
+        "enhance"
+      ],
       "models": [
-        { "name": "Add More Details", "type": "lora", "sources": [ { "platform": "civitai", "url": "https://civitai.com/models/82098", "size": "0.14 GB", "note": "C 站具体 ID" } ] }
+        {
+          "name": "Add More Details",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/82098",
+              "size": "0.14 GB",
+              "note": "C 站具体 ID"
+            }
+          ]
+        }
       ]
     },
     {
@@ -920,9 +1970,29 @@
       "official": false,
       "maintenance": "active",
       "description": "Civitai 上热门画风 LoRA（如电影感、水彩、赛博朋克等）的搜索入口，按需选用。",
-      "tags": ["lora", "风格", "画风", "合集"],
+      "tags": [
+        "lora",
+        "风格",
+        "画风",
+        "合集"
+      ],
       "models": [
-        { "name": "各类风格 LoRA", "type": "lora", "sources": [ { "platform": "civitai", "url": "https://civitai.com/models?query=style%20lora", "note": "C 站风格 LoRA 搜索" }, { "platform": "liblibai", "url": "https://www.liblib.art/search?searchText=%E7%94%BB%E9%A3%8E%20lora", "note": "哩布画风搜索" } ] }
+        {
+          "name": "各类风格 LoRA",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models?query=style%20lora",
+              "note": "C 站风格 LoRA 搜索"
+            },
+            {
+              "platform": "liblibai",
+              "url": "https://www.liblib.art/search?searchText=%E7%94%BB%E9%A3%8E%20lora",
+              "note": "哩布画风搜索"
+            }
+          ]
+        }
       ]
     },
     {
@@ -934,7 +2004,12 @@
       "official": false,
       "maintenance": "active",
       "description": "ComfyUI 老牌综合工具包：图像处理/滤镜/遮罩/文本/逻辑/数字/文件/动画等数百个节点，装机量极大。",
-      "tags": ["工具", "逻辑", "图像处理", "综合"],
+      "tags": [
+        "工具",
+        "逻辑",
+        "图像处理",
+        "综合"
+      ],
       "models": []
     },
     {
@@ -946,7 +2021,12 @@
       "official": false,
       "maintenance": "active",
       "description": "各种扩展节点：Lora Block Weight、Regional Prompt、Backend Cache、Prompt/List 工具等（Impact Pack 作者的另一套）。",
-      "tags": ["工具", "区域提示", "lora", "缓存"],
+      "tags": [
+        "工具",
+        "区域提示",
+        "lora",
+        "缓存"
+      ],
       "models": []
     },
     {
@@ -958,7 +2038,11 @@
       "official": false,
       "maintenance": "active",
       "description": "ControlNet 预处理节点合集（OpenPose / Canny / Depth / Lineart 等 hint 图生成），常用 ControlNet 工作流必备。",
-      "tags": ["controlnet", "预处理", "hint"],
+      "tags": [
+        "controlnet",
+        "预处理",
+        "hint"
+      ],
       "models": []
     },
     {
@@ -970,7 +2054,11 @@
       "official": false,
       "maintenance": "archived",
       "description": "精简工作流的实用节点：Efficient Loader、Ksamper (Efficient)、XY Plot 等。",
-      "tags": ["工具", "loader", "xy-plot"],
+      "tags": [
+        "工具",
+        "loader",
+        "xy-plot"
+      ],
       "models": []
     },
     {
@@ -982,7 +2070,11 @@
       "official": false,
       "maintenance": "active",
       "description": "高质量逻辑/流程节点：Power Lora Loader、NodeGraphOrganizer、Fast Groups Bypasser、Show Text 等。",
-      "tags": ["逻辑", "流程", "工具"],
+      "tags": [
+        "逻辑",
+        "流程",
+        "工具"
+      ],
       "models": []
     },
     {
@@ -994,7 +2086,11 @@
       "official": false,
       "maintenance": "active",
       "description": "Cutoff 节点：限制 prompt 中 token 的影响范围，常用于风格控制。",
-      "tags": ["prompt", "风格", "cutoff"],
+      "tags": [
+        "prompt",
+        "风格",
+        "cutoff"
+      ],
       "models": []
     },
     {
@@ -1006,7 +2102,11 @@
       "official": false,
       "maintenance": "active",
       "description": "Detail Daemon：采样阶段动态调节细节强度，免改 workflow 即可提细节。",
-      "tags": ["细节", "采样", "daemon"],
+      "tags": [
+        "细节",
+        "采样",
+        "daemon"
+      ],
       "models": []
     },
     {
@@ -1018,7 +2118,11 @@
       "official": false,
       "maintenance": "active",
       "description": "Tiled KSampler：分块采样，低显存也能跑大图 / 高分辨率。",
-      "tags": ["分块", "显存", "tiled"],
+      "tags": [
+        "分块",
+        "显存",
+        "tiled"
+      ],
       "models": []
     },
     {
@@ -1030,7 +2134,12 @@
       "official": false,
       "maintenance": "active",
       "description": "cubiq 出品的基础工具包：分辨率选择器、图像缩放/裁剪/旋转/翻转/混合、遮罩处理、数值计算、批量加载等，几乎装机必装。",
-      "tags": ["工具", "图像处理", "遮罩", "基础"],
+      "tags": [
+        "工具",
+        "图像处理",
+        "遮罩",
+        "基础"
+      ],
       "models": []
     },
     {
@@ -1042,7 +2151,12 @@
       "official": false,
       "maintenance": "active",
       "description": "性能与元数据工具：显存/耗时监控、节点耗时统计、图像信息(EXIF/prompt)读取、metadata 编辑等。",
-      "tags": ["性能", "元数据", "监控", "工具"],
+      "tags": [
+        "性能",
+        "元数据",
+        "监控",
+        "工具"
+      ],
       "models": []
     },
     {
@@ -1054,7 +2168,11 @@
       "official": false,
       "maintenance": "active",
       "description": "逻辑控制节点：开关、比较、布尔、条件分支，方便在 workflow 里做动态路由。",
-      "tags": ["逻辑", "条件", "控制流"],
+      "tags": [
+        "逻辑",
+        "条件",
+        "控制流"
+      ],
       "models": []
     },
     {
@@ -1066,7 +2184,1271 @@
       "official": false,
       "maintenance": "active",
       "description": "Derfuu 实用修改节点：像素缩放、数学运算、条件/数值工具等老牌工具集。",
-      "tags": ["工具", "数学", "缩放"],
+      "tags": [
+        "工具",
+        "数学",
+        "缩放"
+      ],
+      "models": []
+    },
+    {
+      "id": "sd21",
+      "name": "SD 2.1 (核心)",
+      "repo": "https://github.com/comfyanonymous/ComfyUI",
+      "category": "基础模型",
+      "author": "Stability AI / ComfyUI",
+      "official": true,
+      "maintenance": "active",
+      "description": "Stable Diffusion 2.1 基础模型，带深度/升级采样等原生能力。",
+      "tags": [
+        "sd21",
+        "checkpoint",
+        "基础模型"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-2-1",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/stable-diffusion-2-1/tree/main",
+              "size": "5.2 GB"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/stable-diffusion-2-1/tree/main",
+              "size": "5.2 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sdxl-turbo",
+      "name": "SDXL Turbo (极速)",
+      "repo": "https://github.com/comfyanonymous/ComfyUI",
+      "category": "基础模型",
+      "author": "Stability AI / ComfyUI",
+      "official": true,
+      "maintenance": "active",
+      "description": "单步出图的 Turbo 模型，适合实时预览/草图，画质低于常规 SDXL。",
+      "tags": [
+        "sdxl",
+        "turbo",
+        "极速",
+        "基础模型"
+      ],
+      "models": [
+        {
+          "name": "sdxl-turbo",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/sdxl-turbo/tree/main",
+              "size": "6.9 GB"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/sdxl-turbo/tree/main",
+              "size": "6.9 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sd-turbo",
+      "name": "SD Turbo (极速)",
+      "repo": "https://github.com/comfyanonymous/ComfyUI",
+      "category": "基础模型",
+      "author": "Stability AI / ComfyUI",
+      "official": true,
+      "maintenance": "active",
+      "description": "SD1.5 的 Turbo 单步版本，极快草图生成。",
+      "tags": [
+        "sd15",
+        "turbo",
+        "极速",
+        "基础模型"
+      ],
+      "models": [
+        {
+          "name": "sd-turbo",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/sd-turbo/tree/main",
+              "size": "4.3 GB"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/sd-turbo/tree/main",
+              "size": "4.3 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "playground-v25",
+      "name": "Playground v2.5",
+      "repo": "https://huggingface.co/playgroundai/playground-v2.5-1024px-aesthetic",
+      "category": "基础模型",
+      "author": "Playground AI",
+      "official": false,
+      "maintenance": "active",
+      "description": "美学取向强的 SDXL 微调底模，色彩与构图讨喜。",
+      "tags": [
+        "playground",
+        "sdxl",
+        "美学",
+        "基础模型"
+      ],
+      "models": [
+        {
+          "name": "playground-v2.5-1024px-aesthetic",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/playgroundai/playground-v2.5-1024px-aesthetic/tree/main",
+              "size": "6.9 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "qwen-image",
+      "name": "Qwen-Image",
+      "repo": "https://huggingface.co/Qwen/Qwen-Image",
+      "category": "基础模型",
+      "author": "阿里 Qwen",
+      "official": true,
+      "maintenance": "active",
+      "description": "通义千问图像生成大模型（中英双语、复杂语义强），需较大显存或量化。",
+      "tags": [
+        "qwen",
+        "中文",
+        "基础模型",
+        "大模型"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/Qwen/Qwen-Image",
+              "size": "约 25 GB（可量化）",
+              "note": "国内直连"
+            },
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Qwen/Qwen-Image/tree/main",
+              "size": "约 25 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "janus-pro",
+      "name": "Janus-Pro (多模态)",
+      "repo": "https://huggingface.co/deepseek-ai/Janus-Pro",
+      "category": "基础模型",
+      "author": "DeepSeek",
+      "official": false,
+      "maintenance": "active",
+      "description": "DeepSeek 统一多模态模型，支持文生图与图像理解，可用于打标/反推。",
+      "tags": [
+        "janus",
+        "deepseek",
+        "多模态",
+        "vlm"
+      ],
+      "models": [
+        {
+          "name": "Janus-Pro-7B",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/deepseek-ai/Janus-Pro/tree/main",
+              "size": "15 GB"
+            },
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/deepseek-ai/Janus-Pro",
+              "size": "15 GB",
+              "note": "国内直连"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dreamshaper-xl",
+      "name": "DreamShaper XL",
+      "repo": "https://civitai.com/models/112902",
+      "category": "通用底模",
+      "author": "Lykon",
+      "official": false,
+      "maintenance": "active",
+      "description": "全能型 SDXL 底模，写实/二次元/概念图都好用，社区装机量极高。",
+      "tags": [
+        "通用",
+        "sdxl",
+        "checkpoint",
+        "dreamshaper"
+      ],
+      "models": [
+        {
+          "name": "DreamShaper XL",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/112902",
+              "size": "6.6 GB",
+              "note": "C 站"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "juggernaut-xl",
+      "name": "Juggernaut XL",
+      "repo": "https://civitai.com/models/133005",
+      "category": "通用底模",
+      "author": "RunDiffusion",
+      "official": false,
+      "maintenance": "active",
+      "description": "高质感写实 SDXL 底模，光影与细节出色。",
+      "tags": [
+        "通用",
+        "sdxl",
+        "写实",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Juggernaut XL v9",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/133005",
+              "size": "6.6 GB",
+              "note": "C 站"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "realistic-vision",
+      "name": "Realistic Vision V6.0 B1",
+      "repo": "https://civitai.com/models/4201",
+      "category": "通用底模",
+      "author": "SG_161222",
+      "official": false,
+      "maintenance": "active",
+      "description": "经典写实 SD1.5 底模，照片级人像/风景首选。",
+      "tags": [
+        "写实",
+        "sd15",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Realistic_Vision_V6.0_B1",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/4201",
+              "size": "4 GB",
+              "note": "C 站"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "proteus",
+      "name": "Proteus v0.4",
+      "repo": "https://civitai.com/models/122357",
+      "category": "通用底模",
+      "author": "DreamTuner",
+      "official": false,
+      "maintenance": "active",
+      "description": "偏写实且易出的 SDXL 底模，常被用作默认底模。",
+      "tags": [
+        "通用",
+        "sdxl",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Proteus v0.4",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/122357",
+              "size": "6.6 GB",
+              "note": "C 站"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "counterfeit-xl",
+      "name": "Counterfeit XL",
+      "repo": "https://civitai.com/models/118985",
+      "category": "通用底模",
+      "author": "counterfeit",
+      "official": false,
+      "maintenance": "active",
+      "description": "介于写实与二次元之间的 SDXL 底模，风格柔和。",
+      "tags": [
+        "通用",
+        "sdxl",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Counterfeit XL",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/118985",
+              "size": "6.6 GB",
+              "note": "C 站"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "revanimated",
+      "name": "RevAnimated",
+      "repo": "https://civitai.com/models/7371",
+      "category": "通用底模",
+      "author": "revanimated",
+      "official": false,
+      "maintenance": "active",
+      "description": "半写实半动漫的 SD1.5 底模，兼容大量 LoRA。",
+      "tags": [
+        "通用",
+        "sd15",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "revAnimated",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/7371",
+              "size": "4 GB",
+              "note": "C 站"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "toonyou",
+      "name": "ToonYou",
+      "repo": "https://civitai.com/models/30240",
+      "category": "通用底模",
+      "author": "nguyenbainga",
+      "official": false,
+      "maintenance": "active",
+      "description": "迪士尼/动画风格 SD1.5 底模，做卡通人物很方便。",
+      "tags": [
+        "卡通",
+        "sd15",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "ToonYou",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/30240",
+              "size": "4 GB",
+              "note": "C 站"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "epicrealism",
+      "name": "EpicRealism (合集搜索)",
+      "repo": "https://civitai.com/models?query=EpicRealism",
+      "category": "通用底模",
+      "author": "epicrealism",
+      "official": false,
+      "maintenance": "active",
+      "description": "写实系热门底模系列（EpicRealism Pure / Natural 等），按需挑选。",
+      "tags": [
+        "写实",
+        "checkpoint",
+        "合集"
+      ],
+      "models": [
+        {
+          "name": "EpicRealism 系列",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models?query=EpicRealism",
+              "note": "C 站搜索"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bluepencil-xl",
+      "name": "BluePencil XL",
+      "repo": "https://civitai.com/models/143597",
+      "category": "二次元/动漫",
+      "author": "bluepencil",
+      "official": false,
+      "maintenance": "active",
+      "description": "日系二次元 SDXL 底模，线条干净、上色讨喜。",
+      "tags": [
+        "二次元",
+        "动漫",
+        "sdxl",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "BluePencil XL",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/143597",
+              "size": "6.6 GB",
+              "note": "C 站"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cetus-mix",
+      "name": "Cetus-Mix",
+      "repo": "https://civitai.com/models/72887",
+      "category": "二次元/动漫",
+      "author": "cetus",
+      "official": false,
+      "maintenance": "active",
+      "description": "强二次元 SDXL 底模，画风鲜艳、细节丰富。",
+      "tags": [
+        "二次元",
+        "动漫",
+        "sdxl",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Cetus-Mix",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/72887",
+              "size": "6.6 GB",
+              "note": "C 站"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "counterfeit-v3",
+      "name": "Counterfeit V3.0",
+      "repo": "https://civitai.com/models/35520",
+      "category": "二次元/动漫",
+      "author": "counterfeit",
+      "official": false,
+      "maintenance": "active",
+      "description": "经典二次元 SD1.5 底模，老牌动漫党最爱之一。",
+      "tags": [
+        "二次元",
+        "动漫",
+        "sd15",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Counterfeit-V3.0",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/35520",
+              "size": "4 GB",
+              "note": "C 站"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sdxl-lightning",
+      "name": "SDXL Lightning (极速出图)",
+      "repo": "https://huggingface.co/ByteDance/SDXL-Lightning",
+      "category": "LoRA 精选",
+      "author": "ByteDance",
+      "official": false,
+      "maintenance": "active",
+      "description": "4/8 步即可出图的蒸馏 LoRA，配合基础底模大幅提速。",
+      "tags": [
+        "lora",
+        "极速",
+        "lightning",
+        "sdxl"
+      ],
+      "models": [
+        {
+          "name": "sdxl_lightning_4step / 8step",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ByteDance/SDXL-Lightning/tree/main",
+              "size": "0.4 GB",
+              "note": "按步数选 lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hyper-sd",
+      "name": "Hyper-SD (极速出图)",
+      "repo": "https://huggingface.co/TencentARC/Hyper-SD",
+      "category": "LoRA 精选",
+      "author": "TencentARC",
+      "official": false,
+      "maintenance": "active",
+      "description": "1~8 步极致加速 LoRA，支持 SD1.5/SDXL，兼顾画质与速度。",
+      "tags": [
+        "lora",
+        "极速",
+        "hyper",
+        "sdxl",
+        "sd15"
+      ],
+      "models": [
+        {
+          "name": "Hyper-SD 1step~8step",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/TencentARC/Hyper-SD/tree/main",
+              "size": "0.4 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lcm-lora",
+      "name": "LCM LoRA (潜在一致性)",
+      "repo": "https://huggingface.co/latent-consistency/lcm-lora-sdxl",
+      "category": "LoRA 精选",
+      "author": "Latent Consistency",
+      "official": false,
+      "maintenance": "active",
+      "description": "潜在一致性蒸馏 LoRA，4 步内出图，可与多数底模叠加。",
+      "tags": [
+        "lora",
+        "极速",
+        "lcm",
+        "sdxl",
+        "sd15"
+      ],
+      "models": [
+        {
+          "name": "lcm-lora-sdxl / lcm-lora-sdv1-5",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/latent-consistency/lcm-lora-sdxl/tree/main",
+              "size": "0.4 GB",
+              "note": "SD1.5 版在同组织下"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/latent-consistency/lcm-lora-sdxl/tree/main",
+              "size": "0.4 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "film-grain-lora",
+      "name": "FilmGrain LoRA (电影质感)",
+      "repo": "https://civitai.com/models?query=film%20grain%20lora",
+      "category": "LoRA 精选",
+      "author": "社区",
+      "official": false,
+      "maintenance": "active",
+      "description": "为图像添加胶片颗粒/电影感的常用 LoRA，提升质感。",
+      "tags": [
+        "lora",
+        "胶片",
+        "电影感",
+        "质感"
+      ],
+      "models": [
+        {
+          "name": "各类 FilmGrain LoRA",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models?query=film%20grain%20lora",
+              "note": "C 站搜索"
+            },
+            {
+              "platform": "liblibai",
+              "url": "https://www.liblib.art/search?searchText=film%20grain%20lora",
+              "note": "哩布搜索"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "controlnet-union",
+      "name": "ControlNet Union (SDXL 全能)",
+      "repo": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0",
+      "category": "控制网络",
+      "author": "xinsir",
+      "official": false,
+      "maintenance": "active",
+      "description": "单一模型支持多种控制条件（canny/depth/pose 等）的 SDXL 全能 ControlNet。",
+      "tags": [
+        "controlnet",
+        "全能",
+        "sdxl",
+        "union"
+      ],
+      "models": [
+        {
+          "name": "controlnet-union-sdxl-1.0",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/tree/main",
+              "size": "6.9 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mistoline",
+      "name": "MistoLine (线稿控制)",
+      "repo": "https://huggingface.co/TheMistoAI/MistoLine",
+      "category": "控制网络",
+      "author": "TheMistoAI",
+      "official": false,
+      "maintenance": "active",
+      "description": "专精线稿/草图控制的 ControlNet 模型，配合 ControlNet Aux 的 Lineart 预处理使用。",
+      "tags": [
+        "controlnet",
+        "线稿",
+        "lineart",
+        "草图"
+      ],
+      "models": [
+        {
+          "name": "mistoline_sd15 / mistoline_sdxl",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/TheMistoAI/MistoLine/tree/main",
+              "size": "约 3 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ip-adapter-faceid",
+      "name": "IP-Adapter FaceID",
+      "repo": "https://huggingface.co/h94/IP-Adapter-FaceID",
+      "category": "风格控制",
+      "author": "h94",
+      "official": false,
+      "maintenance": "active",
+      "description": "基于人脸特征的高保真身份控制，比普通 IP-Adapter 更锁脸，需 insightface。",
+      "tags": [
+        "ip-adapter",
+        "faceid",
+        "人脸",
+        "身份"
+      ],
+      "models": [
+        {
+          "name": "ip-adapter-faceid-plusv2_sdxl",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/h94/IP-Adapter-FaceID/tree/main/models",
+              "size": "1.2 GB",
+              "note": "SDXL 版"
+            },
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/h94/IP-Adapter-FaceID/tree/main/sdxl_models",
+              "size": "1.0 GB"
+            }
+          ]
+        },
+        {
+          "name": "insightface buffalo_l",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/MonsterMMORPG/tools/tree/main",
+              "size": "0.3 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "svd",
+      "name": "Stable Video Diffusion (图生视频)",
+      "repo": "https://github.com/comfyanonymous/ComfyUI",
+      "category": "视频",
+      "author": "Stability AI / ComfyUI",
+      "official": true,
+      "maintenance": "active",
+      "description": "由单张图生成短视频（SVD / SVD-XT），由 ComfyUI 核心 Video 节点加载。",
+      "tags": [
+        "svd",
+        "图生视频",
+        "视频",
+        "i2v"
+      ],
+      "models": [
+        {
+          "name": "stable-video-diffusion-img2vid-xt",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/stable-video-diffusion/tree/main",
+              "size": "14 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "framepack",
+      "name": "ComfyUI-FramePack (图生视频)",
+      "repo": "https://github.com/kijai/ComfyUI-FramePackWrapper",
+      "category": "视频",
+      "author": "kijai / lllyasviel",
+      "official": false,
+      "maintenance": "active",
+      "description": "下一代图生视频方案，显存占用低、可生成长视频，效果接近商用。",
+      "tags": [
+        "framepack",
+        "图生视频",
+        "视频",
+        "i2v"
+      ],
+      "models": [
+        {
+          "name": "FramePack 权重",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/lllyasviel/framepack/tree/main",
+              "size": "约 12 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vace",
+      "name": "ComfyUI-VACE (视频创作)",
+      "repo": "https://github.com/ali-vilab/VACE",
+      "category": "视频",
+      "author": "阿里 VACE",
+      "official": false,
+      "maintenance": "active",
+      "description": "统一的视频创作/编辑模型（生成、涂抹重绘、参考、帧扩展等），国产、魔搭直连。",
+      "tags": [
+        "vace",
+        "视频",
+        "视频编辑",
+        "视频生成"
+      ],
+      "models": [
+        {
+          "name": "VACE 14B / 1.3B",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/VAST-AI/VACE",
+              "size": "14 GB / 1.3 GB",
+              "note": "国内直连"
+            },
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/VAST-AI/VACE/tree/main",
+              "size": "14 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ecomid",
+      "name": "ComfyUI-EcomID (易用 ID)",
+      "repo": "https://github.com/alimama-creative/SDXL_EcomID_ComfyUI",
+      "category": "人脸",
+      "author": "alimama-creative",
+      "official": false,
+      "maintenance": "active",
+      "description": "比 InstantID 更易用的高保真人脸 ID 方案，单人/多人一致，需 insightface。",
+      "tags": [
+        "ecomid",
+        "人脸",
+        "身份",
+        "id"
+      ],
+      "models": [
+        {
+          "name": "EcomID",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Human-Machine-Symbiosis-Lab/EcomID/tree/main",
+              "size": "1.3 GB"
+            }
+          ]
+        },
+        {
+          "name": "insightface buffalo_l",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/MonsterMMORPG/tools/tree/main",
+              "size": "0.3 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced-liveportrait",
+      "name": "ComfyUI-AdvancedLivePortrait",
+      "repo": "https://github.com/PowerHouseMan/ComfyUI-AdvancedLivePortrait",
+      "category": "人脸",
+      "author": "PowerHouseMan",
+      "official": false,
+      "maintenance": "active",
+      "description": "在 LivePortrait 基础上增强的人脸驱动节点，支持更细的表情/头部控制。",
+      "tags": [
+        "liveportrait",
+        "人脸驱动",
+        "表情",
+        "视频"
+      ],
+      "models": [
+        {
+          "name": "LivePortrait 权重",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/KwaiVGI/LivePortrait/tree/main",
+              "size": "1.4 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "apisr",
+      "name": "APISR (二次元放大)",
+      "repo": "https://huggingface.co/Chu-tianli/APISR",
+      "category": "放大修复",
+      "author": "Chu-tianli",
+      "official": false,
+      "maintenance": "active",
+      "description": "专为动漫/二次元图设计的高质量 ESRGAN 放大模型，线条与纹理更干净。",
+      "tags": [
+        "anime",
+        "放大",
+        "upscale",
+        "esrgan",
+        "二次元"
+      ],
+      "models": [
+        {
+          "name": "APISR 4x / 2x",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Chu-tianli/APISR/tree/main",
+              "size": "0.07 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "realesrgan-x4",
+      "name": "RealESRGAN x4plus (通用放大)",
+      "repo": "https://huggingface.co/xinntao/Real-ESRGAN",
+      "category": "放大修复",
+      "author": "xinntao",
+      "official": false,
+      "maintenance": "active",
+      "description": "经典通用 ESRGAN 放大模型，照片/插画均可用，配合 UltimateSDUpscale 分块放大。",
+      "tags": [
+        "放大",
+        "upscale",
+        "通用",
+        "esrgan"
+      ],
+      "models": [
+        {
+          "name": "RealESRGAN_x4plus.pth",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/xinntao/Real-ESRGAN/tree/main",
+              "size": "0.07 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ddcolor",
+      "name": "DDColor (黑白上色)",
+      "repo": "https://huggingface.co/InterDigital/ddcolor",
+      "category": "放大修复",
+      "author": "InterDigital",
+      "official": false,
+      "maintenance": "active",
+      "description": "基于双解码器的黑白照片自动上色模型，人像/自然场景效果好。",
+      "tags": [
+        "上色",
+        "黑白",
+        "修复",
+        "colorization"
+      ],
+      "models": [
+        {
+          "name": "ddcolor 人像/视频/美术模型",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/InterDigital/ddcolor/tree/main",
+              "size": "0.2 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4x-nmkd-siax",
+      "name": "4x_NMKD-Siax (通用放大)",
+      "repo": "https://civitai.com/models?query=NMKD%20Siax",
+      "category": "放大修复",
+      "author": "NMKD",
+      "official": false,
+      "maintenance": "active",
+      "description": "通用 ESRGAN 放大模型，锐化与细节兼顾，常用于照片放大。",
+      "tags": [
+        "放大",
+        "upscale",
+        "通用"
+      ],
+      "models": [
+        {
+          "name": "4x_NMKD-Siax_200k",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models?query=NMKD%20Siax",
+              "note": "C 站搜索"
+            },
+            {
+              "platform": "liblibai",
+              "url": "https://www.liblib.art/search?searchText=NMKD%20Siax",
+              "note": "哩布搜索"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grounding-dino",
+      "name": "GroundingDINO (检测/框选)",
+      "repo": "https://github.com/IDEA-Research/GroundingDINO",
+      "category": "其他",
+      "author": "IDEA-Research",
+      "official": false,
+      "maintenance": "active",
+      "description": "开放词汇目标检测，可用文字描述定位图中物体，常与 SAM 组合做精准分割。",
+      "tags": [
+        "grounding",
+        "检测",
+        "sam",
+        "感知"
+      ],
+      "models": [
+        {
+          "name": "grounding-dino-base / swin-t",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/IDEA-Research/grounding-dino-base/tree/main",
+              "size": "0.7 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clip-interrogator",
+      "name": "CLIP Interrogator (反推提示词)",
+      "repo": "https://huggingface.co/pharmapsychotic/clip-interrogator",
+      "category": "其他",
+      "author": "pharmapsychotic",
+      "official": false,
+      "maintenance": "active",
+      "description": "上传图反向推测出可用提示词，辅助复刻风格/构图。",
+      "tags": [
+        "interrogator",
+        "反推",
+        "提示词",
+        "打标"
+      ],
+      "models": [
+        {
+          "name": "CLIP-Interrogator 模型",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/pharmapsychotic/clip-interrogator/tree/main",
+              "size": "3 GB",
+              "note": "含 BLIP/CLIP 权重"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "joycaption",
+      "name": "JoyCaption (图像描述)",
+      "repo": "https://huggingface.co/John6666/Joy-Caption-Alpha-Two",
+      "category": "其他",
+      "author": "John6666",
+      "official": false,
+      "maintenance": "active",
+      "description": "高质量图像描述/打标模型，配合 caption 节点批量生成训练用 caption。",
+      "tags": [
+        "joycaption",
+        "打标",
+        "caption",
+        "描述"
+      ],
+      "models": [
+        {
+          "name": "Joy-Caption-Alpha-Two",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/John6666/Joy-Caption-Alpha-Two/tree/main",
+              "size": "12 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "moondream",
+      "name": "Moondream (轻量 VLM)",
+      "repo": "https://huggingface.co/vikhyat/moondream",
+      "category": "其他",
+      "author": "vikhyat",
+      "official": false,
+      "maintenance": "active",
+      "description": "极小体积的多模态视觉语言模型，可做图像问答/描述，本地极快。",
+      "tags": [
+        "moondream",
+        "vlm",
+        "问答",
+        "描述"
+      ],
+      "models": [
+        {
+          "name": "moondream2",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/vikhyat/moondream2/tree/main",
+              "size": "2.2 GB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "qwen2-vl",
+      "name": "Qwen2-VL (视觉理解)",
+      "repo": "https://huggingface.co/Qwen/Qwen2-VL",
+      "category": "其他",
+      "author": "阿里 Qwen",
+      "official": false,
+      "maintenance": "active",
+      "description": "通义千问视觉语言模型，支持图像/视频理解、OCR、打标与问答。",
+      "tags": [
+        "qwen",
+        "vlm",
+        "视觉理解",
+        "ocr"
+      ],
+      "models": [
+        {
+          "name": "Qwen2-VL-7B-Instruct",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct/tree/main",
+              "size": "15 GB"
+            },
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/Qwen/Qwen2-VL-7B-Instruct",
+              "size": "15 GB",
+              "note": "国内直连"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "comfyui-gguf",
+      "name": "ComfyUI-GGUF",
+      "repo": "https://github.com/city96/ComfyUI-GGUF",
+      "category": "工作流增强",
+      "author": "city96",
+      "official": false,
+      "maintenance": "active",
+      "description": "在 ComfyUI 中加载 GGUF 量化模型（FLUX/大模型/LLM），大幅降低显存占用。纯逻辑节点。",
+      "tags": [
+        "gguf",
+        "量化",
+        "flux",
+        "工具"
+      ],
+      "models": []
+    },
+    {
+      "id": "comfyui-dynamic-prompts",
+      "name": "ComfyUI_DynamicPrompts",
+      "repo": "https://github.com/adieyal/comfyui-dynamicprompts",
+      "category": "工作流增强",
+      "author": "adieyal",
+      "official": false,
+      "maintenance": "active",
+      "description": "动态提示词节点：支持通配符、魔法提示、组合变异，批量出图变化更丰富。",
+      "tags": [
+        "prompt",
+        "动态",
+        "通配符",
+        "工具"
+      ],
+      "models": []
+    },
+    {
+      "id": "comfyui-image-saver",
+      "name": "ComfyUI-Image-Saver",
+      "repo": "https://github.com/alexopus/ComfyUI-Image-Saver",
+      "category": "工作流增强",
+      "author": "alexopus",
+      "official": false,
+      "maintenance": "active",
+      "description": "高级图像保存：自定义命名/目录、嵌入工作流元数据、批量与多格式输出。",
+      "tags": [
+        "保存",
+        "导出",
+        "元数据",
+        "工具"
+      ],
+      "models": []
+    },
+    {
+      "id": "comfyui-qol",
+      "name": "ComfyUI-QualityOfLifeSuit_Omar92",
+      "repo": "https://github.com/Omar92/ComfyUI-QualityOfLifeSuit_Omar92",
+      "category": "工作流增强",
+      "author": "Omar92",
+      "official": false,
+      "maintenance": "active",
+      "description": "易用性增强套件：节点组预览、批量队列、快捷操作等，提升日常体验。",
+      "tags": [
+        "qol",
+        "易用性",
+        "工具",
+        "增强"
+      ],
       "models": []
     }
   ]
