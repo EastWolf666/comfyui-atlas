@@ -66,6 +66,7 @@ def main():
     ap.add_argument("--src", default="data/workflows.json", help="源 JSON（完整数据）")
     ap.add_argument("--outdir", default="data", help="产物输出目录")
     ap.add_argument("--shard-size", type=int, default=3000, help="每片条数（默认 3000）")
+    ap.add_argument("--preview", type=int, default=120, help="内联到清单的预览条数（首屏立即渲染，默认 120）")
     args = ap.parse_args()
 
     with open(args.src, encoding="utf-8") as f:
@@ -92,6 +93,7 @@ def main():
             f.write(payload)
         shards.append(name)
 
+    preview = items[: args.preview]
     manifest = {
         "source": data.get("source"),
         "sourceUrl": data.get("sourceUrl"),
@@ -105,19 +107,22 @@ def main():
             "t": "publishedAt", "s": "stats{u,d,l,c}=使用/下载/点赞/收藏",
             "g": "tags", "d": "description",
         },
+        "previewCount": len(preview),
+        "preview": preview,  # 内联预览：首屏不等分片即可渲染
         "shards": shards,
     }
     mpath = os.path.join(args.outdir, "wf-manifest.json")
     with open(mpath, "w", encoding="utf-8") as f:
-        json.dump(manifest, f, ensure_ascii=False, indent=2)
+        json.dump(manifest, f, ensure_ascii=False, separators=(",", ":"))
 
     gz_total = sum(os.path.getsize(os.path.join(args.outdir, s)) for s in shards)
     first = os.path.getsize(os.path.join(args.outdir, shards[0])) if shards else 0
+    msize = os.path.getsize(mpath)
     print(f"✅ 分片构建完成 → {args.outdir}")
     print(f"   总条目   : {total}（分 {len(shards)} 片，每片 {args.shard_size}）")
-    print(f"   首片(最热): {shards[0]}  {first/1024:.0f} KB  ← 首屏只拉这个")
+    print(f"   清单     : {msize/1024:.0f} KB（含内联预览 {len(preview)} 条）← 首次请求")
+    print(f"   首片     : {shards[0]}  {first/1024:.0f} KB（后台加载）")
     print(f"   全部分片 : {gz_total/1024:.0f} KB")
-    print(f"   清单     : {mpath}")
 
 
 if __name__ == "__main__":

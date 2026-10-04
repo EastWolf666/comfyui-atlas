@@ -11,6 +11,7 @@ let nextShard = 0;  // 下一个待加载分片下标
 let allLoaded = false;
 let filtered = [];  // 当前筛选+排序后的视图
 let rendered = 0;   // 已渲染到 DOM 的数量
+let loadingShard = false; // 任一分片正在加载中（并发守卫）
 
 /* ========= 工具 ========= */
 function esc(s) {
@@ -54,28 +55,60 @@ function setBusy(on, text) {
   if (text) document.getElementById("busy-text").textContent = text;
 }
 
-/* ========= 数据加载（分片） ========= */
-async function loadManifest() {
-  const res = await fetch("data/wf-manifest.json", { cache: "no-store" });
-  if (!res.ok) throw new Error("清单加载失败 HTTP " + res.status);
-  return res.json();
+function setLoadError(err) {
+  const grid = document.getElementById("grid");
+  if (!grid) return;
+  grid.innerHTML =
+    '<div class="loading-wrap"><p>😢 加载失败：' + esc(err.message) + "</p>" +
+    '<p class="sub">请检查网络后重试，或下拉刷新页面</p></div>';
+  console.error(err);
 }
 
-async function loadShard(name) {
-  const res = await fetch("data/" + name, { cache: "no-store" });
-  if (!res.ok) throw new Error("分片 " + name + " 加载失败 HTTP " + res.status);
+/* ========= 数据加载（分片 + 超时重试） ========= */
+function fetchWithTimeout(url, ms) {
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), ms || 20000);
+  return fetch(url, { cache: "no-store", signal: ctl.signal }).finally(() => clearTimeout(t));
+}
+
+async function loadManifest() {
+  let lastErr;
+  for (let i = 0; i < 2; i++) {
+    try {
+      const res = await fetchWithTimeout("data/wf-manifest.json", 15000);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return await res.json();
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  throw lastErr;
+}
+
+async function loadShard(name, skip) {
+  const res = await fetchWithTimeout("data/" + name, 25000);
+  if (!res.ok) throw new Error("分片 " + name + " HTTP " + res.status);
   const buf = await res.arrayBuffer();
-  const arr = JSON.parse(await gunzipText(buf));
+  let arr = JSON.parse(await gunzipText(buf));
+  if (skip > 0) arr = arr.slice(skip); // 去掉与内联预览重复的条目
   POOL.push(...arr);
   nextShard++;
 }
 
 async function ensureAllLoaded() {
   if (allLoaded || !MANIFEST) return;
+  // 等当前分片加载完，避免并发
+  while (loadingShard) await new Promise((r) => setTimeout(r, 60));
   const total = MANIFEST.shards.length;
   while (nextShard < total) {
     setBusy(true, `正在加载全部数据（${nextShard + 1}/${total}）以支持搜索 / 排序…`);
-    await loadShard(MANIFEST.shards[nextShard]);
+    try {
+      await loadShard(MANIFEST.shards[nextShard]);
+    } catch (e) {
+      setBusy(false);
+      setLoadError(e);
+      return;
+    }
   }
   allLoaded = true;
   setBusy(false);
@@ -222,27 +255,24 @@ async function refresh() {
 }
 
 /* 加载更多：先渲染已加载池，池耗尽再拉下一分片 */
-let shardLoading = false;
 async function loadMore() {
+  if (loadingShard || allLoaded || nextShard >= MANIFEST.shards.length) return;
   if (rendered < filtered.length) {
     renderMore();
     return;
   }
-  if (shardLoading || allLoaded || nextShard >= MANIFEST.shards.length) return;
-  shardLoading = true;
+  loadingShard = true;
   setBusy(true, `正在加载更多数据（${nextShard + 1}/${MANIFEST.shards.length}）…`);
   try {
     await loadShard(MANIFEST.shards[nextShard]);
+    recomputeFiltered();
+    renderMore();
   } catch (e) {
+    setLoadError(e);
+  } finally {
     setBusy(false);
-    alert("加载失败：" + e.message);
-    shardLoading = false;
-    return;
+    loadingShard = false;
   }
-  setBusy(false);
-  shardLoading = false;
-  recomputeFiltered();
-  renderMore();
 }
 
 /* ========= 头部 ========= */
@@ -273,17 +303,28 @@ function buildTagOptions() {
 
 /* ========= 启动 ========= */
 async function init() {
+  loadingShard = true; // 屏蔽并发：首片加载完成前不响应滚动/加载更多
   try {
     MANIFEST = await loadManifest();
     renderHeader();
-    // 首屏只加载最热的一片
-    await loadShard(MANIFEST.shards[0]);
+
+    // 1) 先用清单内联的预览条目立即渲染首屏（无需等分片）
+    const pv = MANIFEST.preview || [];
+    if (pv.length) {
+      POOL = pv.slice();
+      buildTagOptions();
+      applyFilter();
+    }
+
+    // 2) 后台补全首片（跳过已在预览里的条目），供滚动继续加载
+    await loadShard(MANIFEST.shards[0], pv.length);
     buildTagOptions();
-    applyFilter();
+    if (rendered === 0) applyFilter();
+    else { recomputeFiltered(); renderMore(); }
   } catch (err) {
-    document.getElementById("grid").innerHTML =
-      '<div class="loading-wrap"><p>加载失败：' + esc(err.message) + "</p></div>";
-    console.error(err);
+    setLoadError(err);
+  } finally {
+    loadingShard = false;
   }
 }
 
@@ -294,6 +335,7 @@ function onScroll() {
   scrollTicking = true;
   requestAnimationFrame(() => {
     scrollTicking = false;
+    if (loadingShard || allLoaded) return; // 正在加载时不再触发，避免并发
     const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 800;
     if (!nearBottom) return;
     // 先渲染已加载池的剩余，池耗尽再自动拉取下一分片
