@@ -340,6 +340,14 @@ body {
 /* 加载更多 */
 .loadmore-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 26px 0 10px; }
 .loadmore-wrap .btn-primary[hidden] { display: none; }
+/* 降级提示（首片加载失败） */
+.loadmore-tip { color: var(--muted); font-size: 13px; text-align: center; line-height: 1.8; }
+.btn-mini {
+  margin-left: 8px; padding: 5px 12px; border-radius: 8px;
+  border: 1px solid #2c3b55; background: var(--bg-soft); color: var(--accent);
+  font-size: 13px; font-family: inherit; cursor: pointer;
+}
+.btn-mini:hover { border-color: var(--accent); }
 
 /* 分片加载：忙碌指示 */
 .busy {
