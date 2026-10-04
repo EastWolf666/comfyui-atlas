@@ -172,6 +172,20 @@ body {
   background: var(--bg-soft); color: var(--muted); cursor: pointer; font-size: 14px; font-family: inherit;
 }
 .btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+/* 分析工作流按钮的加载（旋转）状态 */
+.btn-primary.is-loading { pointer-events: none; opacity: .9; cursor: progress; }
+.btn-primary.is-loading::before {
+  content: "";
+  display: inline-block;
+  width: 14px; height: 14px;
+  margin-right: 8px;
+  vertical-align: -2px;
+  border: 2px solid rgba(6, 18, 43, 0.35);
+  border-top-color: #06122b;
+  border-radius: 50%;
+  animation: wf-spin .7s linear infinite;
+}
+@keyframes wf-spin { to { transform: rotate(360deg); } }
 .wf-error { color: #ff6b6b; margin: 12px 0 0; font-size: 14px; }
 
 .wf-summary { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 10px; }

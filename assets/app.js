@@ -921,18 +921,31 @@ function bindWorkflowUI() {
       errEl.textContent = "请先选择或粘贴一个工作流 .json 文件。";
       return;
     }
-    try { await ensureRegistry(); } catch (_) {}
-    try { await ensureGithubExtra(); } catch (_) {}
-    let result;
+    const btn = analyzeBtn;
+    const original = btn.innerHTML;
+    btn.classList.add("is-loading");
+    btn.disabled = true;
+    btn.innerHTML = "分析中…";
     try {
-      result = analyzeWorkflow(text);
-    } catch (e) {
-      errEl.hidden = false;
-      errEl.textContent = "JSON 解析失败：" + e.message + "。请确认内容是正确的 ComfyUI 工作流 JSON。";
-      document.getElementById("wf-result").innerHTML = "";
-      return;
+      // 先让浏览器渲染出旋转状态，再开始加载大文件/解析
+      await new Promise((r) => setTimeout(r, 30));
+      try { await ensureRegistry(); } catch (_) {}
+      try { await ensureGithubExtra(); } catch (_) {}
+      let result;
+      try {
+        result = analyzeWorkflow(text);
+      } catch (e) {
+        errEl.hidden = false;
+        errEl.textContent = "JSON 解析失败：" + e.message + "。请确认内容是正确的 ComfyUI 工作流 JSON。";
+        document.getElementById("wf-result").innerHTML = "";
+        return;
+      }
+      renderWorkflow(result);
+    } finally {
+      btn.classList.remove("is-loading");
+      btn.disabled = false;
+      btn.innerHTML = original;
     }
-    renderWorkflow(result);
   });
 
   clearBtn.addEventListener("click", () => {
