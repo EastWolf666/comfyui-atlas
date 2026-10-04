@@ -81,14 +81,18 @@ function fetchBytes(url, ms) {
 
 async function loadManifest() {
   let lastErr;
+  // 优先读预压缩的清单（榜单内联后清单较大，gzip 可省 80%）
+  const urls = ["data/wf-manifest.json.gz", "data/wf-manifest.json"];
   for (let i = 0; i < 2; i++) {
-    try {
-      const buf = await fetchBytes("data/wf-manifest.json", 20000);
-      return JSON.parse(await gunzipText(buf));
-    } catch (e) {
-      lastErr = e;
-      await new Promise((r) => setTimeout(r, 600));
+    for (const url of urls) {
+      try {
+        const buf = await fetchBytes(url, 20000);
+        return JSON.parse(await gunzipText(buf));
+      } catch (e) {
+        lastErr = e;
+      }
     }
+    await new Promise((r) => setTimeout(r, 600));
   }
   throw lastErr;
 }
@@ -149,8 +153,15 @@ async function ensureAllLoaded() {
 }
 
 /* ========= 是否需要全量数据 ========= */
+/* 仅"搜索 / 标签筛选 / 下载量"需要全量数据。
+   点赞 / 收藏 / 最新 有内联榜单（manifest.rank），无需等全部分片。 */
+const RANK_DIM = { uses: "u", likes: "l", collects: "c", latest: "latest" };
 function needsAllData() {
-  return !!(state.q || state.tag || state.sort !== "uses");
+  return !!(state.q || state.tag || !RANK_DIM[state.sort]);
+}
+function hasRank(srt) {
+  const dim = RANK_DIM[srt];
+  return !!(dim && MANIFEST && MANIFEST.rank && (MANIFEST.rank[dim] || []).length);
 }
 
 /* ========= 筛选与排序（短键） ========= */
@@ -165,15 +176,47 @@ function matches(it) {
 function sortItems(list) {
   const copy = list.slice();
   const s = state.sort;
-  if (s === "latest") copy.sort((a, b) => new Date(b.t || 0) - new Date(a.t || 0));
+  if (s === "latest") copy.sort((a, b) => String(b.t || "").localeCompare(String(a.t || "")));
   else {
     const k = { uses: "u", downloads: "d", likes: "l", collects: "c" }[s] || "u";
     copy.sort((a, b) => ((b.s || {})[k] || 0) - ((a.s || {})[k] || 0));
   }
   return copy;
 }
+
+/* 用清单内联榜单即时排序：无需等待全部分片加载完毕。
+   榜单之外的条目在数据池里出现后，会由 recomputeFiltered() 归并补入。 */
+function rankQuickView() {
+  const dim = RANK_DIM[state.sort];
+  if (!dim || !MANIFEST || !MANIFEST.rankItems) return null;
+  const byId = new Map();
+  for (const it of MANIFEST.rankItems) byId.set(it.i, it);
+  const ordered = [];
+  for (const id of MANIFEST.rank[dim] || []) {
+    const it = byId.get(id);
+    if (it && matches(it)) ordered.push(it);
+  }
+  return ordered;
+}
+
 function recomputeFiltered() {
-  filtered = sortItems(POOL.filter(matches));
+  const inPool = sortItems(POOL.filter(matches));
+  const dim = RANK_DIM[state.sort];
+  if (!allLoaded && dim && MANIFEST && MANIFEST.rank && (MANIFEST.rank[dim] || []).length) {
+    // 未加载完：以内联榜单打底，池内其余条目按序追加其后
+    const quick = rankQuickView();
+    if (quick && quick.length) {
+      const rankIds = new Set(quick.map((x) => x.i));
+      const poolById = new Map(POOL.map((it) => [it.i, it]));
+      // 榜单条目优先用池内版本（统计值可能比构建时更新）
+      const head = quick.map((it) => poolById.get(it.i) || it);
+      // 池内不在榜单里的条目，按当前排序补到后面
+      const tail = inPool.filter((it) => !rankIds.has(it.i));
+      filtered = sortItems(head.concat(tail));
+      return;
+    }
+  }
+  filtered = inPool;
 }
 
 /* ========= 渲染 ========= */
@@ -195,10 +238,10 @@ function cardHTML(it) {
 
   const author = it.a ? `<div class="author">${avatarHTML(it.a)}<span>${esc(it.a)}</span></div>` : "";
   const s = it.s || {};
+  // 注：平台 downloadCount / pv 恒返回 0，不展示，避免"下载 0"误导
   const badges = [
     `<span class="badge">使用 <b>${fmtNum(s.u)}</b></span>`,
-    `<span class="badge">下载 <b>${fmtNum(s.d)}</b></span>`,
-    `<span class="badge">赞 <b>${fmtNum(s.l)}</b></span>`,
+    `<span class="badge">点赞 <b>${fmtNum(s.l)}</b></span>`,
     `<span class="badge">收藏 <b>${fmtNum(s.c)}</b></span>`,
   ].join("");
   const tags = (it.g || []).slice(0, 6).map((t) => `<span class="chip" data-tag="${esc(t)}">${esc(t)}</span>`).join("");
@@ -284,8 +327,35 @@ function applyFilter() {
 async function refresh() {
   if (needsAllData() && !allLoaded) {
     await ensureAllLoaded();
+    applyFilter();
+    return;
   }
+  // 有内联榜单：立即出结果，全量数据后台补齐后自动刷新
   applyFilter();
+  if (!allLoaded) backgroundFill();
+}
+
+/* 后台补齐全部分片（不阻塞交互）。数据到位后按当前视图重新排序渲染。 */
+let filling = false;
+async function backgroundFill() {
+  if (filling || allLoaded) return;
+  filling = true;
+  setBusy(true, `正在补全剩余数据（${nextShard + 1}/${MANIFEST.shards.length}）…`);
+  try {
+    while (nextShard < MANIFEST.shards.length) {
+      await loadShard(MANIFEST.shards[nextShard]);
+      recomputeFiltered();
+      renderMore(); // 逐步追加，滚动位置不跳
+    }
+    allLoaded = true;
+    recomputeFiltered();
+    applyFilter(); // 补齐后按全局重排，保证排序完全准确
+  } catch (e) {
+    setLoadError(e);
+  } finally {
+    setBusy(false);
+    filling = false;
+  }
 }
 
 /* 加载更多：先渲染已加载池，池耗尽再拉下一分片 */
