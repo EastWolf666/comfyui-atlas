@@ -214,6 +214,10 @@ body {
 .wf-tip { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
 .wf-core { background: #11261a; border: 1px solid #1f5135; border-radius: 12px; padding: 14px 18px; margin: 20px 0; }
 .wf-core summary { cursor: pointer; font-weight: 600; color: #4ade80; }
+.wf-registry { background: #13251f; border: 1px solid #1f4034; border-radius: 12px; padding: 14px 18px; margin: 20px 0; }
+.wf-registry summary { cursor: pointer; font-weight: 600; color: #4fd6a6; }
+.wf-reg-type { flex: 1 1 auto; }
+.wf-reg-type code { background: var(--bg-soft); padding: 3px 8px; border-radius: 6px; font-size: 12px; }
 .wf-note { color: var(--muted); font-size: 14px; margin-top: 24px; border-top: 1px dashed var(--border); padding-top: 16px; }
 
 /* ===== 收藏星标 ===== */

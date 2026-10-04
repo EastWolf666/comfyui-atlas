@@ -445,6 +445,30 @@ function findModuleForType(type) {
   return "__unknown__";
 }
 
+// 官方注册表（ComfyUI-Manager 收录的全部自定义节点 -> 精确仓库），按需懒加载，避免拖累首屏
+let REGISTRY = null;
+let REGISTRY_PROMISE = null;
+function ensureRegistry() {
+  if (REGISTRY) return Promise.resolve(REGISTRY);
+  if (REGISTRY_PROMISE) return REGISTRY_PROMISE;
+  REGISTRY_PROMISE = fetch("data/registry-nodes.json", { cache: "no-store" })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => { REGISTRY = d; return d; })
+    .catch(() => null);
+  return REGISTRY_PROMISE;
+}
+// 在官方注册表里按 class_type(小写) 精确命中仓库；命中 ComfyUI 主仓库的视为核心节点
+function findRegistry(type) {
+  if (!REGISTRY || !REGISTRY.map) return null;
+  const t = String(type || "").toLowerCase().trim();
+  const hit = REGISTRY.map[t];
+  if (!hit) return null;
+  const repo = REGISTRY.repos[hit[0]];
+  const title = REGISTRY.titles[hit[1]] || repo;
+  if (/comfyanonymous\/ComfyUI(\b|\/|$)/i.test(repo)) return null;
+  return { repo, title };
+}
+
 function extractNodeTypes(text) {
   const data = JSON.parse(text);
   const types = new Set();
@@ -470,12 +494,17 @@ function analyzeWorkflow(text) {
   const types = extractNodeTypes(text);
   const moduleIds = new Set();
   const unknownTypes = [];
+  const registryMatched = [];
   const coreTypes = [];
   let coreCount = 0;
   for (const t of types) {
     const r = findModuleForType(t);
     if (r === null) { coreCount++; coreTypes.push(t); }
-    else if (r === "__unknown__") unknownTypes.push(t);
+    else if (r === "__unknown__") {
+      const reg = findRegistry(t);
+      if (reg) registryMatched.push({ type: t, repo: reg.repo, title: reg.title });
+      else unknownTypes.push(t);
+    }
     else moduleIds.add(r);
   }
   const modulesHit = [...moduleIds].map((id) => ALL.find((m) => m.id === id)).filter(Boolean);
@@ -494,7 +523,7 @@ function analyzeWorkflow(text) {
       }
     }
   }
-  return { total: types.length, hit: modulesHit, unknownTypes, coreCount, coreTypes, models: [...modelMap.values()] };
+  return { total: types.length, hit: modulesHit, unknownTypes, registryMatched, coreCount, coreTypes, models: [...modelMap.values()] };
 }
 
 function renderWorkflow(r) {
@@ -525,10 +554,25 @@ function renderWorkflow(r) {
     </article>`;
   }).join("");
 
+  const registryHtml = r.registryMatched.length
+    ? `<details class="wf-registry" open>
+        <summary>🔎 ${r.registryMatched.length} 个节点已定位到官方仓库（ComfyUI-Manager 收录，本站未收录模型信息）</summary>
+        <p class="wf-tip">这些自定义节点已通过 ComfyUI-Manager 官方注册表精确匹配到 GitHub 仓库，可点击直达安装；但由于本站尚未收录其模型信息，相关模型请到「按节点 / 基础模型」等分类补充下载。顶部输入框可按节点名筛选。</p>
+        <input type="search" id="wf-registry-search" class="wf-unknown-search" placeholder="在本列表中按节点名筛选…" autocomplete="off" />
+        <ul class="wf-unknown-list" id="wf-registry-list">${r.registryMatched.map((x) => {
+          const isRepo = /^https?:\/\/github\.com\/[^\/]+\/[^\/#?]+$/i.test(x.repo);
+          const dir = isRepo ? repoDir(x.repo) : "";
+          const clone = isRepo ? `git clone ${x.repo} ComfyUI/custom_nodes/${dir}` : "";
+          const cloneBtn = isRepo ? `<button class="copy" data-copy="${esc(clone)}">复制 clone</button>` : `<span class="wf-file-only" title="单文件/非标准仓库，请直接打开查看">📄 文件</span>`;
+          return `<li><span class="wf-reg-type"><code>${esc(x.type)}</code></span><a class="wf-unknown-link" href="${esc(x.repo)}" target="_blank" rel="noopener"><span class="ext">↗ 打开</span></a>${cloneBtn}</li>`;
+        }).join("")}</ul>
+      </details>`
+    : "";
+
   const unknownHtml = r.unknownTypes.length
     ? `<details class="wf-unknown" open>
-        <summary>⚠️ ${r.unknownTypes.length} 个未收录的自定义节点（点击节点名可在 GitHub 搜索安装）</summary>
-        <p class="wf-tip">这些节点类名不在本站收录库中。点击下方任一节点名即可在 GitHub 按该 ComfyUI 自定义节点名搜索仓库并安装；也可用上方输入框在列表中快速筛选。</p>
+        <summary>⚠️ ${r.unknownTypes.length} 个节点未找到对应仓库（建议在 GitHub 搜索安装）</summary>
+        <p class="wf-tip">这些节点类名既不在本站收录库，也不在 ComfyUI-Manager 官方注册表中（可能是非常见/本地/已废弃节点）。点击下方任一节点名即可在 GitHub 按该 ComfyUI 自定义节点名搜索仓库并安装；顶部输入框可按节点名筛选。</p>
         <input type="search" id="wf-unknown-search" class="wf-unknown-search" placeholder="在本列表中按节点名筛选…" autocomplete="off" />
         <ul class="wf-unknown-list" id="wf-unknown-list">${r.unknownTypes.map((t) => {
           const gh = "https://github.com/search?q=" + encodeURIComponent(t + " ComfyUI") + "&type=repositories";
@@ -578,7 +622,8 @@ function renderWorkflow(r) {
     <div class="wf-summary">
       <div class="stat"><span class="num">${r.total}</span><span class="lbl">节点总数</span></div>
       <div class="stat"><span class="num">${r.hit.length}</span><span class="lbl">命中本站节点</span></div>
-      <div class="stat"><span class="num">${r.unknownTypes.length}</span><span class="lbl">未收录自定义</span></div>
+      <div class="stat"><span class="num">${r.registryMatched.length}</span><span class="lbl">已定位仓库</span></div>
+      <div class="stat"><span class="num">${r.unknownTypes.length}</span><span class="lbl">未找到仓库</span></div>
       <div class="stat"><span class="num">${r.coreCount}</span><span class="lbl">核心原生节点</span></div>
     </div>
     ${r.hit.length
@@ -587,10 +632,12 @@ function renderWorkflow(r) {
     ${modelsHtml}
     ${mirrorHtml}
     ${coreHtml}
+    ${registryHtml}
     ${unknownHtml}
     <p class="wf-note">💡 工作流通常还需<strong>基础底模</strong>（SDXL / FLUX / SD1.5 等）与可能的 <strong>LoRA / 放大模型</strong>，请到「按节点」视图的「基础模型 / 放大修复 / LoRA 精选」分类下载并放入 ComfyUI 对应 <code>models/</code> 目录。</p>
   `;
-  bindUnknownFilter();
+  bindTypeListFilter("wf-registry-search", "wf-registry-list");
+  bindTypeListFilter("wf-unknown-search", "wf-unknown-list");
   bindCopyButtons();
   bindFavButtons();
 }
@@ -608,26 +655,26 @@ function bindFavButtons() {
   });
 }
 
-function bindUnknownFilter() {
-  const input = document.getElementById("wf-unknown-search");
+function bindTypeListFilter(searchId, listId) {
+  const input = document.getElementById(searchId);
   if (!input) return;
   input.addEventListener("input", () => {
     const q = input.value.trim().toLowerCase();
-    document.querySelectorAll("#wf-unknown-list li").forEach((li) => {
+    document.querySelectorAll("#" + listId + " li").forEach((li) => {
       const name = (li.textContent || "").toLowerCase();
       li.hidden = !!q && !name.includes(q);
     });
-    const visible = [...document.querySelectorAll("#wf-unknown-list li")].filter((li) => !li.hidden).length;
-    const counter = document.getElementById("wf-unknown-count");
+    const visible = [...document.querySelectorAll("#" + listId + " li")].filter((li) => !li.hidden).length;
+    const summary = input.closest("details") && input.closest("details").querySelector("summary");
+    let counter = document.getElementById(searchId + "-count");
+    if (!counter && summary) {
+      counter = document.createElement("span");
+      counter.id = searchId + "-count";
+      counter.className = "wf-unknown-count";
+      summary.appendChild(counter);
+    }
     if (counter) counter.textContent = q ? `（匹配 ${visible} 个）` : "";
   });
-  const summary = document.querySelector(".wf-unknown > summary");
-  if (summary && !document.getElementById("wf-unknown-count")) {
-    const span = document.createElement("span");
-    span.id = "wf-unknown-count";
-    span.className = "wf-unknown-count";
-    summary.appendChild(span);
-  }
 }
 
 function bindCopyButtons() {
@@ -678,7 +725,7 @@ function bindWorkflowUI() {
     }
   });
 
-  analyzeBtn.addEventListener("click", () => {
+  analyzeBtn.addEventListener("click", async () => {
     const text = textArea.value.trim();
     errEl.hidden = true;
     if (!text) {
@@ -686,6 +733,7 @@ function bindWorkflowUI() {
       errEl.textContent = "请先选择或粘贴一个工作流 .json 文件。";
       return;
     }
+    try { await ensureRegistry(); } catch (_) {}
     let result;
     try {
       result = analyzeWorkflow(text);
