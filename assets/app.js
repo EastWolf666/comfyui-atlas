@@ -288,10 +288,11 @@ function analyzeWorkflow(text) {
   const types = extractNodeTypes(text);
   const moduleIds = new Set();
   const unknownTypes = [];
+  const coreTypes = [];
   let coreCount = 0;
   for (const t of types) {
     const r = findModuleForType(t);
-    if (r === null) coreCount++;
+    if (r === null) { coreCount++; coreTypes.push(t); }
     else if (r === "__unknown__") unknownTypes.push(t);
     else moduleIds.add(r);
   }
@@ -310,7 +311,7 @@ function analyzeWorkflow(text) {
       }
     }
   }
-  return { total: types.length, hit: modulesHit, unknownTypes, coreCount, models: [...modelMap.values()] };
+  return { total: types.length, hit: modulesHit, unknownTypes, coreCount, coreTypes, models: [...modelMap.values()] };
 }
 
 function renderWorkflow(r) {
@@ -361,6 +362,14 @@ function renderWorkflow(r) {
       </details>`
     : "";
 
+  const coreHtml = (r.coreTypes && r.coreTypes.length)
+    ? `<details class="wf-core">
+        <summary>🧱 ${r.coreTypes.length} 个 ComfyUI 核心原生节点（已内置，无需安装）</summary>
+        <p class="wf-tip">以下节点属于 ComfyUI 自带功能，安装 ComfyUI 即具备，<strong>不需要</strong>额外下载节点包。展开可核对具体类名。</p>
+        <ul class="wf-unknown-list">${r.coreTypes.map((t) => `<li><code>${esc(t)}</code></li>`).join("")}</ul>
+      </details>`
+    : "";
+
   const modelsHtml = r.models.length
     ? `<section class="wf-models-summary">
         <h3>📦 所需模型汇总（${r.models.length} 个，已去重）</h3>
@@ -385,6 +394,7 @@ function renderWorkflow(r) {
       ? `<h3 class="wf-hit-title">✅ 需安装 / 已收录的自定义节点（${r.hit.length}）</h3><div class="wf-cards">${hitCards}</div>`
       : `<p class="empty">未识别到已收录的自定义节点。可能该工作流仅使用 ComfyUI 原生节点。</p>`}
     ${modelsHtml}
+    ${coreHtml}
     ${unknownHtml}
     <p class="wf-note">💡 工作流通常还需<strong>基础底模</strong>（SDXL / FLUX / SD1.5 等）与可能的 <strong>LoRA / 放大模型</strong>，请到「按节点」视图的「基础模型 / 放大修复 / LoRA 精选」分类下载并放入 ComfyUI 对应 <code>models/</code> 目录。</p>
   `;

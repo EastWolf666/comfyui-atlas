@@ -924,6 +924,102 @@
       "models": [
         { "name": "各类风格 LoRA", "type": "lora", "sources": [ { "platform": "civitai", "url": "https://civitai.com/models?query=style%20lora", "note": "C 站风格 LoRA 搜索" }, { "platform": "liblibai", "url": "https://www.liblib.art/search?searchText=%E7%94%BB%E9%A3%8E%20lora", "note": "哩布画风搜索" } ] }
       ]
+    },
+    {
+      "id": "comfyui-was-node-suite",
+      "name": "WAS Node Suite",
+      "repo": "https://github.com/WASasquatch/was-node-suite-comfyui",
+      "category": "工作流增强",
+      "author": "WASasquatch",
+      "official": false,
+      "maintenance": "active",
+      "description": "ComfyUI 老牌综合工具包：图像处理/滤镜/遮罩/文本/逻辑/数字/文件/动画等数百个节点，装机量极大。",
+      "tags": ["工具", "逻辑", "图像处理", "综合"],
+      "models": []
+    },
+    {
+      "id": "comfyui-inspire-pack",
+      "name": "ComfyUI-Inspire-Pack",
+      "repo": "https://github.com/ltdrdata/ComfyUI-Inspire-Pack",
+      "category": "工作流增强",
+      "author": "ltdrdata",
+      "official": false,
+      "maintenance": "active",
+      "description": "各种扩展节点：Lora Block Weight、Regional Prompt、Backend Cache、Prompt/List 工具等（Impact Pack 作者的另一套）。",
+      "tags": ["工具", "区域提示", "lora", "缓存"],
+      "models": []
+    },
+    {
+      "id": "comfyui-controlnet-aux",
+      "name": "ComfyUI ControlNet Auxiliary Preprocessors",
+      "repo": "https://github.com/Fannovel16/comfyui_controlnet_aux",
+      "category": "控制网络",
+      "author": "Fannovel16",
+      "official": false,
+      "maintenance": "active",
+      "description": "ControlNet 预处理节点合集（OpenPose / Canny / Depth / Lineart 等 hint 图生成），常用 ControlNet 工作流必备。",
+      "tags": ["controlnet", "预处理", "hint"],
+      "models": []
+    },
+    {
+      "id": "comfyui-efficiency-nodes",
+      "name": "Efficiency Nodes",
+      "repo": "https://github.com/jags111/efficiency-nodes-comfyui",
+      "category": "工作流增强",
+      "author": "jags111",
+      "official": false,
+      "maintenance": "archived",
+      "description": "精简工作流的实用节点：Efficient Loader、Ksamper (Efficient)、XY Plot 等。",
+      "tags": ["工具", "loader", "xy-plot"],
+      "models": []
+    },
+    {
+      "id": "comfyui-rgthree",
+      "name": "rgthree-comfy",
+      "repo": "https://github.com/rgthree/rgthree-comfy",
+      "category": "工作流增强",
+      "author": "rgthree",
+      "official": false,
+      "maintenance": "active",
+      "description": "高质量逻辑/流程节点：Power Lora Loader、NodeGraphOrganizer、Fast Groups Bypasser、Show Text 等。",
+      "tags": ["逻辑", "流程", "工具"],
+      "models": []
+    },
+    {
+      "id": "comfyui-cutoff",
+      "name": "ComfyUI_Cutoff",
+      "repo": "https://github.com/BlenderNeko/ComfyUI_Cutoff",
+      "category": "工作流增强",
+      "author": "BlenderNeko",
+      "official": false,
+      "maintenance": "active",
+      "description": "Cutoff 节点：限制 prompt 中 token 的影响范围，常用于风格控制。",
+      "tags": ["prompt", "风格", "cutoff"],
+      "models": []
+    },
+    {
+      "id": "comfyui-detail-daemon",
+      "name": "ComfyUI_Detail_Daemon",
+      "repo": "https://github.com/BlenderNeko/ComfyUI_Detail_Daemon",
+      "category": "工作流增强",
+      "author": "BlenderNeko",
+      "official": false,
+      "maintenance": "active",
+      "description": "Detail Daemon：采样阶段动态调节细节强度，免改 workflow 即可提细节。",
+      "tags": ["细节", "采样", "daemon"],
+      "models": []
+    },
+    {
+      "id": "comfyui-tiled-ksampler",
+      "name": "ComfyUI_TiledKSampler",
+      "repo": "https://github.com/BlenderNeko/ComfyUI_TiledKSampler",
+      "category": "工作流增强",
+      "author": "BlenderNeko",
+      "official": false,
+      "maintenance": "active",
+      "description": "Tiled KSampler：分块采样，低显存也能跑大图 / 高分辨率。",
+      "tags": ["分块", "显存", "tiled"],
+      "models": []
     }
   ]
 }
