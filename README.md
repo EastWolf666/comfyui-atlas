@@ -136,7 +136,7 @@ python3 scripts/scrape_runninghub.py --keyword "视频" --pages 50
 | **传输压缩** | 每个分片独立 gzip，前端用浏览器原生 `DecompressionStream('gzip')` 解压（带魔数兜底 + 不支持时回退） | 传输量约为原始 **15%** |
 | **精简载荷** | 字段用短键（`i/n/a/im/t/s/g/d`），去掉可派生的 `sourceUrl`、改用首字头像替代远程头像 | 减小体积、免去海量头像请求 |
 | **预览图缩略** | 图片 URL 统一改写为七牛缩略参数 `?imageView2/2/w/480/h/300/format/jpg`（匹配卡片 16:10），避免拉原图；**视频封面不加此参数**，改走本地抽帧（见下） | 图片体积降 **80~97%**（原图平均 ~600KB/张） |
-| **视频封面抽帧** | 约 20% 的工作流封面是 `.mp4`（实测 17677/85894），图片 CDN 未启用视频处理、无法服务端抽帧，故构建时用 ffmpeg 本地抽一帧存 `data/thumbs/<id>.jpg`，卡片加「▶ 视频」角标 | 修复 **1.7 万条空白卡片**；每张 8~20KB |
+| **视频封面抽帧** | 约 20% 的工作流封面是 `.mp4`（实测 17677/85894），图片 CDN 未启用视频处理、无法服务端抽帧，故构建时用 ffmpeg 本地抽一帧存 `data/thumbs/<id>.jpg`，卡片加「▶ 视频」角标 | 修复 **1.7 万条空白卡片**；每张 8~20KB，实测 16.7KB |
 | **增量渲染** | 每批只渲染 48 张，滚动自动追加（仅插入新卡片，不重绘） | 万级数据也流畅 |
 | **搜索索引** | 额外产出 `wf-index.json.gz`（**3.6MB**，仅为搜索所需字段），搜索先用它算出命中集合并渲染，缺的热度/图片字段再由分片补齐；首屏空闲时后台预热 | 搜索 **19~32 秒 → 0.7 秒**（预热命中时） |
 | **筛选状态反馈** | 输入瞬间亮起搜索框内嵌转圈 + 状态条（不等 250ms 防抖）；状态条文案说明"为什么慢"，加载期换成`正在加载数据（14/29 个分片）` 实时进度；12 秒后转静态提示防"永远在转" | 不再"不知道是不是正在筛" |
@@ -204,6 +204,14 @@ python3 scripts/extract_video_thumbs.py --limit 6000 --workers 8
 
 > **为什么抽出的帧直接入库**：纯静态站没有后端可存图。存进 Git 仓库后与现有分片一样走 Pages CDN，零外部依赖、也不受第三方图床存活影响。代价是仓库体积——全量 1.7 万条约 230MB，因此首轮只做**按使用量降序的前 6000 条**（覆盖绝大多数用户会看的内容，60 万次曝光里绝大多数命中）。定时任务里每次顺带补抽 300 条，新工作流不会再留空白。
 
+> **踩坑：6000 张缩略图推不上去**。最初用 Git Data API（blobs → tree → commit → PATCH ref）逐个上传，`POST /git/trees` 持续返回 **HTTP 504**——单次 3000 个 blob 的树创建超出 GitHub 承受范围，缩到几百个又太慢。**正解是别用 API，直接 `git push`**：144MB / 6147 个对象 21 秒传完。
+>
+> 附带两个衍生问题：
+> 1. **`could not read Username for 'https://github.com'`**——非交互环境没有凭据。用 `GIT_ASKPASS` 脚本注入（不要把 token 写进 remote URL，会留在 `.git/config` 里）。
+> 2. **`refusing to merge unrelated histories`**——远端提交是 API 建的（内容等价但 SHA 不同），直接 push 非快进。用 `git merge -s ours origin/main --allow-unrelated-histories` 把远端 tip 接为祖先，即可正常快进推送，**不必 force push**。
+>
+> 验证时另有一个**假阴性**值得注意：脚本统计 `img.naturalWidth > 0` 判定缩略图是否加载成功，但 `loading="lazy"` 的图未进入视口时该值恒为 0（甚至根本没发请求），会被误判为加载失败。正确做法是监听 `response` 事件看真实 HTTP 状态，或在页面内直接 `fetch` + `createImageBitmap` 解码。本站线上实测：抽样 30 张直连全部 200 且字节数与本地一致，页面内批量解码 60/60 成功。
+
 ### 🔍 搜索索引（`wf-index.json.gz`）
 
 搜索要匹配 名称 / 作者 / 描述 / 标签，但这些字段散落在 29 个分片里。若等分片全部下载完才能筛，弱网下要数十秒。索引把这些字段单独抽成一份：
@@ -256,6 +264,7 @@ python3 scripts/update_workflows.py --pages 60
 python3 scripts/scrape_runninghub.py --append --start-page 1716 --pages 300 # 全量续采
 python3 scripts/build_shards.py --shard-size 3000 --rank-top 480        # 切分+榜单+搜索索引（--no-index 可跳过索引）
 python3 scripts/extract_video_thumbs.py --limit 6000 --workers 8       # 视频封面抽帧（幂等，可反复跑）
+python3 scripts/extract_video_thumbs.py --limit 0 --workers 10        # --limit 0 = 全量补齐所有视频条目
 ```
 
 > 完整数据 `data/workflows.json` 仅作为抓取/分片构建的中间产物（已 gitignore），不入库；线上只部署分片。
