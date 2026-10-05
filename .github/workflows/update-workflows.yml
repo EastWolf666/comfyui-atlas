@@ -12,6 +12,14 @@ on:
         description: '扫描最新页数（每页 50 条）'
         required: false
         default: '60'
+      backfill_from:
+        description: '深页回补起始页（0 = 不回补）。用于捞回平台批量上架时落在中段深页的漏采条目'
+        required: false
+        default: '610'
+      backfill_pages:
+        description: '深页回补页数（从起始页起算）'
+        required: false
+        default: '90'
 
 permissions:
   contents: write # 需要提交数据
@@ -42,9 +50,20 @@ jobs:
         env:
           # schedule 事件下 github.event.inputs 为 null，此处已做兜底
           PAGES: ${{ inputs.pages || '60' }}
+          BF_FROM: ${{ inputs.backfill_from || '610' }}
+          BF_PAGES: ${{ inputs.backfill_pages || '90' }}
         run: |
           echo "▶ 扫描最新 $PAGES 页（每页 50 条）…"
-          python3 scripts/update_workflows.py --pages "$PAGES"
+          # 深页回补：正常增量只覆盖最新页，而平台"短时间批量上架"的条目
+          # 会整体落在中段深页（实测第 613/617/646 页各漏一批），
+          # 定期回补中段可将这些条目捞回。
+          if [ "$BF_PAGES" != "0" ] && [ -n "$BF_FROM" ] && [ "$BF_FROM" != "0" ]; then
+            echo "▶ 深页回补第 $BF_FROM – $((BF_FROM + BF_PAGES - 1)) 页…"
+          fi
+          python3 scripts/update_workflows.py \
+            --pages "$PAGES" \
+            --backfill-from "$BF_FROM" \
+            --backfill-pages "$BF_PAGES"
 
       - name: Show data summary
         run: |

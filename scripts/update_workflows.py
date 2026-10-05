@@ -128,6 +128,13 @@ def main():
     ap.add_argument("--shard-size", type=int, default=3000, help="每片条数（默认 3000）")
     ap.add_argument("--rank-top", type=int, default=600,
                     help="每个排序维度内联的榜单条数（默认 600，与手动构建一致）")
+    ap.add_argument("--backfill-from", type=int, default=0,
+                    help="深页回补的起始页码（配合 --backfill-pages 使用）。"
+                         "用于捞回\"平台某次批量上架、恰好落在早期扫描边界之外\""
+                         "的条目：这类条目按发布时间倒序位于中段深页，"
+                         "只扫最新页永远发现不了。0 = 不回补")
+    ap.add_argument("--backfill-pages", type=int, default=0,
+                    help="深页回补的页数（从 --backfill-from 起算，每页 50 条）")
     ap.add_argument("--dry-run", action="store_true", help="只抓取与统计，不写文件")
     args = ap.parse_args()
 
@@ -218,6 +225,51 @@ def main():
             print(f"  [页 {p}] 新增 {added} 条，累计 {len(items)} 条"
                   + (f"（全平台 {total}）" if total else ""))
             time.sleep(args.delay)
+
+        # 深页回补：捞回"批量上架时恰好落在早期扫描边界之外"的条目。
+        # 正常增量只扫最新页，而接口按发布时间倒序 → 新条目必在前面；
+        # 但平台某次短时间批量上架（如一次上架 48 条）会让这批条目整体
+        # 落在中段深页，早期按序扫描若正好跳过了那几页就永久漏掉。
+        # 实测：前 600 页全收录，缺口出现在第 613/617/646 页。
+        if args.backfill_pages > 0:
+            # 注意：回补区间必须显式指定起点。缺口在实测第 613 页附近，
+            # 紧接最新页的区间早已全收录，把 --pages 当起点是无效的。
+            bf_start = args.backfill_from
+            if bf_start <= 0:
+                print("⚠️  --backfill-pages 需要配合 --backfill-from（起始页码）使用，本次跳过",
+                      file=sys.stderr)
+            else:
+                print(f"\n🔍 深页回补：扫第 {bf_start} – {bf_start + args.backfill_pages - 1} 页")
+                bf_added = 0
+                for p in range(bf_start, bf_start + args.backfill_pages):
+                    try:
+                        data = fetch_page(p, 50, "")
+                    except Exception as e:
+                        print(f"  [页 {p}] 回补失败：{e}，跳过", file=sys.stderr)
+                        time.sleep(args.delay)
+                        continue
+                    records = (data.get("data") or {}).get("records") or []
+                    if not records:
+                        print(f"  [页 {p}] 回补无记录，提前结束", file=sys.stderr)
+                        break
+                    added = 0
+                    for r in records:
+                        rid = r.get("id")
+                        if not rid:
+                            continue
+                        rec = map_record(r)
+                        rec["image"] = unthumb(rec.get("image"))
+                        if rid in known:
+                            sharded_to_raw(items[rid], rec)  # 已存在：只刷热度
+                        else:
+                            items[rid] = rec
+                            known.add(rid)
+                            added += 1
+                    bf_added += added
+                    if added:
+                        print(f"  [回补 页 {p}] 新增 {added} 条，累计 {len(items)} 条")
+                    time.sleep(args.delay)
+                print(f"✅ 深页回补完成：新增 {bf_added} 条")
 
     pct = f"{round(100 * len(items) / total)}%" if isinstance(total, int) and total else "?"
     print(f"\n📊 抓取完成：共 {len(items)} 条（平台约 {total} 条，覆盖 {pct}）")
