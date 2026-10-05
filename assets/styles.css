@@ -311,7 +311,7 @@ body {
   flex-direction: column; position: relative;
 }
 .wf-card:hover { border-color: #36425a; }
-.wf-card .thumb-link { display: block; text-decoration: none; }
+.wf-card .thumb-link { display: block; text-decoration: none; position: relative; }
 .wf-card .thumb {
   width: 100%; aspect-ratio: 16 / 10; object-fit: cover;
   background: var(--bg-soft); display: block;
@@ -320,6 +320,14 @@ body {
   width: 100%; aspect-ratio: 16 / 10; background: var(--bg-soft);
   display: none; align-items: center; justify-content: center;
   color: var(--muted); font-size: 13px;
+}
+/* 视频封面角标：这类封面是抽帧得到的静态图，加个标记让用户知道
+   原内容是视频（点进去在平台可播放），避免误以为是普通图片。 */
+.wf-card .thumb-badge {
+  position: absolute; left: 8px; top: 8px;
+  background: rgba(0, 0, 0, .62); color: #fff;
+  font-size: 11px; line-height: 1; padding: 4px 7px; border-radius: 6px;
+  backdrop-filter: blur(2px); pointer-events: none;
 }
 .wf-card .body { padding: 14px 16px 16px; display: flex; flex-direction: column; flex: 1; }
 .wf-card h2 { margin: 0 0 8px; font-size: 16px; line-height: 1.4; }
