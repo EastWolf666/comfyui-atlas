@@ -55,6 +55,49 @@ function setBusy(on, text) {
   if (text) document.getElementById("busy-text").textContent = text;
 }
 
+/* ========= 筛选状态反馈 ========= */
+/* 三层提示，解决"点了筛选不知道有没有反应"：
+   1) 搜索框内嵌转圈        —— 输入/下拉改变后立即出现，即时反馈
+   2) 筛选状态条            —— 明确说明"正在筛选"以及为什么（要加载数据）
+   3) 结果计数的高亮忙碌态  —— 提示计数正在重算，而非停留在旧值
+   筛选完成后三者一起消失。 */
+let filterToken = 0; // 令牌：丢弃过期筛选的收尾回调，避免快速输入时状态错乱
+
+function setFilterUI(on, text) {
+  const spin = document.getElementById("search-spin");
+  const bar = document.getElementById("filter-status");
+  const txt = document.getElementById("filter-status-text");
+  const cnt = document.getElementById("count");
+  const wrap = document.querySelector(".ctl-search");
+  if (spin) spin.hidden = !on;
+  // is-busy：筛选中隐藏原生"清除 ×"，避免与转圈重叠（空闲时恢复，保留快速清空）
+  if (wrap) wrap.classList.toggle("is-busy", !!on);
+  if (bar) {
+    bar.hidden = !on;
+    if (!bar.hidden && text) txt.textContent = text;
+  }
+  if (cnt) cnt.classList.toggle("is-busy", !!on);
+}
+
+/* 正在筛选的文案：有搜索词/标签时说清在筛什么，需要加载数据时说明原因。
+   窄屏（≤560px）改用精简版：完整说明太长会挤成两行还带省略号，
+   反而把关键信息藏起来。 */
+function filterStatusText(loading) {
+  const parts = [];
+  // 关键词可能很长，超长会撑爆状态条，截断并加省略号
+  const clip = (s, n) => (s.length > n ? s.slice(0, n) + "…" : s);
+  if (state.q) parts.push(`关键词「${clip(state.q, 24)}」`);
+  if (state.tag) parts.push(`标签「${clip(state.tag, 12)}」`);
+  const scope = parts.length ? parts.join(" + ") : "全部数据";
+  const narrow = window.matchMedia("(max-width: 560px)").matches;
+  if (loading) {
+    return narrow
+      ? `正在筛选 ${scope}…（需加载全部数据）`
+      : `正在筛选 ${scope} — 需加载全部 ${MANIFEST ? MANIFEST.shards.length : "?"} 个数据分片，首次筛选约需数秒…`;
+  }
+  return `正在筛选 ${scope}…`;
+}
+
 function setLoadError(err) {
   const grid = document.getElementById("grid");
   if (!grid) return;
@@ -272,8 +315,23 @@ function bindChips(scope) {
 }
 
 function updateCount() {
+  const cnt = document.getElementById("count");
+  if (!cnt) return;
   const total = (MANIFEST && MANIFEST.count) || POOL.length;
-  document.getElementById("count").textContent = `已显示 ${rendered} / 共 ${total.toLocaleString("zh-CN")} 个`;
+  const filtering = !!(state.q || state.tag);
+  // 筛选态下分母应是"匹配数"而不是全库总数：
+  // 筛选后仍显示"共 85,871 个"会让人以为筛选没生效。
+  if (filtering) {
+    const hit = filtered.length;
+    cnt.textContent = allLoaded
+      ? `匹配 ${hit.toLocaleString("zh-CN")} 个（已显示 ${rendered}）`
+      : `匹配 ${hit.toLocaleString("zh-CN")} 个 · 筛选中…`;
+    return;
+  }
+  // 非筛选态：分母随数据加载进度递增，并区分"库内已有"与"全库总量"
+  cnt.textContent = allLoaded
+    ? `共 ${total.toLocaleString("zh-CN")} 个（已显示 ${rendered}）`
+    : `已显示 ${rendered} / ${POOL.length.toLocaleString("zh-CN")}（已加载）`;
 }
 
 function updateLoadMore() {
@@ -301,6 +359,17 @@ function renderMore() {
   if (filtered.length === 0) {
     grid.innerHTML = "";
     empty.hidden = false;
+    // 无结果文案带上当前条件，让用户知道"筛过了、确实没有"而不是页面坏了。
+    // allLoaded 为 false 时说明数据还没加载完，文案要相应区分。
+    const cond = [];
+    if (state.q) cond.push(`关键词「${state.q}」`);
+    if (state.tag) cond.push(`标签「${state.tag}」`);
+    const scope = cond.length ? cond.join(" + ") : "当前条件";
+    empty.textContent = allLoaded
+      ? (cond.length
+          ? `没有匹配${cond.join(" + ")}的工作流，试试调整搜索或筛选条件。`
+          : "没有匹配的工作流，试试调整筛选条件。")
+      : `正在在已加载的数据中查找 ${scope}…`;
     updateCount();
     updateLoadMore();
     return;
@@ -325,14 +394,23 @@ function applyFilter() {
 
 /* 刷新入口：需要全量数据时先加载全部分片 */
 async function refresh() {
-  if (needsAllData() && !allLoaded) {
-    await ensureAllLoaded();
+  const my = ++filterToken; // 本次筛选的令牌
+  const needAll = needsAllData() && !allLoaded;
+  setFilterUI(true, filterStatusText(needAll));
+  try {
+    if (needsAllData() && !allLoaded) {
+      await ensureAllLoaded();
+      // 等待期间用户可能又改了条件：这次的结果作废，由新一次 refresh 接手
+      if (my !== filterToken) return;
+      applyFilter();
+      return;
+    }
+    // 有内联榜单：立即出结果，全量数据后台补齐后自动刷新
     applyFilter();
-    return;
+    if (!allLoaded) backgroundFill();
+  } finally {
+    if (my === filterToken) setFilterUI(false);
   }
-  // 有内联榜单：立即出结果，全量数据后台补齐后自动刷新
-  applyFilter();
-  if (!allLoaded) backgroundFill();
 }
 
 /* 后台补齐全部分片（不阻塞交互）。数据到位后按当前视图重新排序渲染。 */
@@ -456,13 +534,25 @@ function onScroll() {
 
 function bindEvents() {
   let timer = null;
-  document.getElementById("search").addEventListener("input", (e) => {
+  const search = document.getElementById("search");
+  search.addEventListener("input", (e) => {
     clearTimeout(timer);
     const v = e.target.value.trim().toLowerCase();
+    // 输入瞬间就亮起筛选状态（不等 250ms 防抖），消除"打了字没反应"的空白期
+    setFilterUI(true, v ? `正在筛选 关键词「${v}」…` : "正在清除筛选…");
     timer = setTimeout(() => {
       state.q = v;
       refresh();
     }, 250);
+  });
+  // 失焦时若还有挂起的防抖任务，立即结算，避免状态条停留过久
+  search.addEventListener("blur", () => {
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+      state.q = search.value.trim().toLowerCase();
+      refresh();
+    }
   });
   document.getElementById("filter-tag").addEventListener("change", (e) => {
     state.tag = e.target.value;
