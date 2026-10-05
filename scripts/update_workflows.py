@@ -228,9 +228,16 @@ def main():
 
     # 快照旧产物字节，用于判断"是否真的变了"（避免仅时间戳变动就触发提交+部署）
     def snapshot():
+        """对所有**入库产物**取字节快照。
+        必须包含 .gz 变体：清单同时产出 wf-manifest.json 与 wf-manifest.json.gz，
+        前端优先加载 .gz，若只比较未压缩的 .json 就会漏判（曾导致 CI 误报"幂等"，
+        实际 .gz 的 updatedAt 变了、git 仍有差异、每次都产生提交）。
+        """
         snap = {}
-        for fn in sorted(glob.glob(os.path.join(args.data_dir, "wf-shard-*.json.gz"))) + \
-                 [os.path.join(args.data_dir, "wf-manifest.json")]:
+        paths = sorted(glob.glob(os.path.join(args.data_dir, "wf-shard-*.json.gz")))
+        for base in ("wf-manifest.json", "wf-manifest.json.gz"):
+            paths.append(os.path.join(args.data_dir, base))
+        for fn in paths:
             if os.path.exists(fn):
                 with open(fn, "rb") as f:
                     snap[os.path.basename(fn)] = f.read()
