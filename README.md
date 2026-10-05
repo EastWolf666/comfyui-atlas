@@ -35,6 +35,7 @@
 ├─ data/wf-manifest.json          # 工作流分片清单（来源/总数/分片列表/榜单/索引声明）← 前端加载这个
 ├─ data/wf-index.json.gz          # 搜索索引（3.6MB：ids/tags/rows/order，让搜索秒出）
 ├─ data/wf-shard-*.json.gz        # 工作流 gzip 分片（按热度切分，前端按需加载）
+├─ data/thumbs/<id>.jpg           # 视频封面工作流抽出的预览帧（320px，约 8~20KB/张）
 ├─ index.html                     # 站点入口（工作流库，首页）
 ├─ modules.html                   # 模块—模型索引页
 ├─ workflows.html                 # 旧链接的跳转页（→ index.html，保住已分享的 URL）
@@ -49,7 +50,8 @@
 │   ├─ expand_modules.py          # 扩充 modules.json（节点与模型条目）
 │   ├─ scrape_runninghub.py       # 抓取 RunningHub 工作流 → data/workflows.json
 │   ├─ build_data.py              # 优化完整数据：精简描述 + 紧凑化（中间产物）
-│   └─ build_shards.py            # 把完整数据切成 gzip 分片 + 榜单 + 搜索索引
+│   ├─ build_shards.py            # 把完整数据切成 gzip 分片 +榜单 + 搜索索引
+│   └─ extract_video_thumbs.py    # 为视频封面工作流抽预览帧 → data/thumbs/
 ├─ .github/workflows/
 │   ├─ deploy.yml                 # GitHub Action：校验 → 部署 Pages
 │   └─ link-check.yml             # 定时/手动 链接健康检查，报告上传为 Artifact
@@ -133,7 +135,8 @@ python3 scripts/scrape_runninghub.py --keyword "视频" --pages 50
 | **清单预压缩** | 清单同样产出 `.gz`，前端优先加载 `.gz`、失败才回退 `.json` | 榜单内联后清单 703KB → **193KB** |
 | **传输压缩** | 每个分片独立 gzip，前端用浏览器原生 `DecompressionStream('gzip')` 解压（带魔数兜底 + 不支持时回退） | 传输量约为原始 **15%** |
 | **精简载荷** | 字段用短键（`i/n/a/im/t/s/g/d`），去掉可派生的 `sourceUrl`、改用首字头像替代远程头像 | 减小体积、免去海量头像请求 |
-| **预览图缩略** | 图片 URL 统一改写为七牛缩略参数 `?imageView2/2/w/480/h/300/format/jpg`（匹配卡片 16:10），避免拉原图 | 图片体积降 **80~97%**（原图平均 ~600KB/张） |
+| **预览图缩略** | 图片 URL 统一改写为七牛缩略参数 `?imageView2/2/w/480/h/300/format/jpg`（匹配卡片 16:10），避免拉原图；**视频封面不加此参数**，改走本地抽帧（见下） | 图片体积降 **80~97%**（原图平均 ~600KB/张） |
+| **视频封面抽帧** | 约 20% 的工作流封面是 `.mp4`（实测 17677/85894），图片 CDN 未启用视频处理、无法服务端抽帧，故构建时用 ffmpeg 本地抽一帧存 `data/thumbs/<id>.jpg`，卡片加「▶ 视频」角标 | 修复 **1.7 万条空白卡片**；每张 8~20KB |
 | **增量渲染** | 每批只渲染 48 张，滚动自动追加（仅插入新卡片，不重绘） | 万级数据也流畅 |
 | **搜索索引** | 额外产出 `wf-index.json.gz`（**3.6MB**，仅为搜索所需字段），搜索先用它算出命中集合并渲染，缺的热度/图片字段再由分片补齐；首屏空闲时后台预热 | 搜索 **19~32 秒 → 0.7 秒**（预热命中时） |
 | **筛选状态反馈** | 输入瞬间亮起搜索框内嵌转圈 + 状态条（不等 250ms 防抖）；状态条文案说明"为什么慢"，加载期换成`正在加载数据（14/29 个分片）` 实时进度；12 秒后转静态提示防"永远在转" | 不再"不知道是不是正在筛" |
@@ -171,6 +174,35 @@ python3 scripts/scrape_runninghub.py --keyword "视频" --pages 50
 > ```
 >
 > 另：不要用 `cache: "no-store"`，它会绕过 CDN 导致每次回源（GitHub Pages 响应本身带 `max-age=600`）。
+
+### 🎬 视频封面抽帧（`data/thumbs/`）
+
+平台约 **20% 的工作流（17677/85894）封面是 `.mp4`**，这些卡片此前一直是「暂无预览图」。
+
+**为什么不能直接 `<img src="...mp4">`**，也不能让 CDN 帮忙处理：
+
+| 尝试 | 结果 |
+|------|------|
+| `<img src="xxx.mp4">` | 浏览器把视频当图片解析，必然失败 |
+| 七牛 `?imageView2/2/w/480/h/300/format/jpg` | HTTP 400 `InvalidImageFormat` |
+| 七牛 `?vframe/jpg/offset/1/w/480/h/300` | 参数被忽略，**原样返回 mp4**（魔数仍是 `ftypisom`） |
+| Range 只取前 2MB 再抽帧 | 失败，mp4 的 `moov` 索引表在文件尾部 |
+
+结论是这个七牛空间**未启用视频处理**，只能本地抽帧：
+
+```bash
+python3 scripts/extract_video_thumbs.py --limit 6000 --workers 8
+```
+
+- 并发下载 → ffmpeg 抽一帧 → 缩到 **320px 宽** JPEG（实测 8~20KB）→ `data/thumbs/<id>.jpg`
+- **抽帧时间点取时长的 30%**（上限 1.5 秒）：不少生成视频开头是黑场/淡入，抽第 0 秒会得到纯黑图；失败再退回第 0 秒
+- `os.replace` 原子落盘，中断不留半张图；已存在且 >512B 的跳过，**中断后重跑可续**
+- 编码兼容性已验证：样本含 **hevc** 与 h264、分辨率 720x1280 ~ 1248x720，时长 3.7~32 秒，均抽取成功
+- 卡片上标「▶ 视频」，让用户知道原内容是视频（点进去在平台可播放）
+
+> **踩坑：视频 URL 被图片参数污染**。原先 `thumb()` 无差别拼接 `?imageView2/...`，于是数据里存的是 `xxx.mp4?imageView2/2/w/480/h/...`。这既让前端的 `isVideoCover()` 匹配不到（正则要求扩展名紧跟 `?` 或结尾），也保证了 `<img>` 必然加载失败——**两个症状同源**。现在 `thumb()` 遇到视频会原样返回，由前端按`data/thumbs/<id>.jpg` 取图。
+
+> **为什么抽出的帧直接入库**：纯静态站没有后端可存图。存进 Git 仓库后与现有分片一样走 Pages CDN，零外部依赖、也不受第三方图床存活影响。代价是仓库体积——全量 1.7 万条约 230MB，因此首轮只做**按使用量降序的前 6000 条**（覆盖绝大多数用户会看的内容，60 万次曝光里绝大多数命中）。定时任务里每次顺带补抽 300 条，新工作流不会再留空白。
 
 ### 🔍 搜索索引（`wf-index.json.gz`）
 
@@ -223,6 +255,7 @@ python3 scripts/update_workflows.py --pages 60
 # 底层命令（一般不用手写）
 python3 scripts/scrape_runninghub.py --append --start-page 1716 --pages 300 # 全量续采
 python3 scripts/build_shards.py --shard-size 3000 --rank-top 480        # 切分+榜单+搜索索引（--no-index 可跳过索引）
+python3 scripts/extract_video_thumbs.py --limit 6000 --workers 8       # 视频封面抽帧（幂等，可反复跑）
 ```
 
 > 完整数据 `data/workflows.json` 仅作为抓取/分片构建的中间产物（已 gitignore），不入库；线上只部署分片。
