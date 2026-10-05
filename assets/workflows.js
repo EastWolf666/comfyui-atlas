@@ -104,7 +104,7 @@ function setFilterProgress(text) {
 /* 正在筛选的文案：有搜索词/标签时说清在筛什么，需要加载数据时说明原因。
    窄屏（≤560px）改用精简版：完整说明太长会挤成两行还带省略号，
    反而把关键信息藏起来。 */
-function filterStatusText(loading, viaIndex) {
+function filterStatusText(loading, viaIndex, prog) {
   const parts = [];
   // 关键词可能很长，超长会撑爆状态条，截断并加省略号
   const clip = (s, n) => (s.length > n ? s.slice(0, n) + "…" : s);
@@ -115,6 +115,16 @@ function filterStatusText(loading, viaIndex) {
   if (viaIndex) {
     const mb = MANIFEST && MANIFEST.indexSize
       ? (MANIFEST.indexSize / 1024 / 1024).toFixed(1) : "3.7";
+    // 有下载进度时显示 百分比 + 预计剩余，窄屏只留百分比
+    if (prog) {
+      const pct = Math.min(99, Math.floor((prog.got / prog.total) * 100));
+      return narrow
+        ? `正在筛选 ${scope}… ${pct}%`
+        : `正在筛选 ${scope} — 搜索索引下载 ${pct}%`
+          + `（${(prog.got / 1048576).toFixed(1)}/${mb}MB`
+          + (prog.left > 1 && prog.left < 120 ? `，约剩 ${Math.ceil(prog.left)} 秒` : "")
+          + "）";
+    }
     return narrow
       ? `正在筛选 ${scope}…`
       : `正在筛选 ${scope} — 正在加载 ${mb}MB 搜索索引…`;
@@ -131,6 +141,45 @@ function filterStatusText(loading, viaIndex) {
 /* 索引只含 名称/作者/标签，体积约为全部分片的三成（实测 3.7MB vs 11MB）。
    搜索先用它算出命中集合并渲染，卡片缺的展示字段（图片/热度）由
    indexEnrich() 从已加载分片补齐；尚未加载的分片则显示占位骨架。 */
+
+/* 索引体积较大（实测 GitHub Pages 上 3.6MB 要 ~76 秒），下载期间必须给出
+   真实进度，否则用户面对一个不动的转圈无从判断是卡了还是在等。
+   这里用 fetch + ReadableStream 边读边报进度（不走 fetchBytes，
+   因为它只在整体完成后才 resolve，拿不到中间进度）。 */
+function fetchIndexWithProgress(url, total, onProgress) {
+  const ctl = new AbortController();
+  // 超时按体积推导：实测吞吐约 50KB/s，给 3 倍余量，下限 30 秒
+  const budget = Math.max(30000, Math.ceil((total / 1024) / 50 * 3));
+  const t = setTimeout(() => ctl.abort(), budget);
+  return fetch(url, { signal: ctl.signal })
+    .then(async (res) => {
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const reader = res.body.getReader();
+      const chunks = [];
+      let got = 0;
+      const t0 = performance.now();
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        got += value.length;
+        if (onProgress && performance.now() - t0 > 120) {
+          onProgress(got, total, t0);
+        }
+      }
+      const out = new Uint8Array(got);
+      let off = 0;
+      for (const c of chunks) {
+        out.set(c, off);
+        off += c.length;
+      }
+      return out.buffer;
+    })
+    .finally(() => clearTimeout(t));
+}
+
+let indexProgress = null; // 当前索引下载进度（供状态条刷新）
+
 function ensureIndex() {
   if (INDEX) return Promise.resolve(INDEX);
   if (indexLoading) return indexLoading;
@@ -138,16 +187,29 @@ function ensureIndex() {
     // 清单未声明索引（理论上不会发生）→ 退回原有全量加载路径
     return Promise.resolve(null);
   }
-  indexLoading = fetchBytes("data/" + MANIFEST.indexFile, 45000)
+  const total = Number(MANIFEST.indexSize) || 3700000;
+  indexLoading = fetchIndexWithProgress("data/" + MANIFEST.indexFile, total,
+      (got, all, t0) => {
+        const secs = (performance.now() - t0) / 1000;
+        const bps = got / Math.max(secs, 0.3);
+        indexProgress = { got, total, bps, left: (all - got) / Math.max(bps, 1024) };
+        // 节流刷新状态条，避免高频 DOM 操作
+        if (!ensureIndex._t || performance.now() - ensureIndex._t > 400) {
+          ensureIndex._t = performance.now();
+          setFilterUI(true, filterStatusText(false, true, indexProgress));
+        }
+      })
     .then(gunzipText)
     .then((txt) => {
       INDEX = JSON.parse(txt);
       // 预建 id -> 行号 映射，搜索后按 id 取展示字段
       indexLoading = null;
+      indexProgress = null;
       return INDEX;
     })
     .catch((e) => {
       indexLoading = null;
+      indexProgress = null;
       console.warn("搜索索引加载失败，回退全量加载", e);
       return null;
     });
@@ -327,9 +389,29 @@ function fetchBytes(url, ms) {
   const ctl = new AbortController();
   const t = setTimeout(() => ctl.abort(), ms || 20000);
   return fetch(url, { signal: ctl.signal })
-    .then((res) => {
+    .then(async (res) => {
       if (!res.ok) throw new Error("HTTP " + res.status);
-      return res.arrayBuffer(); // 仍在 abort 保护范围内
+      // 逐块读进数组再合并，而不是 res.arrayBuffer()：
+      // 后者在「响应头已到、body 仍在传输」阶段不受 abort 保护，
+      // 若连接半死不活，clearTimeout 已执行、abort 又打不到它，
+      // Promise 会永远挂起（UI 表现为一直转圈）。
+      // 流式读取则全程受 signal 约束，超时必定落定。
+      const reader = res.body.getReader();
+      const chunks = [];
+      let total = 0;
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        total += value.length;
+      }
+      const out = new Uint8Array(total);
+      let off = 0;
+      for (const c of chunks) {
+        out.set(c, off);
+        off += c.length;
+      }
+      return out.buffer;
     })
     .finally(() => clearTimeout(t));
 }
@@ -847,6 +929,14 @@ async function init() {
     buildTagOptions();
     if (rendered === 0) applyFilter();
     else if (!degraded) { recomputeFiltered(); renderMore(); } // 降级时勿覆盖提示文案
+
+    // 3) 空闲时预热搜索索引（3.6MB，实测线上约 76 秒）。
+    //    不预热的话，用户从打开页面到输第一个关键词只要几秒，
+    //    却要干等整份索引下载完——预热能把这段等待挪到用户还没搜索的时候。
+    //    requestIdleCallback 保证不与首屏/滚动争抢主线程与带宽。
+    const warm = () => { ensureIndex().catch(() => {}); };
+    if (window.requestIdleCallback) requestIdleCallback(warm, { timeout: 4000 });
+    else setTimeout(warm, 2500);
   } catch (err) {
     setLoadError(err);
   } finally {
