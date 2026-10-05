@@ -13,6 +13,15 @@ let filtered = [];  // 当前筛选+排序后的视图
 let rendered = 0;   // 已渲染到 DOM 的数量
 let loadingShard = false; // 任一分片正在加载中（并发守卫）
 
+/* ---- 搜索索引（wf-index.json.gz）----
+   只含 名称/作者/标签，体积约为全部分片的三成。搜索先用它算出命中集合，
+   无需等 29 个分片（11MB）下载完，因此能做到"秒出"。
+   索引里的 order 字段保存各热度维度的行号顺序，命中后可直接排序，
+   不必等全量数据到位。 */
+let INDEX = null;        // 解析后的索引
+let indexLoading = null; // 加载中的 Promise（避免重复请求）
+let idIndex = null;      // id -> POOL 下标，用于把索引命中的 id 映射回展示字段
+
 /* ========= 工具 ========= */
 function esc(s) {
   if (s == null) return "";
@@ -95,7 +104,7 @@ function setFilterProgress(text) {
 /* 正在筛选的文案：有搜索词/标签时说清在筛什么，需要加载数据时说明原因。
    窄屏（≤560px）改用精简版：完整说明太长会挤成两行还带省略号，
    反而把关键信息藏起来。 */
-function filterStatusText(loading) {
+function filterStatusText(loading, viaIndex) {
   const parts = [];
   // 关键词可能很长，超长会撑爆状态条，截断并加省略号
   const clip = (s, n) => (s.length > n ? s.slice(0, n) + "…" : s);
@@ -103,12 +112,202 @@ function filterStatusText(loading) {
   if (state.tag) parts.push(`标签「${clip(state.tag, 12)}」`);
   const scope = parts.length ? parts.join(" + ") : "全部数据";
   const narrow = window.matchMedia("(max-width: 560px)").matches;
+  if (viaIndex) {
+    const mb = MANIFEST && MANIFEST.indexSize
+      ? (MANIFEST.indexSize / 1024 / 1024).toFixed(1) : "3.7";
+    return narrow
+      ? `正在筛选 ${scope}…`
+      : `正在筛选 ${scope} — 正在加载 ${mb}MB 搜索索引…`;
+  }
   if (loading) {
     return narrow
       ? `正在筛选 ${scope}…（需加载全部数据）`
       : `正在筛选 ${scope} — 需加载全部 ${MANIFEST ? MANIFEST.shards.length : "?"} 个数据分片，首次筛选约需数秒…`;
   }
   return `正在筛选 ${scope}…`;
+}
+
+/* ========= 搜索索引 ========= */
+/* 索引只含 名称/作者/标签，体积约为全部分片的三成（实测 3.7MB vs 11MB）。
+   搜索先用它算出命中集合并渲染，卡片缺的展示字段（图片/热度）由
+   indexEnrich() 从已加载分片补齐；尚未加载的分片则显示占位骨架。 */
+function ensureIndex() {
+  if (INDEX) return Promise.resolve(INDEX);
+  if (indexLoading) return indexLoading;
+  if (!MANIFEST || !MANIFEST.indexFile) {
+    // 清单未声明索引（理论上不会发生）→ 退回原有全量加载路径
+    return Promise.resolve(null);
+  }
+  indexLoading = fetchBytes("data/" + MANIFEST.indexFile, 45000)
+    .then(gunzipText)
+    .then((txt) => {
+      INDEX = JSON.parse(txt);
+      // 预建 id -> 行号 映射，搜索后按 id 取展示字段
+      indexLoading = null;
+      return INDEX;
+    })
+    .catch((e) => {
+      indexLoading = null;
+      console.warn("搜索索引加载失败，回退全量加载", e);
+      return null;
+    });
+  return indexLoading;
+}
+
+/* 用索引做匹配：返回命中行号数组（升序，与 ids 顺序一致） */
+function indexMatch(q, tag) {
+  if (!INDEX) return null;
+  const rows = INDEX.rows, tags = INDEX.tags;
+  const qn = q || "";
+  const hit = [];
+  for (let i = 0; i < rows.length; i++) {
+    const r = rows[i];
+    if (tag) {
+      // 标签是字典 id 列表，转成字符串比较
+      let ok = false;
+      for (const t of r[2]) if (tags[t] === tag) { ok = true; break; }
+      if (!ok) continue;
+    }
+    if (qn) {
+      // 与 matches() 保持同一匹配面：名称 + 作者 + 标签
+      // 说明：描述 d 不在索引里，搜描述会漏。为避免"搜到一半"的困惑，
+      // 索引路径下搜索范围为名称/作者/标签，描述仍需全量加载后才可搜。
+      let hay = r[0] + " " + r[1];
+      if (!tag) {
+        for (const t of r[2]) hay += " " + tags[t];
+      }
+      if (hay.toLowerCase().indexOf(qn) < 0) continue;
+    }
+    hit.push(i);
+  }
+  return hit;
+}
+
+/* 把索引命中的行号转成可渲染的条目。
+   展示字段优先取自已加载的 POOL（数据最新），否则用索引里的名称/作者/标签
+   组装占位条目 —— 卡片能立刻出现，图片与热度在分片到位后自动补齐。 */
+function indexItems(hitRows) {
+  const ids = INDEX.ids, rows = INDEX.rows, tags = INDEX.tags, ord = INDEX.order;
+  // id -> POOL 下标（分片加载后惰性建立）
+  if (!idIndex) {
+    idIndex = new Map();
+    for (let i = 0; i < POOL.length; i++) idIndex.set(POOL[i].i, i);
+  }
+  const out = [];
+  for (const r of hitRows) {
+    const id = ids[r];
+    const at = idIndex.get(id);
+    if (at !== undefined && POOL[at]) {
+      out.push(POOL[at]); // 已有完整数据，直接用
+      continue;
+    }
+    // 占位：先给名称/作者/标签，图片与热度留空（分片加载后由 enrich 补齐）
+    out.push({
+      i: id,
+      n: rows[r][0],
+      a: rows[r][1],
+      im: null,
+      t: null,
+      s: null,
+      g: (rows[r][2] || []).map((t) => tags[t]).filter(Boolean),
+      _pending: true, // 标记"展示字段待补齐"
+    });
+  }
+  return out;
+}
+
+/* 索引排序：按当前维度对命中项排序。order 里是行号顺序，
+   取出行号在 order 中的排名作为排序键 —— 无需比较字段值。 */
+function indexSort(list, rowsArr) {
+  // 注意：索引里的 order 用的是**短键**（u/l/c/latest），
+  // 而 state.sort 是下拉框的**长键**（uses/likes/collects/latest），
+  // 早期直接用 state.sort 取会拿到 undefined 而静默回退到 order.u，
+  // 导致"切排序没反应"（实测三种热度维度顺序完全相同）。必须先过 RANK_DIM。
+  const dim = RANK_DIM[state.sort] || "u";
+  const ord = INDEX.order[dim];
+  if (!ord) return list;
+  // 按维度分别缓存"行号 -> 排名"，避免切换维度时复用错误的映射
+  if (!indexOrderRank) indexOrderRank = new Map();
+  let rank = indexOrderRank.get(dim);
+  if (!rank) {
+    rank = new Map();
+    for (let r = 0; r < ord.length; r++) rank.set(ord[r], r);
+    indexOrderRank.set(dim, rank);
+  }
+  if (!indexIdToRow) buildIdToRow();
+  const key = new Map();
+  for (const it of list) {
+    const row = indexIdToRow.get(it.i);
+    key.set(it.i, row === undefined ? 1e9 : (rank.has(row) ? rank.get(row) : 1e9));
+  }
+  return list.slice().sort((a, b) => key.get(a.i) - key.get(b.i));
+}
+/* key: 排序维度 -> Map(行号, 排名) */
+let indexOrderRank = null;
+
+/* 一次性建立 id -> 行号 的反查表 */
+function buildIdToRow() {
+  indexIdToRow = new Map();
+  const ids = INDEX.ids;
+  for (let i = 0; i < ids.length; i++) indexIdToRow.set(ids[i], i);
+}
+
+/* id -> 行号 */
+function indexRowOfId(id) {
+  if (!indexIdToRow) buildIdToRow();
+  return indexIdToRow.get(id);
+}
+let indexIdToRow = null;
+
+/* 分片陆续到位后，用真实字段替换占位条目（原地更新，保持顺序不变） */
+function enrichPending(list) {
+  if (!idIndex) return 0;
+  let n = 0;
+  for (const it of list) {
+    if (!it._pending) continue;
+    const at = idIndex.get(it.i);
+    if (at !== undefined && POOL[at]) {
+      const real = POOL[at];
+      it.im = real.im; it.t = real.t; it.s = real.s;
+      delete it._pending;
+      n++;
+    }
+  }
+  return n;
+}
+
+/* 占位条目补齐后重绘：只重画仍在 DOM 中的占位卡片，
+   已渲染的不动，避免打断用户滚动与视觉连续性。 */
+function repaintPending() {
+  if (!filtered.some((x) => x._pending)) return;
+  const n = enrichPending(filtered);
+  if (!n) return;
+  // 仍有未补齐的（分片未到位）→ 不整体重绘，等下一批
+  if (filtered.some((x) => x._pending)) {
+    // 用轻量方式：只更新已补齐的那批
+    updatePendingCards();
+  } else {
+    // 全部补齐 → 整块重绘
+    rendered = 0;
+    document.getElementById("grid").innerHTML = "";
+    renderMore();
+  }
+}
+
+/* 轻量更新：把已补齐的占位卡片替换为完整卡片（不滚动、不闪烁） */
+function updatePendingCards() {
+  const grid = document.getElementById("grid");
+  if (!grid) return;
+  const cards = grid.querySelectorAll(".wf-card.is-pending");
+  cards.forEach((el) => {
+    const idx = Array.prototype.indexOf.call(el.parentNode.children, el);
+    const it = filtered[idx];
+    if (!it || it._pending) return;
+    const tmp = document.createElement("div");
+    tmp.innerHTML = cardHTML(it);
+    const fresh = tmp.firstElementChild;
+    if (fresh) el.replaceWith(fresh);
+  });
 }
 
 function setLoadError(err) {
@@ -232,6 +431,7 @@ async function ensureAllLoaded() {
       }
     }
     allLoaded = true;
+    idIndex = null;
   } catch (e) {
     setLoadError(e);
   } finally {
@@ -241,12 +441,24 @@ async function ensureAllLoaded() {
   }
 }
 
-/* ========= 是否需要全量数据 ========= */
-/* 仅"搜索 / 标签筛选 / 下载量"需要全量数据。
-   点赞 / 收藏 / 最新 有内联榜单（manifest.rank），无需等全部分片。 */
+/* ========= 全量数据 vs 搜索索引 ========= */
+/* 点赞 / 收藏 / 最新 有内联榜单（manifest.rank），无需等全部分片。
+   搜索 / 标签筛选走「搜索索引」（3.7MB，秒出）。
+   唯一需要全量分片的情况：搜索命中数为 0 —— 此时无法区分
+   "库里确实没有"与"匹配的是描述(不在索引里)"，为不漏结果退回全量复查。 */
 const RANK_DIM = { uses: "u", likes: "l", collects: "c", latest: "latest" };
+
+/* 有搜索词或标签 → 走索引路径 */
+function needsIndex() {
+  return !!(state.q || state.tag);
+}
+
+/* 决定是否要等全部分片：
+   - 无搜索词：仅当排序维度没有内联榜单时需要（当前四个维度都有，故永假）
+   - 有搜索词/标签：索引命中为 0 时需要复查，其余不需要 */
 function needsAllData() {
-  return !!(state.q || state.tag || !RANK_DIM[state.sort]);
+  if (needsIndex()) return false; // 由 refresh() 依据命中数再决定是否复查
+  return !RANK_DIM[state.sort];
 }
 function hasRank(srt) {
   const dim = RANK_DIM[srt];
@@ -288,7 +500,31 @@ function rankQuickView() {
   return ordered;
 }
 
+/* 当前视图是否由「搜索索引」驱动。
+   索引命中集合与 POOL 无关（POOL 只是分片按需加载的子集），若让
+   recomputeFiltered 用 POOL.filter(matches) 覆盖，会把索引命中的条目
+   砍到只剩已加载那部分——实测 9642 条被砍成 3744 条。 */
+let INDEX_MODE = false;
+
 function recomputeFiltered() {
+  // 索引模式：始终按索引重算，不能退回 POOL 过滤
+  if (INDEX_MODE && INDEX) {
+    const hit = indexMatch(state.q, state.tag);
+    if (hit) {
+      const list = indexItems(hit);
+      filtered = indexSort(list, hit);
+      // 已加载的条目用池内版本覆盖（统计值更新、图片与日期补齐）
+      for (const it of filtered) {
+        const at = idIndex && idIndex.get(it.i);
+        if (at !== undefined && POOL[at]) {
+          const real = POOL[at];
+          it.im = real.im || it.im; it.t = real.t || it.t; it.s = real.s || it.s;
+          delete it._pending;
+        }
+      }
+      return;
+    }
+  }
   const inPool = sortItems(POOL.filter(matches));
   const dim = RANK_DIM[state.sort];
   if (!allLoaded && dim && MANIFEST && MANIFEST.rank && (MANIFEST.rank[dim] || []).length) {
@@ -327,22 +563,29 @@ function cardHTML(it) {
 
   const author = it.a ? `<div class="author">${avatarHTML(it.a)}<span>${esc(it.a)}</span></div>` : "";
   const s = it.s || {};
-  // 注：平台 downloadCount / pv 恒返回 0，不展示，避免"下载 0"误导
-  const badges = [
-    `<span class="badge">使用 <b>${fmtNum(s.u)}</b></span>`,
-    `<span class="badge">点赞 <b>${fmtNum(s.l)}</b></span>`,
-    `<span class="badge">收藏 <b>${fmtNum(s.c)}</b></span>`,
-  ].join("");
   const tags = (it.g || []).slice(0, 6).map((t) => `<span class="chip" data-tag="${esc(t)}">${esc(t)}</span>`).join("");
 
+  // 占位条目（搜索索引命中但展示字段尚未从分片补齐）：
+  // 图片与热度标记为"加载中"而不是"暂无/0"，避免被误读成真实数据。
+  const pending = !!it._pending;
+  const badges = pending
+    ? `<span class="badge pending">使用 <b>…</b></span>
+       <span class="badge pending">点赞 <b>…</b></span>
+       <span class="badge pending">收藏 <b>…</b></span>`
+    : [
+        `<span class="badge">使用 <b>${fmtNum(s.u)}</b></span>`,
+        `<span class="badge">点赞 <b>${fmtNum(s.l)}</b></span>`,
+        `<span class="badge">收藏 <b>${fmtNum(s.c)}</b></span>`,
+      ].join("");
+
   return `
-    <article class="wf-card">
+    <article class="wf-card${pending ? " is-pending" : ""}">
       ${img}
       <div class="body">
         <h2>${esc(it.n)}</h2>
         ${author}
         <div class="badges">${badges}</div>
-        <div class="date">发布于 ${esc(fmtDate(it.t))}</div>
+        <div class="date">${pending ? "数据加载中…" : `发布于 ${esc(fmtDate(it.t))}`}</div>
         <div class="tags">${tags}</div>
         <a class="open" href="${esc(src)}" target="_blank" rel="noopener">打开来源 →</a>
       </div>
@@ -432,49 +675,73 @@ function renderMore() {
 }
 
 function applyFilter() {
+  INDEX_MODE = false; // 回到全量池模式
   recomputeFiltered();
   rendered = 0;
   document.getElementById("grid").innerHTML = "";
   renderMore();
 }
 
-/* 刷新入口：需要全量数据时先加载全部分片 */
+/* 刷新入口：
+   1) 有搜索词/标签时走「搜索索引」路径 —— 3.7MB 索引秒出，命中即可渲染，
+      展示字段由已加载分片补齐，未加载的先占位；
+   2) 仅排序时优先用清单内联的 Top-600 榜单（0.01~0.03 秒），后台补全；
+   3) 索引不可用时回退到「等全部分片」的老路径（保证功能不挂）。 */
 async function refresh() {
-  const my = ++filterToken; // 本次筛选的令牌
-  const needAll = needsAllData() && !allLoaded;
-  setFilterUI(true, filterStatusText(needAll));
-  // 超时兜底：加载异常缓慢时不能让状态条永远转下去。
-  // 到点后提示"仍在加载"，但不清除指示（数据到位后仍会自动刷新），
-  // 这样用户知道是"慢"而不是"坏了"。
-  let slowTimer = null;
-  if (needAll) {
-    slowTimer = setTimeout(() => {
-      if (my !== filterToken) return;
-      const txt = document.getElementById("filter-status-text");
-      const done = document.getElementById("search-spin");
-      if (done) done.hidden = true; // 停止转圈，改为静态提示
-      if (txt) {
-        const loaded = typeof nextShard !== "undefined" ? nextShard : 0;
-        const total = MANIFEST ? MANIFEST.shards.length : "?";
-        txt.textContent = `网络较慢，仍在加载数据（已加载 ${loaded}/${total} 个分片）…筛选会在完成后自动出结果`;
-      }
-    }, 12000);
-  }
-  try {
-    if (needsAllData() && !allLoaded) {
-      await ensureAllLoaded();
-      // 等待期间用户可能又改了条件：这次的结果作废，由新一次 refresh 接手
-      if (my !== filterToken) return;
-      applyFilter();
+  const my = ++filterToken;
+  const needIndex = needsIndex();
+  if (needIndex) {
+    setFilterUI(true, filterStatusText(false, true));
+    const idx = await ensureIndex();
+    if (my !== filterToken) return;
+    if (idx) {
+      applyIndexFilter();
+      // 索引已出结果；分片在后台继续加载，逐片补齐图片/热度等展示字段。
+      // 注意：不要在这里等 ensureAllLoaded()，那会把"秒出"打回原形。
+      if (!allLoaded) backgroundFill();
+      setFilterUI(false);
       return;
     }
-    // 有内联榜单：立即出结果，全量数据后台补齐后自动刷新
+    // 索引不可用 → 回退全量加载
+    setFilterUI(true, filterStatusText(true));
+    await ensureAllLoaded();
+    if (my !== filterToken) return;
     applyFilter();
-    if (!allLoaded) backgroundFill();
-  } finally {
-    clearTimeout(slowTimer);
-    if (my === filterToken) setFilterUI(false);
+    setFilterUI(false);
+    return;
   }
+  // 无搜索词：榜单内联立即出结果
+  applyFilter();
+  if (!allLoaded) backgroundFill();
+}
+
+/* 索引路径的筛选：命中 → 组装 → 排序 → 渲染 */
+function applyIndexFilter() {
+  const hit = indexMatch(state.q, state.tag);
+  if (!hit) return applyFilter();
+  // 零命中时退回全量复查：索引不含描述( d )字段，
+  // 用户可能搜的是描述里的词，此时不能直接报"无结果"。
+  if (hit.length === 0 && !allLoaded) {
+    fallbackFullScan();
+    return;
+  }
+  INDEX_MODE = true;
+  const list = indexItems(hit);
+  filtered = indexSort(list, hit);
+  rendered = 0;
+  document.getElementById("grid").innerHTML = "";
+  renderMore();
+}
+
+/* 零命中兜底：加载全部分片后用完整字段（含描述）重查一次。
+   这是"搜描述"的唯一路径——索引里刻意不放 d 字段以控制体积。 */
+async function fallbackFullScan() {
+  const my = ++filterToken;
+  setFilterUI(true, "索引无结果，正在用完整数据复查…");
+  await ensureAllLoaded();
+  if (my !== filterToken) return;
+  applyFilter();
+  setFilterUI(false);
 }
 
 /* 后台补齐全部分片（不阻塞交互）。数据到位后按当前视图重新排序渲染。 */
@@ -486,12 +753,19 @@ async function backgroundFill() {
   try {
     while (nextShard < MANIFEST.shards.length) {
       await loadShard(MANIFEST.shards[nextShard]);
+      idIndex = null; // POOL 变了，行号映射失效
       recomputeFiltered();
+      repaintPending();   // 分片到位后补齐搜索结果的占位卡片
       renderMore(); // 逐步追加，滚动位置不跳
     }
     allLoaded = true;
+    idIndex = null;
     recomputeFiltered();
-    applyFilter(); // 补齐后按全局重排，保证排序完全准确
+    repaintPending();
+    // 补齐后重排（排序完全准确）。索引模式下必须继续用索引路径，
+    // 否则 applyFilter 会把视图切回全量池，砍掉"未加载"的那部分命中。
+    if (INDEX_MODE) applyIndexFilter();
+    else applyFilter();
   } catch (e) {
     setLoadError(e);
   } finally {

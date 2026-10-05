@@ -410,6 +410,22 @@ body {
   50%      { opacity: .35; transform: scale(.75); }
 }
 /* 减少动效偏好：关闭脉冲与旋转 */
+/* ========= 搜索索引的占位卡片 ========= */
+/* 搜索索引命中后、展示字段尚未从分片补齐时的临时态。
+   用虚线边框 + 降低饱和度与"暂无预览图/使用 0"区分开，
+   避免被误读为真实数据。 */
+.wf-card.is-pending {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  opacity: .78;
+}
+.wf-card.is-pending .thumb,
+.wf-card.is-pending .thumb-fallback { filter: grayscale(1) opacity(.5); }
+.wf-card.is-pending .thumb-fallback::after {
+  content: "图片加载中…"; font-size: 12px; opacity: .8;
+}
+.badge.pending { color: var(--muted); opacity: .7; }
+.badge.pending b { color: var(--muted); font-weight: 400; }
 @media (prefers-reduced-motion: reduce) {
   .filter-status .fs-dot, .ctl-spin { animation: none; }
 }
