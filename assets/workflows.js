@@ -162,7 +162,6 @@ function fetchIndexWithProgress(url, total, onProgress) {
     const ac = new AbortController();
     const onOuter = () => ac.abort();
     ctl.signal.addEventListener("abort", onOuter, { once: true });
-    let timer = null;
     try {
       const res = await fetch(url, {
         signal: ac.signal,
@@ -173,25 +172,36 @@ function fetchIndexWithProgress(url, total, onProgress) {
       else if (!res.ok && res.status !== 206) throw new Error("HTTP " + res.status);
 
       const reader = res.body.getReader();
-      for (;;) {
-        // stall 守卫：本次 read 若超时抛错，外层带着断点重试
-        const chunk = await Promise.race([
-          reader.read(),
-          new Promise((_, rej) => {
-            timer = setTimeout(() => rej(new Error("stall")), STALL);
-          }),
-        ]);
-        clearTimeout(timer);
-        timer = null;
-        if (chunk.done) return true;
-        chunks.push(chunk.value);
-        got += chunk.value.length;
-        if (onProgress && performance.now() - t0 > 120) onProgress(got, total, t0);
+      let finished = false;
+      try {
+        for (;;) {
+          // stall 守卫：本次 read 若超时抛错，外层带着断点重试。
+          // 竞速用的是一个每次都重建的 timer，避免上一次 read 的计时器
+          // 泄漏到下一次（否则慢速下载时会误报 stall）。
+          let timer = null;
+          const chunk = await Promise.race([
+            reader.read(),
+            new Promise((_, rej) => {
+              timer = setTimeout(() => rej(new Error("stall")), STALL);
+            }),
+          ]).finally(() => clearTimeout(timer));
+          if (chunk.done) { finished = true; return true; }
+          chunks.push(chunk.value);
+          got += chunk.value.length;
+          if (onProgress && performance.now() - t0 > 120) onProgress(got, total, t0);
+        }
+      } finally {
+        // 只在**没读完**的中断路径上 abort（比如 stall 抛错）。
+        // 正常读完时绝不能 abort：reader 的 body 还有在途的微任务，
+        // 此时 abort 会让浏览器抛 "BodyStreamBuffer was aborted"，
+        // 把一次成功的下载变成失败（线上曾因此让首片与索引双双报错）。
+        if (!finished) { try { ac.abort(); } catch (e) {} }
+        ctl.signal.removeEventListener("abort", onOuter);
       }
-    } finally {
-      if (timer) clearTimeout(timer);
-      try { ac.abort(); } catch (e) {}   // 及时释放连接
+    } catch (err) {
+      try { ac.abort(); } catch (e) {}
       ctl.signal.removeEventListener("abort", onOuter);
+      throw err;
     }
   }
 
