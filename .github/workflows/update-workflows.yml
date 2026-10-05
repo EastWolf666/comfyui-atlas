@@ -20,6 +20,10 @@ on:
         description: '深页回补页数（从起始页起算）'
         required: false
         default: '90'
+      thumb_limit:
+        description: '本次最多为多少条视频工作流抽预览图（0 = 不抽）'
+        required: false
+        default: '300'
 
 permissions:
   contents: write # 需要提交数据
@@ -46,6 +50,10 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Set up ffmpeg
+        # 视频封面需要本地抽帧（图片 CDN 未启用视频处理，七牛无法代劳）
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
       - name: Incremental scrape + rebuild shards
         env:
           # schedule 事件下 github.event.inputs 为 null，此处已做兜底
@@ -65,16 +73,32 @@ jobs:
             --backfill-from "$BF_FROM" \
             --backfill-pages "$BF_PAGES"
 
+      - name: Extract video thumbnails
+        env:
+          # 每次只为新增/靠前的视频补抽有限数量，避免 CI 时长失控；
+          # 已存在的缩略图会跳过，所以重复执行是幂等的
+          THUMB_LIMIT: ${{ inputs.thumb_limit || '300' }}
+        run: |
+          if [ "$THUMB_LIMIT" = "0" ]; then
+            echo "⏭  已禁用抽帧（thumb_limit=0）"
+          else
+            echo "▶ 为最多 $THUMB_LIMIT 条视频工作流抽取预览图…"
+            python3 scripts/extract_video_thumbs.py --limit "$THUMB_LIMIT" --workers 8
+          fi
+
       - name: Show data summary
         run: |
           python3 - <<'PY'
-          import json, os
+          import json, os, glob
           m = json.load(open("data/wf-manifest.json", encoding="utf-8"))
           total = m.get("platformTotal") or 0
           pct = f"{100*m['count']/total:.1f}%" if total else "?"
           size = os.path.getsize("data/wf-manifest.json.gz")/1024
+          thumbs = glob.glob("data/thumbs/*.jpg")
+          tsize = sum(os.path.getsize(p) for p in thumbs)/1048576
           print(f"条目: {m['count']} / 平台 {total}（{pct}）")
           print(f"分片: {len(m['shards'])} 片，清单 gzip {size:.0f} KB")
+          print(f"视频缩略图: {len(thumbs)} 张 / {tsize:.1f} MB")
           print(f"更新: {m.get('updatedAt')}")
           PY
 
