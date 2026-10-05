@@ -3,81 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ComfyUI 模块—模型索引站 (Atlas)</title>
+  <title>ComfyUI 工作流库 — Atlas</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
-      <h1>ComfyUI 模块 — 模型索引站 <span class="badge-atlas">Atlas</span></h1>
-      <p class="subtitle">集中展示 ComfyUI 自定义节点（modules）及其在 Hugging Face / 魔搭 / Civitai 等平台的模型下载地址。</p>
+      <h1>ComfyUI 工作流库 <span class="badge-atlas">Atlas</span></h1>
+      <p class="subtitle">汇集各平台可一键运行的 ComfyUI 工作流，附预览图、热度与使用数据，按你的需要排序筛选。</p>
       <div class="stats" id="stats">
-        <div class="stat"><span class="num" id="stat-modules">–</span><span class="lbl">节点</span></div>
-        <div class="stat"><span class="num" id="stat-models">–</span><span class="lbl">模型条目</span></div>
-        <div class="stat"><span class="num" id="stat-platforms">–</span><span class="lbl">覆盖平台</span></div>
+        <div class="stat"><span class="num" id="stat-total">–</span><span class="lbl">平台总量</span></div>
+        <div class="stat"><span class="num" id="stat-indexed">–</span><span class="lbl">已收录</span></div>
+        <div class="stat"><span class="num" id="stat-source">–</span><span class="lbl">来源</span></div>
       </div>
       <nav class="site-nav">
-        <a href="index.html" class="active">模块索引</a>
-        <a href="workflows.html">工作流库</a>
+        <a href="index.html" class="active">工作流库</a>
+        <a href="modules.html">模块索引</a>
       </nav>
     </div>
   </header>
 
   <main class="wrap">
-    <section class="view-tabs">
-      <button class="tab active" data-view="nodes">按节点</button>
-      <button class="tab" data-view="platforms">按平台</button>
-      <button class="tab" data-view="fav">⭐ 我的收藏</button>
-      <button class="tab" data-view="workflow">🔍 工作流分析</button>
+    <section class="wf-lib-controls">
+      <div class="ctl-search">
+        <input type="search" id="search" placeholder="搜索工作流名称 / 作者 / 描述 / 标签…" autocomplete="off" />
+        <span class="ctl-spin" id="search-spin" hidden aria-hidden="true"></span>
+      </div>
+      <select id="filter-tag"><option value="">全部标签</option></select>
+      <select id="sort">
+        <option value="uses">排序：热度（使用量）</option>
+        <option value="latest">排序：最新发布</option>
+        <option value="likes">排序：点赞数</option>
+        <option value="collects">排序：收藏数</option>
+      </select>
+      <span class="result-count" id="count" aria-live="polite"></span>
     </section>
+    <p class="filter-status" id="filter-status" hidden aria-live="polite">
+      <span class="fs-dot"></span><span id="filter-status-text">正在筛选…</span>
+    </p>
 
-    <div id="browse-view">
-      <section class="controls">
-        <input type="search" id="search" placeholder="搜索节点名 / 模型名 / 标签…" autocomplete="off" />
-        <select id="filter-category"><option value="">全部分类</option></select>
-        <select id="filter-platform"><option value="">全部平台</option></select>
-        <select id="filter-status"><option value="">全部状态</option></select>
-        <span class="result-count" id="count"></span>
-      </section>
-
-      <section id="modules" class="modules-grid">
-        <div class="loading-wrap" id="loading">
-          <span class="spinner"></span>
-          <p>正在加载模块数据…</p>
-          <p class="sub">首次加载需拉取数据文件，请稍候</p>
-        </div>
-      </section>
-      <p id="empty" class="empty" hidden>没有匹配的节点，试试调整筛选条件。</p>
+    <section id="grid" class="wf-lib-grid">
+      <div class="loading-wrap" id="loading">
+        <span class="spinner"></span>
+        <p>正在加载最热工作流…</p>
+        <p class="sub">首屏仅加载一个分片，滚动或搜索时按需加载更多</p>
+      </div>
+    </section>
+    <div id="busy" class="busy" hidden>
+      <span class="spinner sm"></span><span id="busy-text">加载中…</span>
     </div>
-
-    <section id="workflow-view" class="workflow-view" hidden>
-      <div class="wf-intro">
-        <h2>工作流分析器</h2>
-        <p>上传或粘贴一个 ComfyUI 工作流 <code>.json</code>，自动识别其中用到的<strong>自定义节点</strong>，并给出<strong>安装命令</strong>与<strong>所需模型下载地址</strong>，帮你快速复现工作流、补齐缺失模型。</p>
-      </div>
-      <div class="wf-input">
-        <label class="wf-file">
-          <input type="file" id="wf-file" accept=".json,application/json" />
-          <span>📂 选择 .json 工作流文件</span>
-        </label>
-        <div class="wf-or">— 或粘贴 JSON —</div>
-        <textarea id="wf-text" placeholder="在此粘贴 ComfyUI 工作流 JSON 内容（支持默认保存格式与 API 格式）…" rows="6"></textarea>
-        <div class="wf-actions">
-          <button id="wf-analyze" class="btn-primary">🔍 分析工作流</button>
-          <button id="wf-clear" class="btn-ghost">清空</button>
-        </div>
-        <p id="wf-error" class="wf-error" hidden></p>
-      </div>
-      <div id="wf-result"></div>
-    </section>
+    <div class="loadmore-wrap">
+      <button id="loadmore" class="btn-primary" hidden>加载更多</button>
+      <p id="loadmore-info" class="loadmore-tip"></p>
+    </div>
+    <p id="empty" class="empty" hidden>没有匹配的工作流，试试调整搜索或筛选条件。</p>
+    <p class="wf-lib-note" id="note"></p>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <p>本站仅收录公开下载地址，不托管模型文件。数据由社区维护，欢迎提 PR 补充。详见 <a href="docs/需求文档.md">需求文档</a>。</p>
+      <p>工作流数据来源于第三方平台，版权归原作者所有，请遵守各平台使用协议。收录与展示仅供学习索引之用。</p>
     </div>
   </footer>
 
-  <script src="assets/app.js"></script>
+  <script src="assets/workflows.js"></script>
 </body>
 </html>

@@ -3,69 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ComfyUI 工作流库 — Atlas</title>
+  <title>页面已迁移 — ComfyUI Atlas</title>
+  <meta http-equiv="refresh" content="0; url=index.html" />
+  <link rel="canonical" href="index.html" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
-      <h1>ComfyUI 工作流库 <span class="badge-atlas">Atlas</span></h1>
-      <p class="subtitle">汇集各平台可一键运行的 ComfyUI 工作流，附预览图、热度与使用数据，按你的需要排序筛选。</p>
-      <div class="stats" id="stats">
-        <div class="stat"><span class="num" id="stat-total">–</span><span class="lbl">平台总量</span></div>
-        <div class="stat"><span class="num" id="stat-indexed">–</span><span class="lbl">已收录</span></div>
-        <div class="stat"><span class="num" id="stat-source">–</span><span class="lbl">来源</span></div>
-      </div>
+      <h1>页面已迁移 <span class="badge-atlas">Atlas</span></h1>
+      <p class="subtitle">工作流库已成为站点首页，正在自动跳转…</p>
       <nav class="site-nav">
-        <a href="index.html">模块索引</a>
-        <a href="workflows.html" class="active">工作流库</a>
+        <a href="index.html">工作流库</a>
+        <a href="modules.html">模块索引</a>
       </nav>
     </div>
   </header>
 
   <main class="wrap">
-    <section class="wf-lib-controls">
-      <div class="ctl-search">
-        <input type="search" id="search" placeholder="搜索工作流名称 / 作者 / 描述 / 标签…" autocomplete="off" />
-        <span class="ctl-spin" id="search-spin" hidden aria-hidden="true"></span>
-      </div>
-      <select id="filter-tag"><option value="">全部标签</option></select>
-      <select id="sort">
-        <option value="uses">排序：热度（使用量）</option>
-        <option value="latest">排序：最新发布</option>
-        <option value="likes">排序：点赞数</option>
-        <option value="collects">排序：收藏数</option>
-      </select>
-      <span class="result-count" id="count" aria-live="polite"></span>
-    </section>
-    <p class="filter-status" id="filter-status" hidden aria-live="polite">
-      <span class="fs-dot"></span><span id="filter-status-text">正在筛选…</span>
-    </p>
-
-    <section id="grid" class="wf-lib-grid">
-      <div class="loading-wrap" id="loading">
-        <span class="spinner"></span>
-        <p>正在加载最热工作流…</p>
-        <p class="sub">首屏仅加载一个分片，滚动或搜索时按需加载更多</p>
-      </div>
-    </section>
-    <div id="busy" class="busy" hidden>
-      <span class="spinner sm"></span><span id="busy-text">加载中…</span>
-    </div>
-    <div class="loadmore-wrap">
-      <button id="loadmore" class="btn-primary" hidden>加载更多</button>
-      <p id="loadmore-info" class="loadmore-tip"></p>
-    </div>
-    <p id="empty" class="empty" hidden>没有匹配的工作流，试试调整搜索或筛选条件。</p>
-    <p class="wf-lib-note" id="note"></p>
+    <p>若未自动跳转，请点击 <a href="index.html">工作流库</a> 或 <a href="modules.html">模块索引</a>。</p>
   </main>
-
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>工作流数据来源于第三方平台，版权归原作者所有，请遵守各平台使用协议。收录与展示仅供学习索引之用。</p>
-    </div>
-  </footer>
-
-  <script src="assets/workflows.js"></script>
 </body>
 </html>
