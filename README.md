@@ -180,7 +180,8 @@ python3 scripts/build_shards.py --shard-size 3000 --rank-top 600        # 切分
 |---|---|
 | 触发时间 | `cron: '10 3 */3 * *'`（UTC，约北京时间上午 11:10） |
 | 扫描范围 | 最新 60 页 × 50 = 3000 条（平台按发布时间倒序，新数据必在前） |
-| 耗时 | 约 30~60 秒 |
+| 深页回补 | 第 610–699 页（90 页），捞回"批量上架漏采"条目 |
+| 耗时 | 约 3~5 分钟（含回补） |
 | 权限 | `contents: write`（自动提交后触发 Pages 部署） |
 
 **去重机制**（关键）：完整数据没入库，所以脚本先**从 29 个分片反解出全部历史条目**作为基线，再抓取最新页并按 `id` 合并：
@@ -196,10 +197,33 @@ python3 scripts/build_shards.py --shard-size 3000 --rank-top 600        # 切分
 
 > ⚠️ 踩坑记录：早期版本直接输出分片里的**短键**格式（`i/n/s`），而 `build_shards.py` 读的是**长键**（`id/name/stats`），导致所有字段读空、分片全部损坏（首片仅 5KB）。现在 `lean_to_raw()` 负责还原成长键，并加了上述安全阀。
 
-手动触发：Actions 页面 → *Update workflow data* → *Run workflow*，可自定义扫描页数。补漏用全量重扫（很慢，平台约 1770 页）：
+手动触发：Actions 页面 → *Update workflow data* → *Run workflow*，可自定义 `pages` / `backfill_from` / `backfill_pages`。
+
+### 🕳️ 深页回补（批量上架漏采）
+
+「只扫最新页」有个结构性盲区：接口按**发布时间倒序**返回，所以平台某次**短时间批量上架**时，这批条目会整体落在中段深页。早期按序扫描若正好跳过那几页，之后只扫最新页就**永远发现不了**。
+
+实测定位：全库深扫到 1000 页，缺口集中在第 **613 / 617 / 646** 页，其中第 617 页一次性漏掉 48 条（同一天集中上架）。已通过回补补回，数据从 85782 → **85832 条**。
+
+因此 CI 每次运行除最新页外，固定回补**第 610–699 页**：
 
 ```bash
-python3 scripts/update_workflows.py --full-rescan
+# 手动回补任意深页区间
+python3 scripts/update_workflows.py \
+  --pages 10 --backfill-from 610 --backfill-pages 90
+```
+
+回补复用同一套 `map_record` 映射与幂等合并逻辑（已存在的只刷热度，不存在的才新增），并受同样的双重安全阀保护。
+
+> 💡 门槛提示：`--backfill-from` 必须显式给值。若省略或填 0，脚本会打印提示并跳过回补 —— 因为"紧接最新页的区间早已全收录"，把 `--pages` 当回补起点是无效的。
+
+### 🔍 一次性全库重扫
+
+补漏用全量重扫（平台约 1770 页，很慢，约 40 分钟）：
+
+```bash
+python3 scripts/update_workflows.py --full-rescan          # 写盘
+python3 scripts/update_workflows.py --full-rescan --dry-run # 只统计不写盘
 ```
 
 ---
