@@ -179,6 +179,7 @@ function fetchIndexWithProgress(url, total, onProgress) {
 }
 
 let indexProgress = null; // 当前索引下载进度（供状态条刷新）
+let indexWanted = false;  // 用户是否正在等索引（区分「主动搜索」与「后台预热」）
 
 function ensureIndex() {
   if (INDEX) return Promise.resolve(INDEX);
@@ -193,7 +194,10 @@ function ensureIndex() {
         const secs = (performance.now() - t0) / 1000;
         const bps = got / Math.max(secs, 0.3);
         indexProgress = { got, total, bps, left: (all - got) / Math.max(bps, 1024) };
-        // 节流刷新状态条，避免高频 DOM 操作
+        // 节流刷新状态条，避免高频 DOM 操作。
+        // 只在**用户主动搜索**时才亮状态条：后台预热不该弹"正在筛选"，
+        // 否则用户刚打开页面就看到一条筛选提示，会误以为已经在筛选了。
+        if (!indexWanted) return;
         if (!ensureIndex._t || performance.now() - ensureIndex._t > 400) {
           ensureIndex._t = performance.now();
           setFilterUI(true, filterStatusText(false, true, indexProgress));
@@ -773,9 +777,11 @@ async function refresh() {
   const my = ++filterToken;
   const needIndex = needsIndex();
   if (needIndex) {
-    setFilterUI(true, filterStatusText(false, true));
+    indexWanted = true; // 标记"用户在等索引"，进度提示才允许亮出来
+    setFilterUI(true, filterStatusText(false, true, indexProgress));
     const idx = await ensureIndex();
     if (my !== filterToken) return;
+    indexWanted = false;
     if (idx) {
       applyIndexFilter();
       // 索引已出结果；分片在后台继续加载，逐片补齐图片/热度等展示字段。
@@ -792,6 +798,7 @@ async function refresh() {
     setFilterUI(false);
     return;
   }
+  indexWanted = false;
   // 无搜索词：榜单内联立即出结果
   applyFilter();
   if (!allLoaded) backgroundFill();
@@ -819,6 +826,7 @@ function applyIndexFilter() {
    这是"搜描述"的唯一路径——索引里刻意不放 d 字段以控制体积。 */
 async function fallbackFullScan() {
   const my = ++filterToken;
+  indexWanted = false; // 索引阶段结束，后续进度提示不再由索引驱动
   setFilterUI(true, "索引无结果，正在用完整数据复查…");
   await ensureAllLoaded();
   if (my !== filterToken) return;
