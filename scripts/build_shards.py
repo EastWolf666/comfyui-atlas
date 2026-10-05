@@ -91,7 +91,11 @@ def main():
         name = f"wf-shard-{idx // args.shard_size:03d}.json.gz"
         path = os.path.join(args.outdir, name)
         payload = json.dumps(chunk, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
-        with gzip.open(path, "wb", compresslevel=9) as f:
+        # mtime=0：gzip 头里默认写入当前时间，会让相同内容产出不同字节，
+        # 导致 CI 每次都产生"仅时间戳变动"的无意义提交
+        with open(path, "wb") as raw, gzip.GzipFile(
+            fileobj=raw, mode="wb", compresslevel=9, mtime=0
+        ) as f:
             f.write(payload)
         shards.append(name)
 
@@ -138,8 +142,10 @@ def main():
     mpath = os.path.join(args.outdir, "wf-manifest.json")
     with open(mpath, "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, separators=(",", ":"))
-    # 清单同样预压缩（前端优先加载 .gz）
-    with open(mpath, "rb") as fin, gzip.open(mpath + ".gz", "wb", compresslevel=9) as fout:
+    # 清单同样预压缩（前端优先加载 .gz）；mtime=0 保证相同内容产出相同字节
+    with open(mpath, "rb") as fin, open(mpath + ".gz", "wb") as raw, gzip.GzipFile(
+        fileobj=raw, mode="wb", compresslevel=9, mtime=0
+    ) as fout:
         fout.write(fin.read())
 
     gz_total = sum(os.path.getsize(os.path.join(args.outdir, s)) for s in shards)
