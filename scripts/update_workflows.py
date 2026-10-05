@@ -226,6 +226,18 @@ def main():
         print("🧪 dry-run，未写文件")
         return
 
+    # 快照旧产物字节，用于判断"是否真的变了"（避免仅时间戳变动就触发提交+部署）
+    def snapshot():
+        snap = {}
+        for fn in sorted(glob.glob(os.path.join(args.data_dir, "wf-shard-*.json.gz"))) + \
+                 [os.path.join(args.data_dir, "wf-manifest.json")]:
+            if os.path.exists(fn):
+                with open(fn, "rb") as f:
+                    snap[os.path.basename(fn)] = f.read()
+        return snap
+
+    before = snapshot()
+
     # 写出完整数据（临时产物，不入库），供 build_shards.py 使用
     out = {
         "source": meta.get("source") or "RunningHub",
@@ -244,6 +256,55 @@ def main():
         sys.exit(1)
     with_img = sum(1 for it in out["items"] if it.get("image"))
     print(f"✅ 校验通过：{len(out['items'])} 条，其中 {with_img} 条有预览图")
+
+    # 先判断内容（忽略 updatedAt）是否真的变了，避免"只动时间戳"的无意义提交。
+    # 判定标准：条目数、平台总数、分片数、以及前 600 条的"id+热度"摘要
+    # （热度会随时间增长，摘要不同即视为有更新）
+    old_m = None
+    omp = os.path.join(args.data_dir, "wf-manifest.json")
+    if os.path.exists(omp):
+        try:
+            with open(omp, encoding="utf-8") as f:
+                old_m = json.load(f)
+        except Exception:
+            old_m = None
+    if old_m:
+        try:
+            with gzip.open(os.path.join(args.data_dir, "wf-shard-000.json.gz"), "rt",
+                           encoding="utf-8") as f:
+                old_s0 = json.load(f)
+        except Exception:
+            old_s0 = []
+
+        def digest(rows):
+            """确定性摘要（不能用内置 hash()，它对 str 加盐、每次进程结果不同）。"""
+            h = 0
+            for it in rows:
+                s = it.get("s") or {}
+                key = f"{it.get('i')}|{s.get('u')}|{s.get('l')}|{s.get('c')}"
+                for ch in key:
+                    h = (h * 31 + ord(ch)) & 0xFFFFFFFF
+            return h
+
+        # 新数据按使用量降序（与 build_shards 一致），取与旧首片等长的前缀比较
+        by_uses = sorted(out["items"], key=lambda x: -((x.get("stats") or {}).get("uses") or 0))
+        cmp_len = min(len(old_s0), 3000)
+        new_head = [{"i": it.get("id"),
+                     "s": {"u": (it.get("stats") or {}).get("uses"),
+                           "l": (it.get("stats") or {}).get("likes"),
+                           "c": (it.get("stats") or {}).get("collects")}}
+                    for it in by_uses[:cmp_len]]
+        same = (
+            old_m.get("count") == len(out["items"])
+            and old_m.get("platformTotal") == total
+            and len(old_m.get("shards") or []) == -(-len(out["items"]) // args.shard_size)
+            and cmp_len > 0
+            and digest(old_s0[:cmp_len]) == digest(new_head)
+        )
+        if same:
+            out["updatedAt"] = old_m.get("updatedAt")  # 沿用旧时间戳，保持产物字节一致
+            print("ℹ️  数据内容无变化（条目/热度摘要一致），沿用旧 updatedAt")
+
     tmp = os.path.join(args.data_dir, "workflows.json")
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
@@ -278,6 +339,16 @@ def main():
     for p in (tmp, tmp + ".gz"):
         if os.path.exists(p):
             os.remove(p)
+
+    # 字节级对比：确认"没变化时产物真的完全一致"（含 gzip 头，已用 mtime=0 固定）。
+    # 这比上面的 digest 判定更严格，是幂等性的最终保证。
+    after = snapshot()
+    changed = [k for k in sorted(set(before) | set(after)) if before.get(k) != after.get(k)]
+    if changed:
+        print(f"🔄 产物有变化（{len(changed)} 个文件）：{', '.join(changed[:3])}"
+              f"{' …' if len(changed) > 3 else ''}")
+    else:
+        print("✅ 幂等：产物字节与运行前完全一致，无需提交")
     print("✅ 全部完成：新清单 "
           f"{m2['count']} 条 / {len(m2['shards'])} 片")
 
