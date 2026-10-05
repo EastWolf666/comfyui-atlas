@@ -142,26 +142,24 @@ function filterStatusText(loading, viaIndex, prog) {
    搜索先用它算出命中集合并渲染，卡片缺的展示字段（图片/热度）由
    indexEnrich() 从已加载分片补齐；尚未加载的分片则显示占位骨架。 */
 
-/* 索引体积较大（实测 GitHub Pages 上 3.6MB 要 ~76 秒），下载期间必须给出
-   真实进度，否则用户面对一个不动的转圈无从判断是卡了还是在等。
-   这里用 fetch + ReadableStream 边读边报进度（不走 fetchBytes，
-   因为它只在整体完成后才 resolve，拿不到中间进度）。 */
+/* 索引体积较大且线上吞吐很低（实测 GitHub Pages 低至 6KB/s），
+   下载期间必须给出真实进度，否则用户面对一个不动的转圈无从判断
+   是卡了还是在等。这里用 fetch + ReadableStream 边读边报进度
+   （不走 fetchBytes，因为它只在整体完成后才 resolve，拿不到中间进度）。 */
 function fetchIndexWithProgress(url, total, onProgress) {
-  const ctl = new AbortController();
-  // 整体超时按体积推导：实测吞吐约 50KB/s，给 3 倍余量，下限 30 秒
-  const budget = Math.max(30000, Math.ceil((total / 1024) / 50 * 3));
-  const t = setTimeout(() => ctl.abort(), budget);
   const t0 = performance.now();
   const chunks = [];
-  let got = 0;   // 已收到的字节（重试时作为 Range 断点）
-  const STALL = 15000; // 连续多少毫秒没有新数据就判定连接卡死
+  let got = 0;      // 已收到的字节（重试时作为 Range 断点）
+  const STALL = 20000; // 连续 20 秒没有任何新数据才判定连接卡死
+  const MAX_TRY = 8;   // 最多重连 8 次
 
-  // 单次尝试：从 from 处开始流式读取，直到读完或 stall。
-  // 用独立 controller，这样 stall 时能只中断这一次而不影响整体。
+  // 刻意**不设整体超时**。
+  // 之前按「体积 ÷ 经验速度」算总预算，实测在网络正常但慢的情况下
+  // 会把下载腰斩（6KB/s 时3.6MB 要十几分钟，远超任何预算），
+  // 反而永远拿不到索引。卡死交给 stall 守卫：
+  // 只要还在持续收到数据就一直等，20 秒一个字节都没有才重连。
   async function once(from) {
     const ac = new AbortController();
-    const onOuter = () => ac.abort();
-    ctl.signal.addEventListener("abort", onOuter, { once: true });
     try {
       const res = await fetch(url, {
         signal: ac.signal,
@@ -175,9 +173,9 @@ function fetchIndexWithProgress(url, total, onProgress) {
       let finished = false;
       try {
         for (;;) {
-          // stall 守卫：本次 read 若超时抛错，外层带着断点重试。
-          // 竞速用的是一个每次都重建的 timer，避免上一次 read 的计时器
-          // 泄漏到下一次（否则慢速下载时会误报 stall）。
+          // stall 守卫：本次 read 若超时抛错，外层带着断点重连。
+          // timer 每次 read 重建，避免上一个计时器泄漏到下一次
+          // （否则慢速下载时会误报 stall）。
           let timer = null;
           const chunk = await Promise.race([
             reader.read(),
@@ -196,24 +194,21 @@ function fetchIndexWithProgress(url, total, onProgress) {
         // 此时 abort 会让浏览器抛 "BodyStreamBuffer was aborted"，
         // 把一次成功的下载变成失败（线上曾因此让首片与索引双双报错）。
         if (!finished) { try { ac.abort(); } catch (e) {} }
-        ctl.signal.removeEventListener("abort", onOuter);
       }
     } catch (err) {
       try { ac.abort(); } catch (e) {}
-      ctl.signal.removeEventListener("abort", onOuter);
       throw err;
     }
   }
 
-  // 最多试 5 次：每次 stall 都从断点续传，不浪费已下载的字节
+  // 每次 stall 都从断点续传，不浪费已下载的字节
   const run = (async () => {
     for (let i = 0; ; i++) {
       try {
         return await once(got);
       } catch (e) {
-        if (ctl.signal.aborted) throw e; // 整体超时，不再重试
-        if (i >= 4) throw e;              // 重试耗尽
-        if (onProgress) onProgress(got, total, t0); // 让 UI 显示"重连中"
+        if (i >= MAX_TRY) throw e;         // 重连耗尽
+        if (onProgress) onProgress(got, total, t0); // 让 UI 反映"重连中"
       }
     }
   })();
@@ -223,7 +218,7 @@ function fetchIndexWithProgress(url, total, onProgress) {
     let off = 0;
     for (const c of chunks) { out.set(c, off); off += c.length; }
     return out.buffer;
-  }).finally(() => clearTimeout(t));
+  });
 }
 
 let indexProgress = null; // 当前索引下载进度（供状态条刷新）
@@ -433,29 +428,40 @@ function setLoadError(err) {
   console.error(err);
 }
 
-/* ========= 数据加载（分片 + 超时重试） ========= */
-/* 注意：超时必须覆盖「读取响应体」全过程。
-   AbortController 只在 fetch 未完成时有效；一旦响应头到达，fetch() 即 resolve，
-   后续 arrayBuffer() 的慢速读取不受 abort 保护，会造成 Promise 永久悬挂。 */
-function fetchBytes(url, ms) {
+/* ========= 数据加载（分片 + 卡死守卫） ========= */
+/* 不用「整体超时」而用「stall 守卫」，原因同fetchIndexWithProgress：
+   实测线上吞吐低到 6KB/s，按体积算总预算会把正常但慢的下载腰斩。
+   只要还在持续收到数据就一直等，stallMs 一个字节都没有才判定卡死。
+   另外流式读取（而非 arrayBuffer）保证中断一定能生效：
+   AbortController 只在 fetch 未完成时有效，响应头到达后
+   arrayBuffer() 的慢速读取不受signal 约束，会造成 Promise 永久悬挂。 */
+function fetchBytes(url, stallMs) {
   const ctl = new AbortController();
-  const t = setTimeout(() => ctl.abort(), ms || 20000);
+  const STALL = stallMs || 20000;
   return fetch(url, { signal: ctl.signal })
     .then(async (res) => {
       if (!res.ok) throw new Error("HTTP " + res.status);
-      // 逐块读进数组再合并，而不是 res.arrayBuffer()：
-      // 后者在「响应头已到、body 仍在传输」阶段不受 abort 保护，
-      // 若连接半死不活，clearTimeout 已执行、abort 又打不到它，
-      // Promise 会永远挂起（UI 表现为一直转圈）。
-      // 流式读取则全程受 signal 约束，超时必定落定。
       const reader = res.body.getReader();
       const chunks = [];
       let total = 0;
-      for (;;) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        chunks.push(value);
-        total += value.length;
+      let finished = false;
+      try {
+        for (;;) {
+          // 每次 read 重建 timer，避免上一个计时器泄漏到下一次
+          let timer = null;
+          const chunk = await Promise.race([
+            reader.read(),
+            new Promise((_, rej) => {
+              timer = setTimeout(() => rej(new Error("stall")), STALL);
+            }),
+          ]).finally(() => clearTimeout(timer));
+          if (chunk.done) { finished = true; break; }
+          chunks.push(chunk.value);
+          total += chunk.value.length;
+        }
+      } finally {
+        // 读完时绝不能 abort，否则浏览器抛 BodyStreamBuffer was aborted
+        if (!finished) { try { ctl.abort(); } catch (e) {} }
       }
       const out = new Uint8Array(total);
       let off = 0;
@@ -464,8 +470,7 @@ function fetchBytes(url, ms) {
         off += c.length;
       }
       return out.buffer;
-    })
-    .finally(() => clearTimeout(t));
+    });
 }
 
 async function loadManifest() {
