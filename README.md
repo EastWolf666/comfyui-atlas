@@ -13,7 +13,8 @@
 - 🌐 **多平台覆盖**：HF、魔搭、Civitai、hf-mirror、哩布、Tensor.Art 等
 - 🗂️ **工作流库**（`workflows.html`）：汇集 RunningHub 公开的可运行 ComfyUI 工作流，每条含**预览图**、作者、使用/点赞/收藏热度、发布时间与标签；支持**搜索、标签筛选、按热度/最新/点赞/收藏排序**，一键跳转来源在线运行
   - 加载性能：**分片按需加载**（首屏只拉最热一片，滚动自动续片）+ 每片 gzip + 浏览器 `DecompressionStream` 原生解压 + 增量渲染，万级数据也流畅
-  - 切换排序**即时生效**：各维度Top-600 榜单内联在清单里（清单本身也预压缩），弱网下切换仅需 0.01~0.03 秒，无需等全部分片
+  - 切换排序**即时生效**：各维度Top-480 榜单内联在清单里（清单本身也预压缩），弱网下切换仅需 0.01~0.03 秒，无需等全部分片
+  - 搜索**秒出**：额外产出一份 3.6MB 的搜索索引（仅含名称/作者/标签），首屏空闲时后台预热，命中后无需等29 个分片下载完——实测预热命中时 **0.7 秒**出结果（原需19~32 秒）
   - **每 3 天自动增量更新**（GitHub Actions）：从分片还原历史数据 + 只抓最新 60 页，按 `id` 合并去重（已存在的仅刷新热度，不重复追加），自动提交并触发部署
   - 数据来源与扩充见下方「工作流数据管线」
 - 🧩 **工作流分析器**：上传 / 粘贴 ComfyUI 工作流 `.json`，自动识别其中的自定义节点 → 给出 `git clone` / `cm-cli` 安装命令与缺失模型下载地址（复现工作流神器）
@@ -33,7 +34,8 @@
 ├─ data/registry-nodes.json       # ComfyUI-Manager 官方注册表（节点类名→仓库，~5900 仓库）
 ├─ data/github-extra.json         # 离线解析出的「未知节点→GitHub 高置信仓库」映射（第 4 级）
 ├─ data/workflows.json            # 完整工作流元信息（本地构建输入，已 gitignore，不上线）
-├─ data/wf-manifest.json          # 工作流分片清单（来源/总数/分片列表）← 前端加载这个
+├─ data/wf-manifest.json          # 工作流分片清单（来源/总数/分片列表/榜单/索引声明）← 前端加载这个
+├─ data/wf-index.json.gz          # 搜索索引（3.6MB：ids/tags/rows/order，让搜索秒出）
 ├─ data/wf-shard-*.json.gz        # 工作流 gzip 分片（按热度切分，前端按需加载）
 ├─ index.html                     # 站点入口（模块索引）
 ├─ workflows.html                 # 工作流库页面
@@ -48,7 +50,7 @@
 │   ├─ expand_modules.py          # 扩充 modules.json（节点与模型条目）
 │   ├─ scrape_runninghub.py       # 抓取 RunningHub 工作流 → data/workflows.json
 │   ├─ build_data.py              # 优化完整数据：精简描述 + 紧凑化（中间产物）
-│   └─ build_shards.py            # 把完整数据切成 gzip 分片（前端按需加载的产物）
+│   └─ build_shards.py            # 把完整数据切成 gzip 分片 + 榜单 + 搜索索引
 ├─ .github/workflows/
 │   ├─ deploy.yml                 # GitHub Action：校验 → 部署 Pages
 │   └─ link-check.yml             # 定时/手动 链接健康检查，报告上传为 Artifact
@@ -128,40 +130,91 @@ python3 scripts/scrape_runninghub.py --keyword "视频" --pages 50
 | **分片按需加载** | 构建时按热度排序切成多个 gzip 分片（默认 3000 条/片）。**首屏只拉第 0 片**，滚动到底自动续下一片；只有「搜索 / 标签筛选」需要全局数据时，才一次性加载全部分片 | 首屏下载量降至约 **1/29** |
 | **全量加载并发** | 「搜索 / 标签筛选」触发的全部分片加载走 **4 路并发**（HTTP/1.1 同源并发上限），只并发取字节这一步，解压/入池仍串行以保 `loadShard` 语义 | 全量加载 **7~8 分钟 → 19 秒**（3Mbps 慢网下 32 秒） |
 | **内联预览** | 清单里直接内联最热 120 条（`preview`），首屏**不等分片**即可渲染卡片 | 首屏「白屏等待」时间降为 0 |
-| **排序榜单内联** | 各维度 Top-600 榜单（`rank` + `rankItems`）内联在清单中；切换排序先用榜单立即渲染，剩余数据在后台补齐后再全局重排 | 切换排序从「数分钟」降到 **0.01~0.03 秒** |
+| **排序榜单内联** | 各维度 Top-480 榜单（`rank` + `rankItems`）内联在清单中；切换排序先用榜单立即渲染，剩余数据在后台补齐后再全局重排 | 切换排序从「数分钟」降到 **0.01~0.03 秒** |
 | **清单预压缩** | 清单同样产出 `.gz`，前端优先加载 `.gz`、失败才回退 `.json` | 榜单内联后清单 703KB → **193KB** |
 | **传输压缩** | 每个分片独立 gzip，前端用浏览器原生 `DecompressionStream('gzip')` 解压（带魔数兜底 + 不支持时回退） | 传输量约为原始 **15%** |
 | **精简载荷** | 字段用短键（`i/n/a/im/t/s/g/d`），去掉可派生的 `sourceUrl`、改用首字头像替代远程头像 | 减小体积、免去海量头像请求 |
 | **预览图缩略** | 图片 URL 统一改写为七牛缩略参数 `?imageView2/2/w/480/h/300/format/jpg`（匹配卡片 16:10），避免拉原图 | 图片体积降 **80~97%**（原图平均 ~600KB/张） |
 | **增量渲染** | 每批只渲染 48 张，滚动自动追加（仅插入新卡片，不重绘） | 万级数据也流畅 |
+| **搜索索引** | 额外产出 `wf-index.json.gz`（**3.6MB**，仅为搜索所需字段），搜索先用它算出命中集合并渲染，缺的热度/图片字段再由分片补齐；首屏空闲时后台预热 | 搜索 **19~32 秒 → 0.7 秒**（预热命中时） |
 | **筛选状态反馈** | 输入瞬间亮起搜索框内嵌转圈 + 状态条（不等 250ms 防抖）；状态条文案说明"为什么慢"，加载期换成`正在加载数据（14/29 个分片）` 实时进度；12 秒后转静态提示防"永远在转" | 不再"不知道是不是正在筛" |
 | **匹配数计数** | 筛选态下分母是**匹配数**而非全库总数（`匹配 10,039 个`），并区分筛选中/已完成；空状态文案带上筛选条件 | 一眼看出筛选是否生效 |
-| **健壮降级** | 超时覆盖「响应体读取」全过程；首片失败时保留预览并给「重试」按钮，`loadingShard` 标志必被释放 | 弱网下不再卡死 |
+| **断点续传** | 索引/分片下载带 `Range` 断点重连；**stall 守卫**（连续 20 秒零字节才判卡死）替代整体超时 | 慢网络不再被腰斩，弱网可用 |
+| **健壮降级** | 首片失败时保留预览并给「重试」按钮，`loadingShard` 标志必被释放 | 弱网下不再卡死 |
 
 > **平台数据缺口**：RunningHub 接口的 `downloadCount` 与 `pv`（浏览量）**恒返回 0**（实测全库 85689 条无一非零），因此「下载量排序」无实际意义，已从排序选项移除，卡片上的「下载 0」徽章也一并去掉，避免误导。可用的热度维度为**使用量 / 点赞 / 收藏 / 最新**。
 
 > **为什么以前切换排序"看起来不可用"**：早期实现里，任何非默认排序都要等**全部分片**（当时 17 片 / 6.3MB，现为 29 片 / 11MB）加载完成才能重排，弱网下要等数分钟。现已改为榜单内联 + 后台补全，切换瞬间出结果。
 
-> **超时必须覆盖 body 读取**（踩坑记录）：`AbortController` 只在 `fetch()` 尚未完成时有效，响应头一到 `fetch` 就 resolve，后续 `res.arrayBuffer()` 完全不受保护。实测慢网下读 438KB 分片耗时 27s，导致 Promise 永久悬挂、页面卡在加载态。因此这里把 `arrayBuffer()` 也放进 abort 保护范围：
+> **超时该用"整体超时"还是"卡死守卫"？**（踩坑记录，血泪教训）本题先后踩了三个坑，最终结论是**后者**：
+>
+> 1. `AbortController` 只在 `fetch()` 未完成时有效。响应头一到`fetch` 就 resolve，后续 `res.arrayBuffer()` 完全不受保护——慢网下会 Promise 永久悬挂（曾实测读 438KB 分片耗 27s卡死）。→ 改用流式读取（`res.body.getReader()`）让 `signal` 全程生效。
+> 2. 读完时**绝不能** `abort()`。body 仍有在途微任务，此时 abort 会让浏览器抛 `AbortError: BodyStreamBuffer was aborted`，把**已读完的成功下载**变成失败（曾导致首片与索引双双报错、并被误判为"超时不够"）。
+> 3. **整体超时本身是错的设计**。实测 GitHub Pages 到部分地区吞吐低至 **6KB/s**（3.6MB 要十几分钟），任何按"体积 ÷ 经验速度"算出的总预算都会把**慢但正常**的连接腰斩。最终改为纯 stall 守卫：只要还在持续收到数据就一直等，连续 20 秒零字节才判卡死并带 `Range` 断点重连。
 >
 > ```js
-> return fetch(url, { signal: ctl.signal })
->   .then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })
->   .finally(() => clearTimeout(t));
+> // 正确姿势：流式读取 + stall 守卫 + 只在中断路径 abort
+> const reader = res.body.getReader();
+> let finished = false;
+> try {
+>   for (;;) {
+>     let timer = null;
+>     const chunk = await Promise.race([
+>       reader.read(),
+>       new Promise((_, rej) => { timer = setTimeout(() => rej(new Error("stall")), STALL); }),
+>     ]).finally(() => clearTimeout(timer));
+>     if (chunk.done) { finished = true; break; }
+>     // ...累积 chunk
+>   }
+> } finally {
+>   if (!finished) ac.abort(); // 读完时绝不 abort
+> }
 > ```
 >
 > 另：不要用 `cache: "no-store"`，它会绕过 CDN 导致每次回源（GitHub Pages 响应本身带 `max-age=600`）。
 
-工作流库的数据产物（客户端只加载这些）：
+### 🔍 搜索索引（`wf-index.json.gz`）
+
+搜索要匹配 名称 / 作者 / 描述 / 标签，但这些字段散落在 29 个分片里。若等分片全部下载完才能筛，弱网下要数十秒。索引把这些字段单独抽成一份：
+
+```
+wf-index.json.gz 结构（3.6MB / 3815947 字节，约为全部分片的 33%）：
+{
+  "ids":   ["1991530280437628929", ...],          // id，顺序与分片一致
+  "tags":  ["3D卡通", "AI漫剧", ...],              // 标签字典（实测仅 143 种）
+  "rows":  [["名称", "作者", [标签id, ...]], ...],  // 逐条的可搜索字段
+  "order": { "u": [行号...], "l": [...], "c": [...], "latest": [...] }
+}
+```
+
+两个关键设计：
+
+- **`order` 存「行号」而非 id**：行号是 <9 万的小整数，比 19 位 id 字符串省 3 倍以上。踩坑：曾直接存 4 份完整 id 列表，索引膨胀到 5.9MB，几乎等于全部分片，索引就失去意义了。
+- **`order` 内联各热度维度顺序**：让搜索结果**无需等分片即可排序**。否则命中后仍要等全量加载才能重排，等于没优化。
+
+配套的取舍与兜底：
+
+| 点 | 说明 |
+|------|------|
+| **不含描述（`d`）** | 描述平均较长，放进索引会明显增大体积。因此搜描述时索引会**零命中**，此时自动退回「加载全部分片 + 用完整字段重查」，避免漏结果。 |
+| **占位卡片渐进补齐** | 命中的条目若所属分片尚未加载，先渲染占位骨架（虚线边框 + "图片加载中…"），分片到位后自动替换为完整卡片。 |
+| **首屏预热** | 索引 3.6MB 在线上可能要几十秒，所以首屏空闲时（`requestIdleCallback`）就后台下载；用户输关键词时通常已就绪。预热是静默的，不显示筛选状态条。 |
+| **排序维度映射** | 索引 `order` 用短键（`u/l/c`），下拉框 `state.sort` 是长键（`uses/likes/collects`），必须先过 `RANK_DIM` 映射。踩坑：直接取会拿到 `undefined` 并静默回退到 `order.u`，表现为"切排序没反应"。 |
+| **`INDEX_MODE` 标志** | 后台分片加载完后若用 `POOL.filter()` 重算，会把索引命中集合（与 `POOL` 无关）覆盖掉。需按模式分支。 |
+
+数据产物：
 
 ```
 data/wf-manifest.json.gz    # 清单（前端优先加载这个）：总数/分片列表/字段schema
                              #   + preview(120) 首屏预览 + rank/rankItems 各维度 Top-480 榜单
-data/wf-manifest.json         # 同上未压缩版（.gz 缺失时回退）
-data/wf-shard-000.json.gz     # 第 0 片（最热 3000 条）← 首屏只拉这个
-data/wf-shard-001.json.gz     # 后续分片，滚动/搜索时按需拉取
+                             #   + indexFile / indexSize 声明搜索索引
+data/wf-index.json.gz       # 搜索索引（3.6MB）：ids / tags / rows / order
+data/wf-shard-000.json.gz   # 第 0 片（最热 3000 条）← 首屏只拉这个
+data/wf-shard-001.json.gz   # 后续分片，滚动/搜索时按需拉取
 ...
 ```
+
+> 索引的未压缩版（10MB）**不入库**，压完即删——与分片一致，客户端只用 `.gz`。
 
 重新抓取 / 构建 / 分片：
 
@@ -170,7 +223,7 @@ data/wf-shard-001.json.gz     # 后续分片，滚动/搜索时按需拉取
 python3 scripts/update_workflows.py --pages 60
 # 底层命令（一般不用手写）
 python3 scripts/scrape_runninghub.py --append --start-page 1716 --pages 300 # 全量续采
-python3 scripts/build_shards.py --shard-size 3000 --rank-top 600        # 切分+榜单
+python3 scripts/build_shards.py --shard-size 3000 --rank-top 480        # 切分+榜单+搜索索引（--no-index 可跳过索引）
 ```
 
 > 完整数据 `data/workflows.json` 仅作为抓取/分片构建的中间产物（已 gitignore），不入库；线上只部署分片。
