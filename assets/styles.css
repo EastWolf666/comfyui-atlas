@@ -37,9 +37,17 @@ body {
 }
 
 .stats { display: flex; gap: 28px; }
-.stat { display: flex; flex-direction: column; }
+.stat { display: flex; flex-direction: column; min-width: 0; }
 .stat .num { font-size: 26px; font-weight: 700; color: var(--accent); }
 .stat .lbl { font-size: 13px; color: var(--muted); }
+
+/* 窄屏：来源名「RunningHub」较长，固定 28px 间距会让三格总宽超出视口
+   （实测 390px 下溢出 1px，出现横向滚动条）。改为压缩间距并允许收缩。 */
+@media (max-width: 480px) {
+  .stats { gap: 14px; }
+  .stat .num { font-size: 22px; }
+  .stat .num, .stat .lbl { overflow-wrap: anywhere; }
+}
 
 .controls {
   display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
