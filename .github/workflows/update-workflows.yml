@@ -1,0 +1,97 @@
+name: Update workflow data
+
+# 每 3 天凌晨 3:10 (UTC) 增量拉取一次工作流数据并自动提交。
+# cron: '10 3 */3 * *' → 日 1/4/7/10/13/16/19/22/25/28/31 的 03:10 UTC
+# 说明：GitHub Actions 的 cron 用 UTC，北京时间 = UTC+8 → 约上午 11:10 触发。
+on:
+  schedule:
+    - cron: '10 3 */3 * *'
+  workflow_dispatch: # 允许手动触发
+    inputs:
+      pages:
+        description: '扫描最新页数（每页 50 条）'
+        required: false
+        default: '60'
+
+permissions:
+  contents: write # 需要提交数据
+  pages: write
+  id-token: write
+
+concurrency:
+  group: update-workflows
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # 直接检出 main 分支（而非 detached HEAD），便于后续直接 commit + push
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Incremental scrape + rebuild shards
+        env:
+          # schedule 事件下 github.event.inputs 为 null，此处已做兜底
+          PAGES: ${{ inputs.pages || '60' }}
+        run: |
+          echo "▶ 扫描最新 $PAGES 页（每页 50 条）…"
+          python3 scripts/update_workflows.py --pages "$PAGES"
+
+      - name: Show data summary
+        run: |
+          python3 - <<'PY'
+          import json, os
+          m = json.load(open("data/wf-manifest.json", encoding="utf-8"))
+          total = m.get("platformTotal") or 0
+          pct = f"{100*m['count']/total:.1f}%" if total else "?"
+          size = os.path.getsize("data/wf-manifest.json.gz")/1024
+          print(f"条目: {m['count']} / 平台 {total}（{pct}）")
+          print(f"分片: {len(m['shards'])} 片，清单 gzip {size:.0f} KB")
+          print(f"更新: {m.get('updatedAt')}")
+          PY
+
+      - name: Commit if changed
+        id: commit
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A data/
+          if git diff --staged --quiet; then
+            echo "CHANGED=false" >> "$GITHUB_OUTPUT"
+            echo "✓ 数据无变化（未抓取到新工作流），跳过提交"
+          else
+            CNT=$(git diff --staged --numstat | wc -l)
+            MSG="data: 定时增量更新工作流数据（$(date -u +'%Y-%m-%d')）"
+            echo "▶ 提交 $CNT 个文件：$MSG"
+            git commit -m "$MSG"
+            git push origin main
+            echo "CHANGED=true" >> "$GITHUB_OUTPUT"
+            echo "COMMIT_MSG=$MSG" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### 定时增量更新"
+            echo ""
+            echo "- 时间: $(date -u +'%Y-%m-%d %H:%M UTC')（北京时间 +8）"
+            if [ "${{ steps.commit.outputs.CHANGED }}" = "true" ]; then
+              echo "- 结果: 已更新并提交 → ${{ steps.commit.outputs.COMMIT_MSG }}"
+              echo "- 提交: \`$(git log -1 --format='%h %s')\`"
+              echo "- 下次自动触发: 3 天后"
+            else
+              echo "- 结果: 数据无变化（平台暂无新工作流）"
+            fi
+            echo ""
+            echo "> 提交会自动触发 Deploy to GitHub Pages，约 1~2 分钟后生效。"
+          } >> "$GITHUB_STEP_SUMMARY"
