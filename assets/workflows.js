@@ -148,34 +148,72 @@ function filterStatusText(loading, viaIndex, prog) {
    因为它只在整体完成后才 resolve，拿不到中间进度）。 */
 function fetchIndexWithProgress(url, total, onProgress) {
   const ctl = new AbortController();
-  // 超时按体积推导：实测吞吐约 50KB/s，给 3 倍余量，下限 30 秒
+  // 整体超时按体积推导：实测吞吐约 50KB/s，给 3 倍余量，下限 30 秒
   const budget = Math.max(30000, Math.ceil((total / 1024) / 50 * 3));
   const t = setTimeout(() => ctl.abort(), budget);
-  return fetch(url, { signal: ctl.signal })
-    .then(async (res) => {
-      if (!res.ok) throw new Error("HTTP " + res.status);
+  const t0 = performance.now();
+  const chunks = [];
+  let got = 0;   // 已收到的字节（重试时作为 Range 断点）
+  const STALL = 15000; // 连续多少毫秒没有新数据就判定连接卡死
+
+  // 单次尝试：从 from 处开始流式读取，直到读完或 stall。
+  // 用独立 controller，这样 stall 时能只中断这一次而不影响整体。
+  async function once(from) {
+    const ac = new AbortController();
+    const onOuter = () => ac.abort();
+    ctl.signal.addEventListener("abort", onOuter, { once: true });
+    let timer = null;
+    try {
+      const res = await fetch(url, {
+        signal: ac.signal,
+        headers: from > 0 ? { Range: `bytes=${from}-` } : undefined,
+      });
+      // 206 = 断点续传成功，直接追加；200 = 服务端忽略了 Range，只能从头收
+      if (res.status === 200 && from > 0) { chunks.length = 0; got = 0; }
+      else if (!res.ok && res.status !== 206) throw new Error("HTTP " + res.status);
+
       const reader = res.body.getReader();
-      const chunks = [];
-      let got = 0;
-      const t0 = performance.now();
       for (;;) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        chunks.push(value);
-        got += value.length;
-        if (onProgress && performance.now() - t0 > 120) {
-          onProgress(got, total, t0);
-        }
+        // stall 守卫：本次 read 若超时抛错，外层带着断点重试
+        const chunk = await Promise.race([
+          reader.read(),
+          new Promise((_, rej) => {
+            timer = setTimeout(() => rej(new Error("stall")), STALL);
+          }),
+        ]);
+        clearTimeout(timer);
+        timer = null;
+        if (chunk.done) return true;
+        chunks.push(chunk.value);
+        got += chunk.value.length;
+        if (onProgress && performance.now() - t0 > 120) onProgress(got, total, t0);
       }
-      const out = new Uint8Array(got);
-      let off = 0;
-      for (const c of chunks) {
-        out.set(c, off);
-        off += c.length;
+    } finally {
+      if (timer) clearTimeout(timer);
+      try { ac.abort(); } catch (e) {}   // 及时释放连接
+      ctl.signal.removeEventListener("abort", onOuter);
+    }
+  }
+
+  // 最多试 5 次：每次 stall 都从断点续传，不浪费已下载的字节
+  const run = (async () => {
+    for (let i = 0; ; i++) {
+      try {
+        return await once(got);
+      } catch (e) {
+        if (ctl.signal.aborted) throw e; // 整体超时，不再重试
+        if (i >= 4) throw e;              // 重试耗尽
+        if (onProgress) onProgress(got, total, t0); // 让 UI 显示"重连中"
       }
-      return out.buffer;
-    })
-    .finally(() => clearTimeout(t));
+    }
+  })();
+
+  return run.then(() => {
+    const out = new Uint8Array(got);
+    let off = 0;
+    for (const c of chunks) { out.set(c, off); off += c.length; }
+    return out.buffer;
+  }).finally(() => clearTimeout(t));
 }
 
 let indexProgress = null; // 当前索引下载进度（供状态条刷新）
