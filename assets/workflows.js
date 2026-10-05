@@ -79,6 +79,19 @@ function setFilterUI(on, text) {
   if (cnt) cnt.classList.toggle("is-busy", !!on);
 }
 
+/* 分片加载阶段：把状态条文案换成实时进度（比静态"首次约需数秒"更有用，
+   让用户知道还剩多少、是不是卡住了）。 */
+function setFilterProgress(text) {
+  const bar = document.getElementById("filter-status");
+  const spin = document.getElementById("search-spin");
+  const cnt = document.getElementById("count");
+  if (bar) bar.hidden = false;
+  if (spin) spin.hidden = false;
+  if (cnt) cnt.classList.add("is-busy");
+  const txt = document.getElementById("filter-status-text");
+  if (txt && text) txt.textContent = text;
+}
+
 /* 正在筛选的文案：有搜索词/标签时说清在筛什么，需要加载数据时说明原因。
    窄屏（≤560px）改用精简版：完整说明太长会挤成两行还带省略号，
    反而把关键信息藏起来。 */
@@ -182,15 +195,48 @@ async function ensureAllLoaded() {
   const total = MANIFEST.shards.length;
   loadingShard = true;
   try {
+    /* 并发批量加载：原先逐片 await 串行，线上实测 300 秒只加载到 19/29 片
+       （约 7~8 分钟才能筛完，用户等不起）。HTTP/1.1 下同源并发 4 路可显著
+       提速，又不会像几十路并发那样被 CDN 限流或挤爆连接。
+       注意：只并发"取字节"这一步，解压/入池/计数仍复用 loadShard 串行执行，
+       以严格保持其副作用（preview 去重切片、nextShard 推进）不被破坏。 */
+    const CONC = 4;
     while (nextShard < total) {
+      const names = [];
+      for (let i = 0; i < CONC && nextShard + i < total; i++) {
+        names.push(MANIFEST.shards[nextShard + i]);
+      }
       setBusy(true, `正在加载全部数据（${nextShard + 1}/${total}）以支持搜索 / 排序…`);
-      await loadShard(MANIFEST.shards[nextShard]);
+      setFilterProgress(`正在加载数据（${nextShard + 1}/${total} 个分片）以完成筛选…`);
+      // 单片失败不应中断整体：记录后继续，保证尽可能多数据可用
+      const bufs = await Promise.allSettled(
+        names.map((n) => fetchBytes("data/" + n, 30000)));
+      for (let i = 0; i < bufs.length; i++) {
+        if (bufs[i].status === "rejected") {
+          console.warn("分片加载失败", names[i], bufs[i].reason);
+          // 失败也要推进，避免在同一片上无限重试；代价是永久缺失该片，
+          // 但这比整条筛选路径卡死要好（且下次刷新页面会重新尝试）
+          nextShard++;
+          continue;
+        }
+        try {
+          let arr = JSON.parse(await gunzipText(bufs[i].value));
+          // 首片前 pv.length 条与内联 preview 重复（init 已用 skip 加载过首片，
+          // 走到这里的分片都无需再跳）
+          POOL.push(...arr);
+          nextShard++;
+        } catch (e) {
+          console.warn("分片解析失败", names[i], e);
+          nextShard++;
+        }
+      }
     }
     allLoaded = true;
   } catch (e) {
     setLoadError(e);
   } finally {
     setBusy(false);
+    setFilterUI(false);
     loadingShard = false;
   }
 }
@@ -397,6 +443,23 @@ async function refresh() {
   const my = ++filterToken; // 本次筛选的令牌
   const needAll = needsAllData() && !allLoaded;
   setFilterUI(true, filterStatusText(needAll));
+  // 超时兜底：加载异常缓慢时不能让状态条永远转下去。
+  // 到点后提示"仍在加载"，但不清除指示（数据到位后仍会自动刷新），
+  // 这样用户知道是"慢"而不是"坏了"。
+  let slowTimer = null;
+  if (needAll) {
+    slowTimer = setTimeout(() => {
+      if (my !== filterToken) return;
+      const txt = document.getElementById("filter-status-text");
+      const done = document.getElementById("search-spin");
+      if (done) done.hidden = true; // 停止转圈，改为静态提示
+      if (txt) {
+        const loaded = typeof nextShard !== "undefined" ? nextShard : 0;
+        const total = MANIFEST ? MANIFEST.shards.length : "?";
+        txt.textContent = `网络较慢，仍在加载数据（已加载 ${loaded}/${total} 个分片）…筛选会在完成后自动出结果`;
+      }
+    }, 12000);
+  }
   try {
     if (needsAllData() && !allLoaded) {
       await ensureAllLoaded();
@@ -409,6 +472,7 @@ async function refresh() {
     applyFilter();
     if (!allLoaded) backgroundFill();
   } finally {
+    clearTimeout(slowTimer);
     if (my === filterToken) setFilterUI(false);
   }
 }
