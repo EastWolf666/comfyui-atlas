@@ -33,11 +33,25 @@ POST_BASE = "https://www.runninghub.cn/post/"
 THUMB_QUERY = "?imageView2/2/w/480/h/300/format/jpg"
 
 
+VIDEO_EXT = (".mp4", ".webm", ".mov")
+
+
 def thumb(url):
-    """把原图 URL 改写为缩略图 URL（剥掉原查询串，换成缩略参数）。"""
+    """把原图 URL 改写为缩略图 URL（剥掉原查询串，换成缩略参数）。
+
+    视频封面**不能**加图片缩略参数：图片 CDN（rh-images.xiaoyaoyou.com）
+    未启用视频处理，七牛 imageView2 会返回 InvalidImageFormat（400）。
+    实测给 .mp4 拼上 ?imageView2/... 后，既让前端无法识别它是视频，
+    也让 <img> 必然加载失败——这是 1.7 万条视频卡片空白的根因。
+    视频的预览图由 scripts/extract_video_thumbs.py 抽帧生成，
+    前端按 data/thumbs/<id>.jpg 取图。
+    """
     if not url:
         return None
-    return url.split("?")[0] + THUMB_QUERY
+    base = url.split("?")[0]
+    if base.lower().endswith(VIDEO_EXT):
+        return base
+    return base + THUMB_QUERY
 
 
 def lean(it):

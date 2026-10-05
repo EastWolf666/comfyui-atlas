@@ -690,12 +690,31 @@ function avatarHTML(name) {
   return `<span class="avatar-init" style="background:hsl(${hue} 42% 30%);color:hsl(${hue} 85% 80%)">${esc(ch)}</span>`;
 }
 
+/* 封面媒体类型判断。
+   平台约 20% 的工作流封面是 .mp4（实测 17677/85894），而本站图片 CDN
+   （rh-images.xiaoyaoyou.com）**未启用视频处理**——七牛的 imageView2 / vframe
+   参数一律返回 InvalidImageFormat 或原样回传视频，所以 <img src="...mp4">
+   必然加载失败、卡片一片空白。
+   解决：构建时用 scripts/extract_video_thumbs.py 抽出首帧存进
+   data/thumbs/<id>.jpg，这里把 .mp4 的图片地址换成对应的本地缩略图。 */
+const VIDEO_EXT_RE = /\.(mp4|webm|mov)(\?|$)/i;
+function isVideoCover(url) {
+  return !!url && VIDEO_EXT_RE.test(url);
+}
+function thumbPathOf(it) {
+  return it.i ? "data/thumbs/" + it.i + ".jpg" : "";
+}
+
 function cardHTML(it) {
   const src = sourceUrlOf(it);
-  const img = it.im
+  // 视频封面 → 用抽帧缩略图；失败时回退"暂无预览图"
+  const cover = isVideoCover(it.im) ? thumbPathOf(it) : it.im;
+  const isVid = isVideoCover(it.im);
+  const img = cover
     ? `<a class="thumb-link" href="${esc(src)}" target="_blank" rel="noopener">
-         <img class="thumb" src="${esc(it.im)}" alt="${esc(it.n)}" loading="lazy" decoding="async"
+         <img class="thumb" src="${esc(cover)}" alt="${esc(it.n)}" loading="lazy" decoding="async"
               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+         ${isVid ? '<span class="thumb-badge">▶ 视频</span>' : ""}
          <div class="thumb-fallback" style="display:none">🖼️ 暂无预览图</div>
        </a>`
     : `<div class="thumb-fallback">🖼️ 暂无预览图</div>`;
