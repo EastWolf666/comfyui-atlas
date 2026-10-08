@@ -1070,8 +1070,29 @@ function bindEvents() {
     state.sort = e.target.value;
     refresh();
   });
+  bindColsControl();
   document.getElementById("loadmore").addEventListener("click", loadMore);
   window.addEventListener("scroll", onScroll, { passive: true });
+}
+
+/* 列数切换：自动 = 跟随视口/缩放的 auto-fill；数字 = 强制 N 列。
+   纯 CSS（#grid 的 data-cols）控制，无需重渲染已有卡片。选择记到 localStorage。 */
+const COLS_KEY = "atlas.wf.cols";
+function applyCols(value) {
+  const grid = document.getElementById("grid");
+  if (value === "auto") grid.removeAttribute("data-cols");
+  else grid.setAttribute("data-cols", value);
+  document.querySelectorAll("#cols-ctl .col-btn").forEach((b) => {
+    b.classList.toggle("active", b.dataset.cols === value);
+  });
+  try { localStorage.setItem(COLS_KEY, value); } catch (e) {}
+}
+function bindColsControl() {
+  const saved = (() => { try { return localStorage.getItem(COLS_KEY) || "auto"; } catch (e) { return "auto"; } })();
+  applyCols(saved);
+  document.querySelectorAll("#cols-ctl .col-btn").forEach((btn) => {
+    btn.addEventListener("click", () => applyCols(btn.dataset.cols));
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {

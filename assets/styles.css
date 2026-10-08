@@ -22,6 +22,10 @@ body {
 }
 
 .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+/* 工作流库内容区放宽到 1800px：原 1100px 上限是“桌面端永远只有 3 列”的根因
+   （4 列需约 1174px，被容器宽度卡死）。放宽后宽屏/缩放下 auto 模式自动变多列。
+   头部仍保持 1100px 居中，只有卡片网格区跟着变宽。 */
+.wrap.wf-main { max-width: 1800px; }
 
 .site-header {
   background: linear-gradient(180deg, #151922, #0f1115);
@@ -301,10 +305,31 @@ body {
 }
 .wf-lib-controls .result-count { color: var(--muted); font-size: 14px; margin-left: auto; }
 
+/* 列数切换按钮组 */
+.ctl-cols { display: flex; align-items: center; gap: 6px; }
+.ctl-cols-label { color: var(--muted); font-size: 13px; margin-right: 2px; white-space: nowrap; }
+.col-btn {
+  padding: 8px 12px; min-width: 40px; border-radius: 10px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--bg-soft); color: var(--muted);
+  font-size: 13px; line-height: 1; transition: border-color .15s ease, color .15s ease, background .15s ease;
+}
+.col-btn:hover { border-color: var(--accent); color: var(--text); }
+.col-btn.active { background: var(--accent); color: #06122b; border-color: var(--accent); font-weight: 700; }
+/* 窄屏：工具栏换行时让列数控件整组靠左，不被 result-count 挤到第二行末尾 */
+@media (max-width: 680px) {
+  .wf-lib-controls .result-count { margin-left: 0; width: 100%; }
+}
+
 .wf-lib-grid {
   display: grid; gap: 18px;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
+/* 列数切换：点选具体数字时强制 N 列（minmax(0,1fr) 防止图片把卡片撑破 1fr 溢出）；
+   不选（data-cols 缺省）则回到上面的 auto-fill，随视口宽度/浏览器缩放自适应。 */
+.wf-lib-grid[data-cols="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.wf-lib-grid[data-cols="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.wf-lib-grid[data-cols="5"] { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.wf-lib-grid[data-cols="6"] { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 .wf-card {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 14px; overflow: hidden; display: flex;

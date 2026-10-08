@@ -23,7 +23,7 @@
     </div>
   </header>
 
-  <main class="wrap">
+  <main class="wrap wf-main">
     <section class="wf-lib-controls">
       <div class="ctl-search">
         <input type="search" id="search" placeholder="搜索工作流名称 / 作者 / 描述 / 标签…" autocomplete="off" />
@@ -36,6 +36,14 @@
         <option value="likes">排序：点赞数</option>
         <option value="collects">排序：收藏数</option>
       </select>
+      <div class="ctl-cols" id="cols-ctl" role="group" aria-label="每行列数">
+        <span class="ctl-cols-label">列数</span>
+        <button type="button" class="col-btn active" data-cols="auto">自动</button>
+        <button type="button" class="col-btn" data-cols="3">3</button>
+        <button type="button" class="col-btn" data-cols="4">4</button>
+        <button type="button" class="col-btn" data-cols="5">5</button>
+        <button type="button" class="col-btn" data-cols="6">6</button>
+      </div>
       <span class="result-count" id="count" aria-live="polite"></span>
     </section>
     <p class="filter-status" id="filter-status" hidden aria-live="polite">
