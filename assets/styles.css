@@ -22,10 +22,11 @@ body {
 }
 
 .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-/* 工作流库内容区放宽到 1800px：原 1100px 上限是“桌面端永远只有 3 列”的根因
-   （4 列需约 1174px，被容器宽度卡死）。放宽后宽屏/缩放下 auto 模式自动变多列。
-   头部仍保持 1100px 居中，只有卡片网格区跟着变宽。 */
-.wrap.wf-main { max-width: 1800px; }
+/* 工作流库内容区（头部 + 网格共用）：放宽到 1800px 且左对齐（margin:0），
+   不再各自居中。这样头部说明文字始终钉在左上角、与网格左缘对齐，
+   缩放或拉宽窗口时不会再向右漂移（原 1100px 居中头部 vs 1800px 网格导致错位）。
+   1800px 上限仍是“桌面端固定 3 列”的根因所在——放宽后 auto 模式才能排更多列。 */
+.wrap.wf-main { max-width: 1800px; margin: 0; }
 
 .site-header {
   background: linear-gradient(180deg, #151922, #0f1115);
@@ -327,9 +328,9 @@ body {
 /* 列数切换：点选具体数字时强制 N 列（minmax(0,1fr) 防止图片把卡片撑破 1fr 溢出）；
    不选（data-cols 缺省）则回到上面的 auto-fill，随视口宽度/浏览器缩放自适应。 */
 .wf-lib-grid[data-cols="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.wf-lib-grid[data-cols="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.wf-lib-grid[data-cols="5"] { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-.wf-lib-grid[data-cols="6"] { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.wf-lib-grid[data-cols="9"] { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+.wf-lib-grid[data-cols="12"] { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.wf-lib-grid[data-cols="15"] { grid-template-columns: repeat(15, minmax(0, 1fr)); }
 .wf-card {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 14px; overflow: hidden; display: flex;
