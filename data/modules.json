@@ -12987,6 +12987,223 @@
           ]
         }
       ]
+    },
+    {
+      "id": "auto-huggingface-sam-2-1-hiera-large",
+      "name": "SAM 2.1 Hiera Large (图像分割)",
+      "repo": "https://huggingface.co/facebook/sam2-hiera-large",
+      "category": "扩充收录",
+      "author": "facebook",
+      "official": false,
+      "maintenance": "active",
+      "description": "Meta SAM2 大模型，ComfyUI-SAM2 节点用，点选/自动分割。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "other"
+      ],
+      "models": [
+        {
+          "name": "SAM 2.1 Hiera Large (图像分割)",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/facebook/sam2-hiera-large"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/facebook/sam2-hiera-large"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sam-2-1-hiera-small",
+      "name": "SAM 2.1 Hiera Small (图像分割)",
+      "repo": "https://huggingface.co/facebook/sam2-hiera-small",
+      "category": "扩充收录",
+      "author": "facebook",
+      "official": false,
+      "maintenance": "active",
+      "description": "SAM2 小模型，速度与精度均衡。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "other"
+      ],
+      "models": [
+        {
+          "name": "SAM 2.1 Hiera Small (图像分割)",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/facebook/sam2-hiera-small"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/facebook/sam2-hiera-small"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sam-2-1-hiera-tiny",
+      "name": "SAM 2.1 Hiera Tiny (图像分割)",
+      "repo": "https://huggingface.co/facebook/sam2-hiera-tiny",
+      "category": "扩充收录",
+      "author": "facebook",
+      "official": false,
+      "maintenance": "active",
+      "description": "SAM2 极小模型，低显存分割。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "other"
+      ],
+      "models": [
+        {
+          "name": "SAM 2.1 Hiera Tiny (图像分割)",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/facebook/sam2-hiera-tiny"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/facebook/sam2-hiera-tiny"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sam-2-1-hiera-base",
+      "name": "SAM 2.1 Hiera Base+ (图像分割)",
+      "repo": "https://huggingface.co/facebook/sam2-hiera-base-plus",
+      "category": "扩充收录",
+      "author": "facebook",
+      "official": false,
+      "maintenance": "active",
+      "description": "SAM2 Base+ 档位。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "other"
+      ],
+      "models": [
+        {
+          "name": "SAM 2.1 Hiera Base+ (图像分割)",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/facebook/sam2-hiera-base-plus"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/facebook/sam2-hiera-base-plus"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-codeformer",
+      "name": "CodeFormer (人脸修复)",
+      "repo": "https://huggingface.co/sczhou/CodeFormer",
+      "category": "扩充收录",
+      "author": "sczhou",
+      "official": false,
+      "maintenance": "active",
+      "description": "盲人脸修复模型（CodeFormer.pth），ComfyUI-CodeFormer 使用。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "other"
+      ],
+      "models": [
+        {
+          "name": "CodeFormer (人脸修复)",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/sczhou/CodeFormer"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/sczhou/CodeFormer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-gfpgan-v1-4",
+      "name": "GFPGAN v1.4 (人脸修复)",
+      "repo": "https://huggingface.co/TencentARC/GFPGAN",
+      "category": "扩充收录",
+      "author": "TencentARC",
+      "official": false,
+      "maintenance": "active",
+      "description": "腾讯 GFPGAN 人脸修复权重（GFPGANv1.4.pth）。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "other"
+      ],
+      "models": [
+        {
+          "name": "GFPGAN v1.4 (人脸修复)",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/TencentARC/GFPGAN"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/TencentARC/GFPGAN"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-rmbg-1-4",
+      "name": "RMBG-1.4 (背景移除)",
+      "repo": "https://huggingface.co/briaai/RMBG-1.4",
+      "category": "扩充收录",
+      "author": "briaai",
+      "official": false,
+      "maintenance": "active",
+      "description": "高质量背景移除模型，ComfyUI-BiRefNet/RMBG 节点可用。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "other"
+      ],
+      "models": [
+        {
+          "name": "RMBG-1.4 (背景移除)",
+          "type": "other",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/briaai/RMBG-1.4"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/briaai/RMBG-1.4"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
