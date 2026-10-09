@@ -168,6 +168,7 @@ function bindControls() {
       document.getElementById("workflow-view").hidden = isBrowse;
       if (isBrowse) {
         document.querySelector(".controls").classList.toggle("view-platforms", currentView === "platforms");
+        document.getElementById("modules").classList.toggle("view-platforms", currentView === "platforms");
         render();
       }
     });
