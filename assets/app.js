@@ -16,6 +16,29 @@ const PLATFORM_LABELS = {
 
 const STATUS_LABELS = { active: "维护中", archived: "已归档", unknown: "未知" };
 
+// 模型类型 -> 下拉框展示名
+const TYPE_LABELS = {
+  checkpoint: "Checkpoint 底模",
+  lora: "LoRA",
+  locon: "LoCon",
+  lycoris: "LyCORIS",
+  vae: "VAE",
+  controlnet: "ControlNet",
+  controlnetaux: "ControlNet 辅助",
+  ipadapter: "IP-Adapter",
+  upscale: "放大模型",
+  insightface: "InsightFace 人脸",
+  clip: "CLIP",
+  unet: "UNet",
+  embedding: "Embedding 嵌入",
+  embeddings: "Embeddings 嵌入",
+  diffusion_model: "Diffusion 扩散模型",
+  llm: "LLM 文本模型",
+  vae_approx: "VAE-approx",
+  recognition: "识别模型",
+  other: "其他",
+};
+
 // 模型类型 -> ComfyUI 放置目录（models/ 下）。数据缺省按类型推断，可在数据里用 targetDir 覆盖。
 const MODEL_DIR_BY_TYPE = {
   checkpoint: "models/checkpoints",
@@ -53,7 +76,7 @@ function hfMirror(url) {
 let ALL = [];
 let NODE_MAP = { coreNodes: [], customNodes: [] };
 let currentView = "nodes";
-const filters = { text: "", category: "", platform: "", status: "" };
+const filters = { text: "", category: "", type: "", status: "" };
 let FAVS = loadFavs();
 
 function esc(s) {
@@ -133,10 +156,10 @@ function populateFilters() {
   for (const c of uniqueValues((m) => [m.category])) {
     catSel.add(new Option(c, c));
   }
-  const platSel = document.getElementById("filter-platform");
-  const plats = uniqueValues((m) => (m.models || []).flatMap((mo) => (mo.sources || []).map((s) => s.platform)));
-  for (const p of plats) {
-    platSel.add(new Option(PLATFORM_LABELS[p] || p, p));
+  const typeSel = document.getElementById("filter-type");
+  const types = uniqueValues((m) => (m.models || []).map((mo) => String(mo.type || "").toLowerCase()));
+  for (const t of types) {
+    typeSel.add(new Option(TYPE_LABELS[t] || t, t));
   }
   const stSel = document.getElementById("filter-status");
   for (const s of uniqueValues((m) => [m.maintenance])) {
@@ -152,8 +175,8 @@ function bindControls() {
   document.getElementById("filter-category").addEventListener("change", (e) => {
     filters.category = e.target.value; render();
   });
-  document.getElementById("filter-platform").addEventListener("change", (e) => {
-    filters.platform = e.target.value; render();
+  document.getElementById("filter-type").addEventListener("change", (e) => {
+    filters.type = e.target.value; render();
   });
   document.getElementById("filter-status").addEventListener("change", (e) => {
     filters.status = e.target.value; render();
@@ -178,10 +201,8 @@ function bindControls() {
 function matches(m) {
   if (filters.category && m.category !== filters.category) return false;
   if (filters.status && (m.maintenance || "unknown") !== filters.status) return false;
-  if (filters.platform) {
-    const has = (m.models || []).some((mo) =>
-      (mo.sources || []).some((s) => s.platform === filters.platform)
-    );
+  if (filters.type) {
+    const has = (m.models || []).some((mo) => String(mo.type || "").toLowerCase() === filters.type);
     if (!has) return false;
   }
   if (filters.text) {
@@ -375,14 +396,16 @@ function exportFav() {
   URL.revokeObjectURL(a.href);
 }
 
+const PLATFORM_VISIBLE = 10; // 按平台视图每列默认展示条数，其余滚动查看
+
 function renderPlatforms() {
   const container = document.getElementById("modules");
   const empty = document.getElementById("empty");
   const groups = {};
   for (const m of ALL) {
     for (const mo of m.models || []) {
+      if (filters.type && String(mo.type || "").toLowerCase() !== filters.type) continue;
       for (const s of mo.sources || []) {
-        if (filters.platform && s.platform !== filters.platform) continue;
         if (filters.text) {
           const hay = [mo.name, mo.type, m.name, s.url].join(" ").toLowerCase();
           if (!hay.includes(filters.text)) continue;
@@ -417,13 +440,41 @@ function renderPlatforms() {
         <div class="pm-meta"><span class="mtype">${esc(it.modelType)}</span> · 放置 <code>${esc(it.dir)}</code> · 来自 <span class="node">${esc(it.nodeName)}</span>${mirrorLink}${note}</div>
       </li>`;
     }).join("");
+    const cnt = groups[p].length;
+    const cntTip = cnt > PLATFORM_VISIBLE ? ` · 滚动查看全部` : "";
     return `<section class="platform-group">
-      <h2 class="pg-title"><span class="p ${cls}">${esc(label)}</span><span class="pg-count">${groups[p].length} 个模型</span></h2>
-      <ul class="pm-list">${items}</ul>
+      <h2 class="pg-title"><span class="p ${cls}">${esc(label)}</span><span class="pg-count">${cnt} 个模型${cntTip}</span></h2>
+      <ul class="pm-list platform-list">${items}</ul>
     </section>`;
   }).join("");
   container.innerHTML = html;
-  document.getElementById("count").textContent = `按平台共 ${total} 个模型条目`;
+  const typeTip = filters.type ? ` · 类型：${TYPE_LABELS[filters.type] || filters.type}` : "";
+  document.getElementById("count").textContent = `按平台共 ${total} 个模型条目${typeTip}`;
+  equalizePlatformLists(PLATFORM_VISIBLE);
+}
+
+// 五个平台列统一等高：统一 height = 各列「前 cap 条高度」的最大值，内容超出在列内滚动，不足则留白撑满
+function equalizePlatformLists(cap) {
+  const lists = [...document.querySelectorAll(".platform-group .platform-list")];
+  if (!lists.length) return;
+  let capH = 0;
+  for (const list of lists) {
+    const items = list.children;
+    if (!items.length) continue;
+    if (items.length <= cap) {
+      capH = Math.max(capH, list.scrollHeight);
+    } else {
+      const firstTop = items[0].getBoundingClientRect().top;
+      const nthBottom = items[cap - 1].getBoundingClientRect().bottom;
+      capH = Math.max(capH, nthBottom - firstTop);
+    }
+  }
+  if (!capH) return;
+  capH += 8; // 余量：滚动条出现后内容区变窄可能引起个别条目换行
+  for (const list of lists) {
+    list.style.height = capH + "px"; // 固定高度：不足撑满留白、超出滚动，保证五列严格等高
+    if (list.scrollHeight > capH + 1) list.classList.add("is-scroll");
+  }
 }
 
 /* ============ 工作流分析器 ============ */
