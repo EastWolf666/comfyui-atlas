@@ -246,15 +246,34 @@ def run(platforms, max_n, data_path, dry_run):
                 if s.get("url"):
                     existing_urls.add(norm_url(s["url"]))
 
-    new_modules = []
-    seen = set()
+    # 1) 各平台分别抓取候选（失败降级），不在此处封顶
+    pool = {}
     for p in platforms:
         fetcher = FETCHERS.get(p)
         if not fetcher:
             print(f"[skip] 未知平台: {p}", file=sys.stderr)
             continue
         print(f"[info] 抓取平台 {p} ...")
-        for cand in fetcher():
+        try:
+            pool[p] = fetcher()
+        except Exception as e:  # 单平台异常不影响其它
+            print(f"  [warn] 平台 {p} 抓取异常：{e}", file=sys.stderr)
+            pool[p] = []
+
+    # 2) 轮询交织各平台，去重后取前 max_n，保证多平台都能被填充
+    new_modules = []
+    seen = set()
+    idx = {p: 0 for p in platforms}
+    total_left = sum(len(v) for v in pool.values())
+    while total_left > 0 and len(new_modules) < max_n:
+        progressed = False
+        for p in platforms:
+            if idx[p] >= len(pool.get(p, [])):
+                continue
+            cand = pool[p][idx[p]]
+            idx[p] += 1
+            total_left -= 1
+            progressed = True
             nu = norm_url(cand["url"])
             if not nu or nu in existing_urls or nu in seen:
                 continue
@@ -262,9 +281,7 @@ def run(platforms, max_n, data_path, dry_run):
             mod, mid = build_module(cand, existing_ids)
             existing_ids.add(mid)
             new_modules.append(mod)
-            if len(new_modules) >= max_n:
-                break
-        if len(new_modules) >= max_n:
+        if not progressed:
             break
 
     if not new_modules:
@@ -277,13 +294,13 @@ def run(platforms, max_n, data_path, dry_run):
         for m in new_modules:
             plats = sorted({s["platform"] for mo in m["models"] for s in mo["sources"]})
             print(f"  - {m['name']}  [{','.join(plats)}]  {m['repo']}")
-        return len(new_modules)
+        return 0
 
     modules.extend(new_modules)
     with open(data_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     print(f"[done] 已追加 {len(new_modules)} 条到 {data_path}。")
-    return len(new_modules)
+    return 0
 
 
 # ----------------------------- 自测 -----------------------------
