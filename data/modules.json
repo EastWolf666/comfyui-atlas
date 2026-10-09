@@ -5000,6 +5000,1384 @@
           ]
         }
       ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-v3-5-large-gguf",
+      "name": "stable-diffusion-v3-5-large-GGUF",
+      "repo": "https://modelscope.cn/models/gpustack/stable-diffusion-v3-5-large-GGUF",
+      "category": "扩充收录",
+      "author": "gpustack",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-v3-5-large-GGUF",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/gpustack/stable-diffusion-v3-5-large-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-2-1-base",
+      "name": "stable-diffusion-2-1-base",
+      "repo": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-2-1-base",
+      "category": "扩充收录",
+      "author": "AI-ModelScope",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-2-1-base",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-2-1-base"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-v1-5",
+      "name": "stable-diffusion-v1-5",
+      "repo": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-v1-5",
+      "category": "扩充收录",
+      "author": "AI-ModelScope",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-v1-5",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-v1-5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-xl-base-1-0",
+      "name": "stable-diffusion-xl-base-1.0",
+      "repo": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-xl-base-1.0",
+      "category": "扩充收录",
+      "author": "AI-ModelScope",
+      "official": false,
+      "maintenance": "active",
+      "description": "Stability is proud to announce the release of SDXL 1.0; the highly-anticipated model in its image-generation series!  Th",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-xl-base-1.0",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-xl-base-1.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-3-5-large-turbo",
+      "name": "stable-diffusion-3.5-large-turbo",
+      "repo": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-3.5-large-turbo",
+      "category": "扩充收录",
+      "author": "AI-ModelScope",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-3.5-large-turbo",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-3.5-large-turbo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-v3-5-medium-gguf",
+      "name": "stable-diffusion-v3-5-medium-GGUF",
+      "repo": "https://modelscope.cn/models/gpustack/stable-diffusion-v3-5-medium-GGUF",
+      "category": "扩充收录",
+      "author": "gpustack",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-v3-5-medium-GGUF",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/gpustack/stable-diffusion-v3-5-medium-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-3-5-controlnets",
+      "name": "stable-diffusion-3.5-controlnets",
+      "repo": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-3.5-controlnets",
+      "category": "扩充收录",
+      "author": "AI-ModelScope",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-3.5-controlnets",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-3.5-controlnets"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-3-5-medium",
+      "name": "stable-diffusion-3.5-medium",
+      "repo": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-3.5-medium",
+      "category": "扩充收录",
+      "author": "AI-ModelScope",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-3.5-medium",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-3.5-medium"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-video-diffusion-img2vid-xt",
+      "name": "stable-video-diffusion-img2vid-xt",
+      "repo": "https://modelscope.cn/models/AI-ModelScope/stable-video-diffusion-img2vid-xt",
+      "category": "扩充收录",
+      "author": "AI-ModelScope",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-video-diffusion-img2vid-xt",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/AI-ModelScope/stable-video-diffusion-img2vid-xt"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-multi-modal-chinese-stable-diffusion-v1-0",
+      "name": "multi-modal_chinese_stable_diffusion_v1.0",
+      "repo": "https://modelscope.cn/models/iic/multi-modal_chinese_stable_diffusion_v1.0",
+      "category": "扩充收录",
+      "author": "iic",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "multi-modal_chinese_stable_diffusion_v1.0",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/iic/multi-modal_chinese_stable_diffusion_v1.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-cv-unet-person-image-cartoon-sd-design-compound-models",
+      "name": "cv_unet_person-image-cartoon-sd-design_compound-models",
+      "repo": "https://modelscope.cn/models/iic/cv_unet_person-image-cartoon-sd-design_compound-models",
+      "category": "扩充收录",
+      "author": "iic",
+      "official": false,
+      "maintenance": "active",
+      "description": "该模型采用全新的DCT-Net（Domain-Calibrated Translation） 域校准图像翻译模型，结合Stable-Diffusion模型进行小样本风格数据生成，从而训练得到高保真、强鲁棒、易拓展的人像风格转换模型。",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "cv_unet_person-image-cartoon-sd-design_compound-models",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/iic/cv_unet_person-image-cartoon-sd-design_compound-models"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-cv-stable-diffusion-v2-image-inpainting-base",
+      "name": "cv_stable-diffusion-v2_image-inpainting_base",
+      "repo": "https://modelscope.cn/models/iic/cv_stable-diffusion-v2_image-inpainting_base",
+      "category": "扩充收录",
+      "author": "iic",
+      "official": false,
+      "maintenance": "active",
+      "description": "借助Stable Diffusion强大的生成能力，StableDiffusionv2图像填充模型能够补全缺失的图像区域，生成效果自然而真实；不仅如此，除了自适应填充背景内容外，用户还可以通过指定引导文字在缺失区域生成指定内容，畅享AI生成",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "cv_stable-diffusion-v2_image-inpainting_base",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/iic/cv_stable-diffusion-v2_image-inpainting_base"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-v1-5-gguf",
+      "name": "stable-diffusion-v1-5-GGUF",
+      "repo": "https://modelscope.cn/models/gpustack/stable-diffusion-v1-5-GGUF",
+      "category": "扩充收录",
+      "author": "gpustack",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-v1-5-GGUF",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/gpustack/stable-diffusion-v1-5-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-3-5-large",
+      "name": "stable-diffusion-3.5-large",
+      "repo": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-3.5-large",
+      "category": "扩充收录",
+      "author": "AI-ModelScope",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-3.5-large",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/AI-ModelScope/stable-diffusion-3.5-large"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-xl-base-1-0-2",
+      "name": "stable-diffusion-xl-base-1.0",
+      "repo": "https://modelscope.cn/models/stabilityai/stable-diffusion-xl-base-1.0",
+      "category": "扩充收录",
+      "author": "stabilityai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-xl-base-1.0",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/stabilityai/stable-diffusion-xl-base-1.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-guohua-diffusion",
+      "name": "Guohua-Diffusion",
+      "repo": "https://modelscope.cn/models/langboat/Guohua-Diffusion",
+      "category": "扩充收录",
+      "author": "langboat",
+      "official": false,
+      "maintenance": "active",
+      "description": "这是在国画上训练的微调Stable Diffusion模型",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Guohua-Diffusion",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/langboat/Guohua-Diffusion"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-v3-5-large-turbo-gguf",
+      "name": "stable-diffusion-v3-5-large-turbo-GGUF",
+      "repo": "https://modelscope.cn/models/gpustack/stable-diffusion-v3-5-large-turbo-GGUF",
+      "category": "扩充收录",
+      "author": "gpustack",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-v3-5-large-turbo-GGUF",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/gpustack/stable-diffusion-v3-5-large-turbo-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-illustrious-xl",
+      "name": "Illustrious-XL",
+      "repo": "https://modelscope.cn/models/atonyxu/Illustrious-XL",
+      "category": "扩充收录",
+      "author": "atonyxu",
+      "official": false,
+      "maintenance": "active",
+      "description": "Illustrious XL is the Illustration focused Stable Diffusion XL model which is continued from Kohaku XL Beta 5, trained b",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Illustrious-XL",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/atonyxu/Illustrious-XL"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-v2-1-gguf",
+      "name": "stable-diffusion-v2-1-GGUF",
+      "repo": "https://modelscope.cn/models/gpustack/stable-diffusion-v2-1-GGUF",
+      "category": "扩充收录",
+      "author": "gpustack",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-v2-1-GGUF",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/gpustack/stable-diffusion-v2-1-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-stable-diffusion-xl-base",
+      "name": "stable-diffusion-xl-base",
+      "repo": "https://modelscope.cn/models/MusePublic/stable-diffusion-xl-base",
+      "category": "扩充收录",
+      "author": "MusePublic",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-xl-base",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/MusePublic/stable-diffusion-xl-base"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-mymodel",
+      "name": "mymodel",
+      "repo": "https://modelscope.cn/models/houpeiran/mymodel",
+      "category": "扩充收录",
+      "author": "houpeiran",
+      "official": false,
+      "maintenance": "active",
+      "description": "LoRA for FaceChain",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "mymodel",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/houpeiran/mymodel"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-polaroid-lora",
+      "name": "polaroid_lora",
+      "repo": "https://modelscope.cn/models/YorickHe/polaroid_lora",
+      "category": "扩充收录",
+      "author": "YorickHe",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "polaroid_lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/YorickHe/polaroid_lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-lora-testing",
+      "name": "lora_testing",
+      "repo": "https://modelscope.cn/models/iotang/lora_testing",
+      "category": "扩充收录",
+      "author": "iotang",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "lora_testing",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/iotang/lora_testing"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-style-lora",
+      "name": "style_lora",
+      "repo": "https://modelscope.cn/models/PeiPeiY/style_lora",
+      "category": "扩充收录",
+      "author": "PeiPeiY",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "style_lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/PeiPeiY/style_lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-zju-01-lora",
+      "name": "zju_01_LoRA",
+      "repo": "https://modelscope.cn/models/StigXI/zju_01_LoRA",
+      "category": "扩充收录",
+      "author": "StigXI",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "zju_01_LoRA",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/StigXI/zju_01_LoRA"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-lora",
+      "name": "lora",
+      "repo": "https://modelscope.cn/models/junmst/lora",
+      "category": "扩充收录",
+      "author": "junmst",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/junmst/lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-winter-hanfu-lora",
+      "name": "Winter_hanfu_lora",
+      "repo": "https://modelscope.cn/models/YorickHe/Winter_hanfu_lora",
+      "category": "扩充收录",
+      "author": "YorickHe",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Winter_hanfu_lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/YorickHe/Winter_hanfu_lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-outdoor-photo-lora",
+      "name": "outdoor_photo_lora",
+      "repo": "https://modelscope.cn/models/YorickHe/outdoor_photo_lora",
+      "category": "扩充收录",
+      "author": "YorickHe",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "outdoor_photo_lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/YorickHe/outdoor_photo_lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-cartoon-lora",
+      "name": "cartoon_lora",
+      "repo": "https://modelscope.cn/models/rewfueranro/cartoon_lora",
+      "category": "扩充收录",
+      "author": "rewfueranro",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "cartoon_lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/rewfueranro/cartoon_lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-zju19-minguo-style-lora",
+      "name": "zju19_minguo_style_lora",
+      "repo": "https://modelscope.cn/models/PaperCloud/zju19_minguo_style_lora",
+      "category": "扩充收录",
+      "author": "PaperCloud",
+      "official": false,
+      "maintenance": "active",
+      "description": "该模型由 zju2023 课程综合实践 No.19 小组提供，为一系列民国风格的 Lora 模型，包括旗袍造型和中山装，作为 Facechain 项目的无限风格拓展。Facechain 项目地址：https://github.com/mod",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "zju19_minguo_style_lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/PaperCloud/zju19_minguo_style_lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-fairy-lora",
+      "name": "fairy_lora",
+      "repo": "https://modelscope.cn/models/YorickHe/fairy_lora",
+      "category": "扩充收录",
+      "author": "YorickHe",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "fairy_lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/YorickHe/fairy_lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-civitai-xiapei-lora",
+      "name": "civitai_xiapei_lora",
+      "repo": "https://modelscope.cn/models/ly261666/civitai_xiapei_lora",
+      "category": "扩充收录",
+      "author": "ly261666",
+      "official": false,
+      "maintenance": "active",
+      "description": "C站xiapei风格模型",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "civitai_xiapei_lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/ly261666/civitai_xiapei_lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-christmas",
+      "name": "christmas",
+      "repo": "https://modelscope.cn/models/mowunian/christmas",
+      "category": "扩充收录",
+      "author": "mowunian",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "christmas",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/mowunian/christmas"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-facechain-lora",
+      "name": "facechain_lora",
+      "repo": "https://modelscope.cn/models/AzilyModelScope/facechain_lora",
+      "category": "扩充收录",
+      "author": "AzilyModelScope",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "facechain_lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/AzilyModelScope/facechain_lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-deer-lora",
+      "name": "deer_lora",
+      "repo": "https://modelscope.cn/models/EnlZhao/deer_lora",
+      "category": "扩充收录",
+      "author": "EnlZhao",
+      "official": false,
+      "maintenance": "active",
+      "description": "林中鹿女风",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "deer_lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/EnlZhao/deer_lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-artist",
+      "name": "artist",
+      "repo": "https://modelscope.cn/models/MushroomLyn/artist",
+      "category": "扩充收录",
+      "author": "MushroomLyn",
+      "official": false,
+      "maintenance": "active",
+      "description": "艺术风LORA风格模型，自用",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "artist",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/MushroomLyn/artist"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-zju19-dunhuang-style-lora",
+      "name": "zju19_dunhuang_style_lora",
+      "repo": "https://modelscope.cn/models/PaperCloud/zju19_dunhuang_style_lora",
+      "category": "扩充收录",
+      "author": "PaperCloud",
+      "official": false,
+      "maintenance": "active",
+      "description": "该模型由 zju2023 课程综合实践 No.19 小组提供，为敦煌风格的 Lora 模型，作为 Facechain 项目的无限风格拓展。Facechain 项目地址：https://github.com/modelscope/facech",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "zju19_dunhuang_style_lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/PaperCloud/zju19_dunhuang_style_lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-jk-uniform-lora",
+      "name": "JK_uniform_lora",
+      "repo": "https://modelscope.cn/models/YorickHe/JK_uniform_lora",
+      "category": "扩充收录",
+      "author": "YorickHe",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "JK_uniform_lora",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/YorickHe/JK_uniform_lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-facechain-lora-2",
+      "name": "facechain_LoRA",
+      "repo": "https://modelscope.cn/models/SoulNut/facechain_LoRA",
+      "category": "扩充收录",
+      "author": "SoulNut",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "facechain_LoRA",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/SoulNut/facechain_LoRA"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-zangzu",
+      "name": "zangzu",
+      "repo": "https://modelscope.cn/models/fffff1123/zangzu",
+      "category": "扩充收录",
+      "author": "fffff1123",
+      "official": false,
+      "maintenance": "active",
+      "description": "藏族风格LoRA模型",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "zangzu",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/fffff1123/zangzu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-diffusers-xl-canny-full",
+      "name": "diffusers_xl_canny_full",
+      "repo": "https://modelscope.cn/models/muse/diffusers_xl_canny_full",
+      "category": "扩充收录",
+      "author": "muse",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "diffusers_xl_canny_full",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/muse/diffusers_xl_canny_full"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-mimicbrush",
+      "name": "MimicBrush",
+      "repo": "https://modelscope.cn/models/xichen/MimicBrush",
+      "category": "扩充收录",
+      "author": "xichen",
+      "official": false,
+      "maintenance": "active",
+      "description": "The pre-trained weights for the paper \"Zero-shot Image Editing with Reference Imitation\". Image editing serves as a prac",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "MimicBrush",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/xichen/MimicBrush"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-controlnet-depth-sdxl-1-0",
+      "name": "controlnet-depth-sdxl-1.0",
+      "repo": "https://huggingface.co/diffusers/controlnet-depth-sdxl-1.0",
+      "category": "扩充收录",
+      "author": "diffusers",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "controlnet-depth-sdxl-1.0",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/diffusers/controlnet-depth-sdxl-1.0"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/diffusers/controlnet-depth-sdxl-1.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-instantx-controlnets",
+      "name": "Qwen-Image-InstantX-ControlNets",
+      "repo": "https://huggingface.co/Comfy-Org/Qwen-Image-InstantX-ControlNets",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-InstantX-ControlNets",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/Qwen-Image-InstantX-ControlNets"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/Qwen-Image-InstantX-ControlNets"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-controlnet-canny-sdxl-1-0-2",
+      "name": "controlnet-canny-sdxl-1.0",
+      "repo": "https://huggingface.co/diffusers/controlnet-canny-sdxl-1.0",
+      "category": "扩充收录",
+      "author": "diffusers",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "controlnet-canny-sdxl-1.0",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/diffusers/controlnet-canny-sdxl-1.0"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/diffusers/controlnet-canny-sdxl-1.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-2-1-fun-controlnet-union",
+      "name": "Qwen-Image-2.1-Fun-Controlnet-Union",
+      "repo": "https://huggingface.co/alibaba-pai/Qwen-Image-2.1-Fun-Controlnet-Union",
+      "category": "扩充收录",
+      "author": "alibaba-pai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-2.1-Fun-Controlnet-Union",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/alibaba-pai/Qwen-Image-2.1-Fun-Controlnet-Union"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/alibaba-pai/Qwen-Image-2.1-Fun-Controlnet-Union"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-diffsynth-controlnets",
+      "name": "Qwen-Image-DiffSynth-ControlNets",
+      "repo": "https://huggingface.co/Comfy-Org/Qwen-Image-DiffSynth-ControlNets",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-DiffSynth-ControlNets",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/Qwen-Image-DiffSynth-ControlNets"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/Qwen-Image-DiffSynth-ControlNets"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-controlnet-depth-sdxl-1-0-2",
+      "name": "controlnet-depth-sdxl-1.0",
+      "repo": "https://huggingface.co/xinsir/controlnet-depth-sdxl-1.0",
+      "category": "扩充收录",
+      "author": "xinsir",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "controlnet-depth-sdxl-1.0",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/xinsir/controlnet-depth-sdxl-1.0"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/xinsir/controlnet-depth-sdxl-1.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sd-controlnet-canny",
+      "name": "sd-controlnet-canny",
+      "repo": "https://huggingface.co/lllyasviel/sd-controlnet-canny",
+      "category": "扩充收录",
+      "author": "lllyasviel",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "sd-controlnet-canny",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/lllyasviel/sd-controlnet-canny"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/lllyasviel/sd-controlnet-canny"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-modelscope-flux-2-dev-bnb-4bit",
+      "name": "FLUX.2-dev-bnb-4bit",
+      "repo": "https://modelscope.cn/models/hf-diffusers/FLUX.2-dev-bnb-4bit",
+      "category": "扩充收录",
+      "author": "hf-diffusers",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "modelscope",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "FLUX.2-dev-bnb-4bit",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/hf-diffusers/FLUX.2-dev-bnb-4bit"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
