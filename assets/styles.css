@@ -143,6 +143,11 @@ body {
 .pg-title { display: flex; align-items: center; gap: 12px; font-size: 18px; margin: 0 0 12px; }
 .pg-count { font-size: 13px; color: var(--muted); font-weight: 400; }
 .pm-list { list-style: none; margin: 0; padding: 0; }
+/* 按平台视图：每列只展示前 10 条，其余通过列内滚动条查看（max-height 由 JS 统一设定，保证五列等高） */
+.platform-list { overflow-y: auto; padding-right: 6px; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.platform-list.is-scroll::-webkit-scrollbar { width: 8px; }
+.platform-list.is-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.platform-list.is-scroll::-webkit-scrollbar-track { background: transparent; }
 .pm { padding: 10px 0; border-top: 1px dashed var(--border); }
 .pm:first-child { border-top: none; padding-top: 0; }
 .pm-head { display: flex; align-items: center; gap: 8px; }
