@@ -14,6 +14,10 @@ on:
         description: "每个类型的目标条目数（按平台源计，已达标类型自动跳过）"
         required: false
         default: "50"
+      pages:
+        description: "Civitai/ModelScope 每类型翻页数（全量抓取时调大，如 5）"
+        required: false
+        default: "1"
       platforms:
         description: "抓取平台（逗号分隔：hf,civitai,modelscope）"
         required: false
@@ -41,6 +45,7 @@ jobs:
           python scripts/scrape_models.py \
             --max "${{ github.event.inputs.max_entries || '300' }}" \
             --target-per-type "${{ github.event.inputs.target_per_type || '50' }}" \
+            --pages "${{ github.event.inputs.pages || '1' }}" \
             --platforms "${{ github.event.inputs.platforms || 'hf,civitai,modelscope' }}"
 
       - name: Commit if changed
