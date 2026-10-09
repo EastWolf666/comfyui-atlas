@@ -789,7 +789,17 @@ function updateLoadMore() {
   const canLoadMoreShard = !allLoaded && nextShard < (MANIFEST ? MANIFEST.shards.length : 0);
   const hasMoreToRender = rendered < filtered.length;
   const show = hasMoreToRender || canLoadMoreShard;
+  // 加载中：明确反馈态，避免“点击无反应”的观感（按钮仍可见、可点，点击会排队）
+  if (loadingShard) {
+    btn.hidden = false;
+    btn.disabled = false;
+    btn.textContent = "加载中…";
+    if (info) info.textContent = `正在加载更多（${nextShard + 1}/${MANIFEST.shards.length}）…`;
+    return;
+  }
   btn.hidden = !show;
+  btn.disabled = false;
+  btn.textContent = "加载更多";
   if (show) {
     const inPool = Math.max(0, filtered.length - rendered);
     info.textContent = canLoadMoreShard
@@ -937,8 +947,18 @@ async function backgroundFill() {
 }
 
 /* 加载更多：先渲染已加载池，池耗尽再拉下一分片 */
+/* 修复：加载中(onScroll/上一次点击触发分片下载中)用户再点，不再静默 return，
+   而是排队 pendingMore，待本次分片到位后自动补一次，避免“点了没反应”。
+   同时 updateLoadMore 在 loadingShard 时把按钮切成“加载中…”反馈态。 */
+let pendingMore = false;
 async function loadMore() {
-  if (loadingShard || allLoaded || nextShard >= MANIFEST.shards.length) return;
+  // 到底：全部已渲染且无可拉取的下一分片
+  if (allLoaded || nextShard >= (MANIFEST ? MANIFEST.shards.length : 0)) {
+    updateLoadMore();
+    return;
+  }
+  // 正在加载分片：排队而非丢弃点击（解决“点了像没反应”）
+  if (loadingShard) { pendingMore = true; return; }
   if (rendered < filtered.length) {
     renderMore();
     return;
@@ -954,6 +974,11 @@ async function loadMore() {
   } finally {
     setBusy(false);
     loadingShard = false;
+    // 加载期间用户又点了一次：把那一笔补上
+    if (pendingMore) {
+      pendingMore = false;
+      if (!allLoaded && nextShard < MANIFEST.shards.length) loadMore();
+    }
   }
 }
 
