@@ -270,7 +270,8 @@ def cand(platform, url, name, ctype, author="", description="", size=None, **ext
 
 
 # ----------------------------- 平台 fetcher（按类型） -----------------------------
-def fetch_hf(per_kw=25):
+def fetch_hf(per_kw=100, pages=1):
+    """HF 无总量接口：按关键词各取下载量 Top per_kw（API 单次上限 100）。"""
     out = []
     for ctype, keywords in HF_KEYWORDS_BY_TYPE.items():
         for kw in keywords:
@@ -291,31 +292,42 @@ def fetch_hf(per_kw=25):
                     author=it.get("author") or author,
                     description=(it.get("description") or "")))
             time.sleep(0.4)
+    print(f"  [info] HF 候选共 {len(out)} 条（无总量接口，此为各关键词 Top 下载量去重前并集）")
     return out
 
 
-def fetch_civitai(limit=100):
-    """按类型分别请求（types 单值一般可用）；整体失败则回退不带 types 的热门页。"""
+def fetch_civitai(limit=100, pages=3):
+    """按类型分别请求（types 单值可用），翻 pages 页；日志打印各类型库内总量。"""
     out = []
+    totals = {}
     for ctype, civ_types in CIVITAI_FETCH.items():
-        data = http_get("https://civitai.com/api/v1/models", {
-            "limit": limit, "sort": "Most Downloaded",
-            "types": ",".join(civ_types), "nsfw": "false",
-        })
-        items = (data or {}).get("items") or []
-        for it in items:
-            mapped = CIVITAI_TYPE_MAP.get(it.get("type") or "", ctype)
-            if it.get("type") not in civ_types and not items:
-                continue
-            mid = it.get("id")
-            if not mid:
-                continue
-            out.append(cand(
-                "civitai", "https://civitai.com/models/" + str(mid),
-                it.get("name") or str(mid), ctype,
-                author=(it.get("creator") or {}).get("username") or "",
-                description=re.sub(r"<[^>]+>", " ", it.get("description") or "")))
-        time.sleep(0.4)
+        for page in range(1, pages + 1):
+            data = http_get("https://civitai.com/api/v1/models", {
+                "limit": limit, "sort": "Most Downloaded",
+                "types": ",".join(civ_types), "nsfw": "false", "page": page,
+            })
+            if not isinstance(data, dict):
+                break
+            meta = data.get("metadata") or {}
+            if page == 1 and meta.get("totalItems"):
+                totals[ctype] = meta["totalItems"]
+            items = data.get("items") or []
+            for it in items:
+                mapped = CIVITAI_TYPE_MAP.get(it.get("type") or "", ctype)
+                mid = it.get("id")
+                if not mid:
+                    continue
+                out.append(cand(
+                    "civitai", "https://civitai.com/models/" + str(mid),
+                    it.get("name") or str(mid), mapped,
+                    author=(it.get("creator") or {}).get("username") or "",
+                    description=re.sub(r"<[^>]+>", " ", it.get("description") or "")))
+            if page >= (meta.get("totalPages") or 0):
+                break
+            time.sleep(0.4)
+    if totals:
+        print("  [info] Civitai 库内总量(按类型): " +
+              "  ".join(f"{k}:{v}" for k, v in totals.items()))
     if not out:  # 全部类型请求失败 -> 回退热门页客户端过滤
         data = http_get("https://civitai.com/api/v1/models", {
             "limit": limit, "sort": "Most Downloaded"})
@@ -332,27 +344,34 @@ def fetch_civitai(limit=100):
     return out
 
 
-def fetch_modelscope(page_size=25):
+def fetch_modelscope(page_size=50, pages=1):
     out = []
     for ctype, keywords in MS_KEYWORDS_BY_TYPE.items():
         for kw in keywords:
-            data = http_get("https://modelscope.cn/openapi/v1/models", {
-                "search": kw, "sort": "downloads", "page_size": page_size, "page": 1,
-            })
-            models = []
-            if isinstance(data, dict):
-                models = (data.get("data") or {}).get("models") or []
-            for it in models:
-                mid = it.get("id") or it.get("model_id") or ""
-                if not mid or "/" not in mid:
-                    continue
-                author = mid.split("/")[0]
-                name = mid.split("/")[-1]
-                out.append(cand(
-                    "modelscope", "https://modelscope.cn/models/" + mid, name, ctype,
-                    author=it.get("author") or author,
-                    description=(it.get("summary") or it.get("description") or "")))
-            time.sleep(0.4)
+            for page in range(1, pages + 1):
+                data = http_get("https://modelscope.cn/openapi/v1/models", {
+                    "search": kw, "sort": "downloads",
+                    "page_size": page_size, "page": page,
+                })
+                models = []
+                if isinstance(data, dict):
+                    d = data.get("data") or {}
+                    models = d.get("models") or []
+                    if page == 1 and d.get("total"):
+                        print(f"  [info] ModelScope '{kw}' 库内总量: {d['total']}")
+                for it in models:
+                    mid = it.get("id") or it.get("model_id") or ""
+                    if not mid or "/" not in mid:
+                        continue
+                    author = mid.split("/")[0]
+                    name = mid.split("/")[-1]
+                    out.append(cand(
+                        "modelscope", "https://modelscope.cn/models/" + mid, name, ctype,
+                        author=it.get("author") or author,
+                        description=(it.get("summary") or it.get("description") or "")))
+                if len(models) < page_size:
+                    break
+                time.sleep(0.4)
     return out
 
 
@@ -412,7 +431,7 @@ def count_by_type(modules):
     return cnt
 
 
-def run(platforms, max_n, data_path, dry_run, target):
+def run(platforms, max_n, data_path, dry_run, target, pages=1):
     with open(data_path, encoding="utf-8") as f:
         data = json.load(f)
     modules = data.setdefault("modules", [])
@@ -445,7 +464,7 @@ def run(platforms, max_n, data_path, dry_run, target):
             continue
         print(f"[info] 抓取平台 {p} ...")
         try:
-            fetched = fetcher()
+            fetched = fetcher(pages=pages)
         except Exception as e:
             print(f"  [warn] 平台 {p} 抓取异常：{e}", file=sys.stderr)
             fetched = []
@@ -592,6 +611,8 @@ def main():
     ap.add_argument("--target-per-type", type=int, default=DEFAULT_TARGET,
                     help="每个类型的目标条目数（按平台源计）")
     ap.add_argument("--platforms", default=DEFAULT_PLATFORMS, help="逗号分隔：hf,civitai,modelscope")
+    ap.add_argument("--pages", type=int, default=1,
+                    help="Civitai/ModelScope 每类型翻页数（全量抓取时调大）")
     ap.add_argument("--dry-run", action="store_true", help="只打印，不写文件")
     ap.add_argument("--self-test", action="store_true", help="用内置样本校验逻辑（不联网）")
     args = ap.parse_args()
@@ -606,7 +627,7 @@ def main():
     if not os.path.exists(args.data):
         print(f"找不到数据文件：{args.data}", file=sys.stderr)
         return 2
-    return run(platforms, args.max, args.data, args.dry_run, args.target_per_type)
+    return run(platforms, args.max, args.data, args.dry_run, args.target_per_type, args.pages)
 
 
 if __name__ == "__main__":
