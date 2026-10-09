@@ -6378,6 +6378,1356 @@
           ]
         }
       ]
+    },
+    {
+      "id": "auto-civitai-dreamshaper",
+      "name": "DreamShaper",
+      "repo": "https://civitai.com/models/4384",
+      "category": "扩充收录",
+      "author": "Lykon",
+      "official": false,
+      "maintenance": "active",
+      "description": "DreamShaper - V∞!  Please check out my other  base models , including  SDXL  ones!   Check the version description belo",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "DreamShaper",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/4384"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-majicmix-realistic",
+      "name": "majicMIX realistic 麦橘写实",
+      "repo": "https://civitai.com/models/43331",
+      "category": "扩充收录",
+      "author": "Merjic",
+      "official": false,
+      "maintenance": "active",
+      "description": "V7 is here. So far so good for me.    ASIAN ALERT!     推荐参数 Recommended Parameters for V7:   Sampler:  Euler a, Euler,",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "majicMIX realistic 麦橘写实",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/43331"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-pony-diffusion-v6-xl",
+      "name": "Pony Diffusion V6 XL",
+      "repo": "https://civitai.com/models/257749",
+      "category": "扩充收录",
+      "author": "PurpleSmartAI",
+      "official": false,
+      "maintenance": "active",
+      "description": "(and don't worry, coming to your computer very soon - Astra)    Pony Diffusion V6 is a versatile SDXL finetune capab",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Pony Diffusion V6 XL",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/257749"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-epicrealism",
+      "name": "epiCRealism",
+      "repo": "https://civitai.com/models/25694",
+      "category": "扩充收录",
+      "author": "epinikion",
+      "official": false,
+      "maintenance": "active",
+      "description": "Natural Sin Final and last of epiCRealism    Since SDXL is right around the corner , let's say it is the final version",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "epiCRealism",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/25694"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-cyberrealistic-pony",
+      "name": "CyberRealistic Pony",
+      "repo": "https://civitai.com/models/443821",
+      "category": "扩充收录",
+      "author": "Cyberdelia",
+      "official": false,
+      "maintenance": "active",
+      "description": "Join The Tinkerer on Whop. Membership gets you early releases, private tools and a bunch of extra stuff.  👉   Join o",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "CyberRealistic Pony",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/443821"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-easynegative",
+      "name": "EasyNegative",
+      "repo": "https://civitai.com/models/7808",
+      "category": "扩充收录",
+      "author": "rqdwdw",
+      "official": false,
+      "maintenance": "active",
+      "description": "Original Hugging Face Repository    Counterfeit-V3 (which has 2.5 and 2.5 as well) on Civitai -    https://civitai.co",
+      "tags": [
+        "auto",
+        "civitai",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "EasyNegative",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/7808"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-realvisxl-v5-0",
+      "name": "RealVisXL V5.0",
+      "repo": "https://civitai.com/models/139562",
+      "category": "扩充收录",
+      "author": "SG_161222",
+      "official": false,
+      "maintenance": "active",
+      "description": "Check my exclusive models on Mage:      ParagonXL     /     NovaXL     /     NovaXL Lightning     /     NovaXL V2",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "RealVisXL V5.0",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/139562"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-not-artists-styles-for-pony-diffusion-v6-xl",
+      "name": "Not Artists Styles for Pony Diffusion V6 XL",
+      "repo": "https://civitai.com/models/264290",
+      "category": "扩充收录",
+      "author": "obuyb404",
+      "official": false,
+      "maintenance": "active",
+      "description": "Styles are trained on synthetic data and do not copy the styles of artists!  Photo 2 - is trained on real data (Dataset",
+      "tags": [
+        "auto",
+        "civitai",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "Not Artists Styles for Pony Diffusion V6 XL",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/264290"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-cyberrealistic",
+      "name": "CyberRealistic",
+      "repo": "https://civitai.com/models/15003",
+      "category": "扩充收录",
+      "author": "Cyberdelia",
+      "official": false,
+      "maintenance": "active",
+      "description": "Join The Tinkerer on Whop. Membership gets you early releases, private tools and a bunch of extra stuff.  👉   Join o",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "CyberRealistic",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/15003"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-epicrealism-xl",
+      "name": "epiCRealism XL",
+      "repo": "https://civitai.com/models/277058",
+      "category": "扩充收录",
+      "author": "epinikion",
+      "official": false,
+      "maintenance": "active",
+      "description": "Regards for all your love and support ❤      avoiding negatives can improve result on SDXL",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "epiCRealism XL",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/277058"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-pony-realism",
+      "name": "Pony Realism 🔮",
+      "repo": "https://civitai.com/models/372465",
+      "category": "扩充收录",
+      "author": "ZyloO",
+      "official": false,
+      "maintenance": "active",
+      "description": "🌐   Main &amp; Site-Generation   | ⚡️   Ligthning/Hyper   | 🌀   Alt version   | 🖌   Inpaint   | 📦   Old        ✨ v",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Pony Realism 🔮",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/372465"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-meinamix",
+      "name": "MeinaMix",
+      "repo": "https://civitai.com/models/7240",
+      "category": "扩充收录",
+      "author": "Meina",
+      "official": false,
+      "maintenance": "active",
+      "description": "MeinaMix objective  is to be   able to do good art with little prompting.  I have a   discord   where you can   share",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "MeinaMix",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/7240"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-deep-negative-v1-x",
+      "name": "Deep Negative V1.x",
+      "repo": "https://civitai.com/models/4629",
+      "category": "扩充收录",
+      "author": "lenML",
+      "official": false,
+      "maintenance": "active",
+      "description": "This embedding will tell you what is  REALLY DISGUSTING 🤢🤮  So please put it in   negative prompt  😜     ⚠This model is",
+      "tags": [
+        "auto",
+        "civitai",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "Deep Negative V1.x",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/4629"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-beautiful-realistic-asians",
+      "name": "Beautiful Realistic Asians",
+      "repo": "https://civitai.com/models/25494",
+      "category": "扩充收录",
+      "author": "pleasebankai",
+      "official": false,
+      "maintenance": "active",
+      "description": "Im currently preparing and collecting dataset for SDXL, Its gonna be huge and a monumental task. I wanna thank everyone",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Beautiful Realistic Asians",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/25494"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-nova-anime-xl",
+      "name": "Nova Anime XL",
+      "repo": "https://civitai.com/models/376130",
+      "category": "扩充收录",
+      "author": "Crody",
+      "official": false,
+      "maintenance": "active",
+      "description": "Anima Version is Available!!      Nova Anime     XL     Nova Anime XL is Nova Anime: Anime/2.5D/3D checkpoint model f",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Nova Anime XL",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/376130"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-counterfeit-v3-0",
+      "name": "Counterfeit-V3.0",
+      "repo": "https://civitai.com/models/4468",
+      "category": "扩充收录",
+      "author": "rqdwdw",
+      "official": false,
+      "maintenance": "active",
+      "description": "high quality anime style model.  Support☕  https://ko-fi.com/sfa837348   more info.  https://huggingface.co/gsdf/Counte",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Counterfeit-V3.0",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/4468"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-detail-tweaker-xl",
+      "name": "Detail Tweaker XL",
+      "repo": "https://civitai.com/models/122359",
+      "category": "扩充收录",
+      "author": "w4r10ck",
+      "official": false,
+      "maintenance": "active",
+      "description": "Detail tweaker for SDXL.  Works with weights [-3, 3]  Use positive weight to increase details and negative weight to re",
+      "tags": [
+        "auto",
+        "civitai",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "Detail Tweaker XL",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/122359"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-sd-xl",
+      "name": "SD XL",
+      "repo": "https://civitai.com/models/101055",
+      "category": "扩充收录",
+      "author": "",
+      "official": false,
+      "maintenance": "active",
+      "description": "Originally  Posted to Hugging Face  and shared here with permission from Stability AI.         SDXL consists of a two-s",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "SD XL",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/101055"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-lazy-embeddings-for-all-illustrious-noobai-pony-sdxl-models-lazypositive-lazynegative-positive-and-negative-plus-more",
+      "name": "✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)",
+      "repo": "https://civitai.com/models/1302719",
+      "category": "扩充收录",
+      "author": "janxd",
+      "official": false,
+      "maintenance": "active",
+      "description": "💖 Support &amp; Share the Magic!   Love these embeddings?  Like, add to collection, and tag this resource  in your cre",
+      "tags": [
+        "auto",
+        "civitai",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/1302719"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-age-slider",
+      "name": "Age Slider",
+      "repo": "https://civitai.com/models/65214",
+      "category": "扩充收录",
+      "author": "Zovya",
+      "official": false,
+      "maintenance": "active",
+      "description": "Update June 13th adding updated Young Versions... V2   I developed this age slider to work with my   Children's Storie",
+      "tags": [
+        "auto",
+        "civitai",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "Age Slider",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/65214"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-epicphotogasm",
+      "name": "epiCPhotoGasm",
+      "repo": "https://civitai.com/models/132632",
+      "category": "扩充收录",
+      "author": "epinikion",
+      "official": false,
+      "maintenance": "active",
+      "description": "Welcome to epiCPhotoGasm  This Model is highly tuned for Photorealism with the tiniest amount of exessive prompting nee",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "epiCPhotoGasm",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/132632"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-autismmix-sdxl",
+      "name": "AutismMix SDXL",
+      "repo": "https://civitai.com/models/288584",
+      "category": "扩充收录",
+      "author": "Autismix_anon",
+      "official": false,
+      "maintenance": "active",
+      "description": "Mix of pony with some stuff. It's an attempt at making pony more predictable and less dependent on schizo negatives wit",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "AutismMix SDXL",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/288584"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-negative-hand-negative-embedding",
+      "name": "negative_hand Negative Embedding ",
+      "repo": "https://civitai.com/models/56519",
+      "category": "扩充收录",
+      "author": "Nerfgun3",
+      "official": false,
+      "maintenance": "active",
+      "description": "negative_hand Negative Embedding  Problem with Negative Embedding's  Currently, there are more and more negative embedd",
+      "tags": [
+        "auto",
+        "civitai",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "negative_hand Negative Embedding ",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/56519"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-redcraft-hybrid-h3-krea2t-dual-maso-w6a8",
+      "name": "RedCraft | 红潮 | Hybrid H3 & Krea2T DUAL MASO W6A8",
+      "repo": "https://civitai.com/models/958009",
+      "category": "扩充收录",
+      "author": "AiMetatron",
+      "official": false,
+      "maintenance": "active",
+      "description": "Red Craft -    红潮     Models as a  Service      做好工具人 服务艺术家    Forever in memory   of  METAFILM Studio  founder     M",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "RedCraft | 红潮 | Hybrid H3 & Krea2T DUAL MASO W6A8",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/958009"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-controlnet-1-1-models",
+      "name": "ControlNet 1.1 Models",
+      "repo": "https://civitai.com/models/38784",
+      "category": "扩充收录",
+      "author": "CivitaiOfficial",
+      "official": false,
+      "maintenance": "active",
+      "description": "STOP! THESE MODELS ARE  NOT  FOR PROMPTING/IMAGE GENERATION  These are the   new  ControlNet 1.1 models  required for t",
+      "tags": [
+        "auto",
+        "civitai",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "ControlNet 1.1 Models",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/38784"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-realism-by-stable-yogi-pony",
+      "name": "Realism By Stable Yogi (Pony)",
+      "repo": "https://civitai.com/models/166609",
+      "category": "扩充收录",
+      "author": "Stable_Yogi",
+      "official": false,
+      "maintenance": "active",
+      "description": "Pro Version of Realism Pony V4-V5-V6 now.       Get the Pro version of my models here      Onsite generations are per",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Realism By Stable Yogi (Pony)",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/166609"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-baddream-unrealisticdream-negative-embeddings",
+      "name": "BadDream + UnrealisticDream (Negative Embeddings)",
+      "repo": "https://civitai.com/models/72437",
+      "category": "扩充收录",
+      "author": "Lykon",
+      "official": false,
+      "maintenance": "active",
+      "description": "Bad Dream +  Unrealistic Dream   (Negative Embeddings, make sure to grab BOTH)   Do you like what I do? Consider suppor",
+      "tags": [
+        "auto",
+        "civitai",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "BadDream + UnrealisticDream (Negative Embeddings)",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/72437"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-flux",
+      "name": "FLUX",
+      "repo": "https://civitai.com/models/618692",
+      "category": "扩充收录",
+      "author": "",
+      "official": false,
+      "maintenance": "active",
+      "description": "Please check out the   Quickstart Guide to Flux   for all the info you need to get started!      FLUX.1 [dev]  is a 12",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "FLUX",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/618692"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-realism-illustrious-by-stable-yogi",
+      "name": "Realism Illustrious By Stable Yogi",
+      "repo": "https://civitai.com/models/974693",
+      "category": "扩充收录",
+      "author": "Stable_Yogi",
+      "official": false,
+      "maintenance": "active",
+      "description": "Get the    pro version    of my checkpoints and workflows.     Get the Pro version of my models here    .    Onsite ge",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Realism Illustrious By Stable Yogi",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/974693"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-absolutereality",
+      "name": "AbsoluteReality",
+      "repo": "https://civitai.com/models/81458",
+      "category": "扩充收录",
+      "author": "Lykon",
+      "official": false,
+      "maintenance": "active",
+      "description": "AbsoluteReality  That feeling after you wake up from a dream   Add a ❤️ to receive future updates. This took much time",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "AbsoluteReality",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/81458"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-badhandv4",
+      "name": "badhandv4",
+      "repo": "https://civitai.com/models/16993",
+      "category": "扩充收录",
+      "author": "Euge_",
+      "official": false,
+      "maintenance": "active",
+      "description": "介绍（Chinese Version）    简介   此文本嵌入（text embedding）为   负面文本嵌入  。它能够在对画风影响较小的前提下改善AI生成图片的手部细节。如果它让你的模型表现得比以前更糟，请勿使用它。您可与其",
+      "tags": [
+        "auto",
+        "civitai",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "badhandv4",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/16993"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-noobai-xl-nai-xl",
+      "name": "NoobAI-XL (NAI-XL)",
+      "repo": "https://civitai.com/models/833294",
+      "category": "扩充收录",
+      "author": "L_A_X",
+      "official": false,
+      "maintenance": "active",
+      "description": "Model Introduction   This image generation model, based on Laxhar/noobai-XL_v1.0, leverages full Danbooru and e621 dat",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "NoobAI-XL (NAI-XL)",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/833294"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-controlnetxl-cnxl",
+      "name": "ControlNetXL (CNXL)",
+      "repo": "https://civitai.com/models/136070",
+      "category": "扩充收录",
+      "author": "CivitaiOfficial",
+      "official": false,
+      "maintenance": "active",
+      "description": "NEW     2vXpSwA7    :    anytest-v4    |    openpose-v2_1   ||   abovzv  :  segment  ||   bdsqlsz  :  canny  |  depth",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "ControlNetXL (CNXL)",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/136070"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-iniverse-mix-sfw-nsfw",
+      "name": "iNiverse Mix(SFW & NSFW)",
+      "repo": "https://civitai.com/models/226533",
+      "category": "扩充收录",
+      "author": "JinnGames",
+      "official": false,
+      "maintenance": "active",
+      "description": "A model with a highly realistic feel, optimized for Asian girls. It performs well with girls from various countries and",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "iNiverse Mix(SFW & NSFW)",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/226533"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-hands-xl-sd-1-5-f1d-pony-illustrious-zit-zib",
+      "name": "Hands XL + SD 1.5 + F1D + Pony + Illustrious + zit + ZIB",
+      "repo": "https://civitai.com/models/200255",
+      "category": "扩充收录",
+      "author": "EauDeNoire",
+      "official": false,
+      "maintenance": "active",
+      "description": "Update :  Please if you see any of my models somewhere else report or let me know! Thnx    Please read version info  (",
+      "tags": [
+        "auto",
+        "civitai",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "Hands XL + SD 1.5 + F1D + Pony + Illustrious + zit + ZIB",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/200255"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-blindbox",
+      "name": "blindbox/大概是盲盒",
+      "repo": "https://civitai.com/models/25995",
+      "category": "扩充收录",
+      "author": "samecorner",
+      "official": false,
+      "maintenance": "active",
+      "description": "BlindBox Artstyle  更新了V3版本，调整了眼睛，俗话说眼睛是心灵的窗口。但是目前还是实验性质的，从稳定性上还是推荐v1_mix版本。  如果你喜欢我的作品，可以点个Like，或者请我  喝杯咖啡 。  爱来自瓷器。  [",
+      "tags": [
+        "auto",
+        "civitai",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "blindbox/大概是盲盒",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/25995"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-anylora-checkpoint",
+      "name": "AnyLoRA - Checkpoint",
+      "repo": "https://civitai.com/models/23900",
+      "category": "扩充收录",
+      "author": "Lykon",
+      "official": false,
+      "maintenance": "active",
+      "description": "AnyLoRA   Add a ❤️ to receive future updates.   Do you like what I do? Consider supporting me on    Patreon    🅿️ or fe",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "AnyLoRA - Checkpoint",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/23900"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-cetus-mix",
+      "name": "Cetus-Mix",
+      "repo": "https://civitai.com/models/6755",
+      "category": "扩充收录",
+      "author": "Eagelaxis",
+      "official": false,
+      "maintenance": "active",
+      "description": "NOTICE : LET ME KNOW  before you put this model on  commercial usage .  My twitter account: @eagelaxis  :) Contact me",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Cetus-Mix",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/6755"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-perfectdeliberate",
+      "name": "PerfectDeliberate",
+      "repo": "https://civitai.com/models/24350",
+      "category": "扩充收录",
+      "author": "Desync",
+      "official": false,
+      "maintenance": "active",
+      "description": "PerfectDeliberate    An Illustrious-based checkpoint built to hold its footing across anime, semi-real and 3D-leaning",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "PerfectDeliberate",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/24350"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-nova-furry-xl",
+      "name": "Nova Furry XL",
+      "repo": "https://civitai.com/models/503815",
+      "category": "扩充收录",
+      "author": "Crody",
+      "official": false,
+      "maintenance": "active",
+      "description": "Anima version is available!       Nova Furry XL    A 2d/2.5d furry checkpoint model that can have great details on a",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Nova Furry XL",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/503815"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-moxin",
+      "name": "墨心 MoXin",
+      "repo": "https://civitai.com/models/12597",
+      "category": "扩充收录",
+      "author": "simhuang",
+      "official": false,
+      "maintenance": "active",
+      "description": "《墨心》—— 昔涓子《琴心》，王孙《巧心》，心哉美矣，故用之焉。   本品由安吉吴仓石、兴化板桥先生、八大山人、山阴伯年等大师之大小写意作品辅以现代人物训练而成。辅以恰当之提示词，诵先贤尊号，襄古今并用之意，明雅俗共举之美。     《",
+      "tags": [
+        "auto",
+        "civitai",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "墨心 MoXin",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/12597"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-animagine-xl-v3-1",
+      "name": "Animagine XL V3.1",
+      "repo": "https://civitai.com/models/260267",
+      "category": "扩充收录",
+      "author": "CagliostroLab",
+      "official": false,
+      "maintenance": "active",
+      "description": "Animagine XL 3.1  is an update in the Animagine XL V3 series, enhancing the previous version, Animagine XL 3.0. This o",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Animagine XL V3.1",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/260267"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-ghostmix",
+      "name": "GhostMix",
+      "repo": "https://civitai.com/models/36520",
+      "category": "扩充收录",
+      "author": "_GhostInShell_",
+      "official": false,
+      "maintenance": "active",
+      "description": "My New SDXL Model (GhostXL) already release on Civitai, please check it out. I think it will give you a surprise !",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "GhostMix",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/36520"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-one-obsession",
+      "name": "One obsession",
+      "repo": "https://civitai.com/models/1318945",
+      "category": "扩充收录",
+      "author": "maxfeifei8",
+      "official": false,
+      "maintenance": "active",
+      "description": "One obsession_Anima    （   Open free download   ）       https://civitai.red/models/2695493/one-obsessionanima",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "One obsession",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/1318945"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-xxmix-9realistic",
+      "name": "XXMix_9realistic",
+      "repo": "https://civitai.com/models/47274",
+      "category": "扩充收录",
+      "author": "Zyx_xx",
+      "official": false,
+      "maintenance": "active",
+      "description": "I found a new AI tool Shakker, a best image to image tool. You can try it via  https://www.shakker.ai      You can",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "XXMix_9realistic",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/47274"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-prefect-pony-xl",
+      "name": "Prefect Pony XL",
+      "repo": "https://civitai.com/models/439889",
+      "category": "扩充收录",
+      "author": "Goofy_Ai",
+      "official": false,
+      "maintenance": "active",
+      "description": "If you like my work, drop a 5 review and hit the heart icon. it's free and keeps me motivated   All my models are offic",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Prefect Pony XL",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/439889"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-doll-likeness-by-edg",
+      "name": "Doll Likeness - by EDG",
+      "repo": "https://civitai.com/models/42903",
+      "category": "扩充收录",
+      "author": "EDG",
+      "official": false,
+      "maintenance": "active",
+      "description": "If you'd like to support me and do more:  https://ko-fi.com/edgonkofi  - commissions open! If you're looking for a  &gt",
+      "tags": [
+        "auto",
+        "civitai",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "Doll Likeness - by EDG",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/42903"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-anima",
+      "name": "Anima",
+      "repo": "https://civitai.com/models/2458426",
+      "category": "扩充收录",
+      "author": "circlestone_labs",
+      "official": false,
+      "maintenance": "active",
+      "description": "Anima is a 2 billion parameter text-to-image model created via a collaboration between CircleStone Labs and Comfy Org.",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "Anima",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/2458426"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-verybadimagenegative",
+      "name": "veryBadImageNegative",
+      "repo": "https://civitai.com/models/11772",
+      "category": "扩充收录",
+      "author": "yunleme",
+      "official": false,
+      "maintenance": "active",
+      "description": "v1.3  veryBadImageNegative_v1.3使用了新的训练图集，在AOM3和 viewer-mix_v1.7 中使用时表现较好。  veryBadImageNegative_v1.3 uses a new trainin",
+      "tags": [
+        "auto",
+        "civitai",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "veryBadImageNegative",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/11772"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-miaomiao-harem",
+      "name": "MiaoMiao Harem",
+      "repo": "https://civitai.com/models/934764",
+      "category": "扩充收录",
+      "author": "MIAOKA",
+      "official": false,
+      "maintenance": "active",
+      "description": "喵喵后宫才不是臭脚模型呢      属于完整的 MiaoMiaoHarem Dogma 完整生态系统终于来了   。👈详情请点击      在线使用历史版本 请前往   SeaArt.Ai   本模型只发布在   Civitai",
+      "tags": [
+        "auto",
+        "civitai",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "MiaoMiao Harem",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/934764"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
