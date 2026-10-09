@@ -32,7 +32,8 @@ import urllib.request
 DEFAULT_MAX = 50
 DEFAULT_PLATFORMS = "hf,civitai,modelscope"
 DATA_PATH = "data/modules.json"
-UA = "comfyui-atlas-scraper/1.0 (+https://github.com/EastWolf666/comfyui-atlas)"
+UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 TIMEOUT = 25
 
 # HF 检索关键词 -> 推断的模型类型（同时充当相关性过滤）
@@ -129,20 +130,22 @@ def fetch_hf(per_kw=15):
     return out
 
 
-def fetch_civitai(limit=60):
+def fetch_civitai(limit=100):
     out = []
+    # 不传 types（该参数易触发 400），改为拉取 MostDownloaded 后按 type 客户端过滤
     data = http_get("https://civitai.com/api/v1/models", {
         "limit": limit, "sort": "MostDownloaded",
-        "types": "Checkpoint,LORA,TextualInversion,VAE,Hypernetwork,Controlnet",
     })
     items = (data or {}).get("items") or []
     for it in items:
+        ctype = CIVITAI_TYPE_MAP.get(it.get("type") or "")
+        if not ctype:
+            continue
         mid = it.get("id")
         if not mid:
             continue
         name = it.get("name") or str(mid)
         url = "https://civitai.com/models/" + str(mid)
-        ctype = CIVITAI_TYPE_MAP.get(it.get("type") or "", "checkpoint")
         out.append({
             "platform": "civitai",
             "url": url,
@@ -155,37 +158,34 @@ def fetch_civitai(limit=60):
     return out
 
 
-def fetch_modelscope(page_size=50):
+def fetch_modelscope(page_size=20):
     out = []
-    # 优先主接口，404 再试 search 接口（best-effort）
-    data = http_get("https://modelscope.cn/api/v1/models", {
-        "PageSize": page_size, "SortBy": "Downloads", "Direction": "Desc",
-    })
-    models = []
-    if isinstance(data, dict):
-        models = (data.get("Data") or {}).get("Models") or []
-    if not models:
-        data = http_get("https://modelscope.cn/api/v1/models/search", {
-            "PageSize": page_size, "SortBy": "Downloads", "Direction": "Desc",
+    # 官方 OpenAPI 基址为 /openapi/v1；用关键词 search 收敛到图像生成域（best-effort）
+    keywords = ["stable-diffusion", "lora", "diffusers", "controlnet", "anime", "sdxl"]
+    for kw in keywords:
+        data = http_get("https://modelscope.cn/openapi/v1/models", {
+            "search": kw, "sort": "downloads", "page_size": page_size, "page": 1,
         })
+        models = []
         if isinstance(data, dict):
-            models = (data.get("Data") or {}).get("Models") or []
-    for it in models:
-        mid = it.get("ModelId") or it.get("modelId") or ""
-        if not mid or "/" not in mid:
-            continue
-        author = mid.split("/")[0]
-        name = mid.split("/")[-1]
-        url = "https://modelscope.cn/models/" + mid
-        out.append({
-            "platform": "modelscope",
-            "url": url,
-            "name": name,
-            "type": "checkpoint",
-            "author": it.get("Author") or it.get("author") or author,
-            "description": (it.get("Summary") or it.get("summary") or "")[:120],
-            "size": None,
-        })
+            models = (data.get("data") or {}).get("models") or []
+        for it in models:
+            mid = it.get("id") or it.get("model_id") or ""
+            if not mid or "/" not in mid:
+                continue
+            author = mid.split("/")[0]
+            name = mid.split("/")[-1]
+            url = "https://modelscope.cn/models/" + mid
+            out.append({
+                "platform": "modelscope",
+                "url": url,
+                "name": name,
+                "type": "checkpoint",
+                "author": it.get("author") or author,
+                "description": (it.get("summary") or it.get("description") or "")[:120],
+                "size": None,
+            })
+        time.sleep(0.5)
     return out
 
 
