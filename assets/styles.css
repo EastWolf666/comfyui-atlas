@@ -73,6 +73,9 @@ body {
   display: grid; gap: 18px;
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
 }
+/* 按平台视图：每列只取其自身内容高度，不被同行最高列（如 Hugging Face）拉伸，
+   避免短平台列底部拖出大片空白 */
+.modules-grid.view-platforms { align-items: start; }
 .card {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 14px; padding: 18px; display: flex; flex-direction: column;
