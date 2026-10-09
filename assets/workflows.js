@@ -952,17 +952,21 @@ async function backgroundFill() {
    同时 updateLoadMore 在 loadingShard 时把按钮切成“加载中…”反馈态。 */
 let pendingMore = false;
 async function loadMore() {
-  // 到底：全部已渲染且无可拉取的下一分片
-  if (allLoaded || nextShard >= (MANIFEST ? MANIFEST.shards.length : 0)) {
-    updateLoadMore();
-    return;
-  }
-  // 正在加载分片：排队而非丢弃点击（解决“点了像没反应”）
-  if (loadingShard) { pendingMore = true; return; }
+  // 1) 池 / 全量里还有未渲染条目：直接渲染，无需联网。
+  //    注意：即使 allLoaded 为 true 也要继续走这里，否则全量加载完成后
+  //    滚动与“加载更多”会被下面的到底判断直接 return 掐死，按钮变死。
   if (rendered < filtered.length) {
     renderMore();
     return;
   }
+  // 2) 正在加载分片：排队而非丢弃点击（解决“点了像没反应”）
+  if (loadingShard) { pendingMore = true; return; }
+  // 3) 到底：全部已渲染且无可拉取的下一分片
+  if (allLoaded || nextShard >= (MANIFEST ? MANIFEST.shards.length : 0)) {
+    updateLoadMore();
+    return;
+  }
+  // 4) 否则拉下一分片
   loadingShard = true;
   setBusy(true, `正在加载更多数据（${nextShard + 1}/${MANIFEST.shards.length}）…`);
   try {
@@ -1056,7 +1060,7 @@ function onScroll() {
   scrollTicking = true;
   requestAnimationFrame(() => {
     scrollTicking = false;
-    if (loadingShard || allLoaded) return; // 正在加载时不再触发，避免并发
+    if (loadingShard) return; // 正在加载分片时不再触发，避免并发（allLoaded 不再拦截：全量加载后仍需继续渲染已加载列表）
     const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 800;
     if (!nearBottom) return;
     // 先渲染已加载池的剩余，池耗尽再自动拉取下一分片
@@ -1096,7 +1100,16 @@ function bindEvents() {
     refresh();
   });
   bindColsControl();
-  document.getElementById("loadmore").addEventListener("click", loadMore);
+  // “加载更多”：点击后把刚追加的那一批卡片滚入视口，给出明确可见反馈
+  // （否则新卡片追加在列表底部，用户当前视口看不到，会误以为“点了没反应”）
+  document.getElementById("loadmore").addEventListener("click", () => {
+    const before = rendered;
+    Promise.resolve(loadMore()).finally(() => {
+      const grid = document.getElementById("grid");
+      const card = grid.children[before];
+      if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
   window.addEventListener("scroll", onScroll, { passive: true });
 }
 
