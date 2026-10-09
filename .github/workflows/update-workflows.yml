@@ -4,8 +4,6 @@ name: Update workflow data
 # cron: '10 3 * * *' → 每天的 03:10 UTC
 # 说明：GitHub Actions 的 cron 用 UTC，北京时间 = UTC+8 → 约上午 11:10 触发。
 on:
-  schedule:
-    - cron: '10 3 * * *'
   workflow_dispatch: # 允许手动触发
     inputs:
       pages:
