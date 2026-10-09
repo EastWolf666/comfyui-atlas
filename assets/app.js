@@ -287,13 +287,20 @@ function render() {
   renderNodes();
 }
 
+const MAX_RENDER = 800; // 按节点视图单次渲染上限，防止大库全量渲染卡死浏览器
+
 function renderNodes() {
   const list = ALL.filter(matches);
   const container = document.getElementById("modules");
   const empty = document.getElementById("empty");
-  container.innerHTML = list.map(cardHTML).join("");
+  const shown = list.slice(0, MAX_RENDER);
+  container.innerHTML = shown.map(cardHTML).join("")
+    + (list.length > MAX_RENDER
+      ? `<p class="render-limit">📋 共匹配 ${list.length} 个节点，为保持流畅仅渲染前 ${MAX_RENDER} 个——请用搜索或筛选缩小范围。`
+      : "");
   empty.hidden = list.length !== 0;
-  document.getElementById("count").textContent = `显示 ${list.length} / ${ALL.length} 个节点`;
+  document.getElementById("count").textContent = `显示 ${list.length} / ${ALL.length} 个节点`
+    + (list.length > MAX_RENDER ? `（渲染前 ${MAX_RENDER}）` : "");
   bindCopyButtons();
   bindFavButtons();
 }
