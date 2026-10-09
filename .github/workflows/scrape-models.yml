@@ -9,6 +9,10 @@ on:
       max_entries:
         description: "本次新增条目上限"
         required: false
+        default: "300"
+      target_per_type:
+        description: "每个类型的目标条目数（按平台源计，已达标类型自动跳过）"
+        required: false
         default: "50"
       platforms:
         description: "抓取平台（逗号分隔：hf,civitai,modelscope）"
@@ -35,7 +39,8 @@ jobs:
       - name: Scrape & expand
         run: |
           python scripts/scrape_models.py \
-            --max "${{ github.event.inputs.max_entries || '50' }}" \
+            --max "${{ github.event.inputs.max_entries || '300' }}" \
+            --target-per-type "${{ github.event.inputs.target_per_type || '50' }}" \
             --platforms "${{ github.event.inputs.platforms || 'hf,civitai,modelscope' }}"
 
       - name: Commit if changed
