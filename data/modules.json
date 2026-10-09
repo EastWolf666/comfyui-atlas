@@ -3450,6 +3450,1556 @@
         "增强"
       ],
       "models": []
+    },
+    {
+      "id": "auto-huggingface-qwen2-5vl-7b-lora-sft-cot-traineval-4epochs-merged",
+      "name": "qwen2_5vl-7b-lora-sft-CoT_traineval_4epochs_merged",
+      "repo": "https://huggingface.co/cvis-tmu/qwen2_5vl-7b-lora-sft-CoT_traineval_4epochs_merged",
+      "category": "扩充收录",
+      "author": "cvis-tmu",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "qwen2_5vl-7b-lora-sft-CoT_traineval_4epochs_merged",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/cvis-tmu/qwen2_5vl-7b-lora-sft-CoT_traineval_4epochs_merged"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/cvis-tmu/qwen2_5vl-7b-lora-sft-CoT_traineval_4epochs_merged"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-z-image-lora",
+      "name": "Z-Image-Lora",
+      "repo": "https://huggingface.co/nphSi/Z-Image-Lora",
+      "category": "扩充收录",
+      "author": "nphSi",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "Z-Image-Lora",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/nphSi/Z-Image-Lora"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/nphSi/Z-Image-Lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-edit-plus-nsfw-lora",
+      "name": "qwen-image-edit-plus-nsfw-lora",
+      "repo": "https://huggingface.co/ScottzillaSystems/qwen-image-edit-plus-nsfw-lora",
+      "category": "扩充收录",
+      "author": "ScottzillaSystems",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "qwen-image-edit-plus-nsfw-lora",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ScottzillaSystems/qwen-image-edit-plus-nsfw-lora"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/ScottzillaSystems/qwen-image-edit-plus-nsfw-lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-minimax-h3-turbo-lora",
+      "name": "MiniMax-H3-Turbo-Lora",
+      "repo": "https://huggingface.co/larryvrh/MiniMax-H3-Turbo-Lora",
+      "category": "扩充收录",
+      "author": "larryvrh",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "MiniMax-H3-Turbo-Lora",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/larryvrh/MiniMax-H3-Turbo-Lora"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/larryvrh/MiniMax-H3-Turbo-Lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-minimax-h3-turbo-lora-comfyui",
+      "name": "MiniMax-H3-Turbo-Lora-ComfyUI",
+      "repo": "https://huggingface.co/drbaph/MiniMax-H3-Turbo-Lora-ComfyUI",
+      "category": "扩充收录",
+      "author": "drbaph",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "MiniMax-H3-Turbo-Lora-ComfyUI",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/drbaph/MiniMax-H3-Turbo-Lora-ComfyUI"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/drbaph/MiniMax-H3-Turbo-Lora-ComfyUI"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2-i2v-general-nsfw-lora",
+      "name": "Wan2.2-I2V_General-NSFW-LoRA",
+      "repo": "https://huggingface.co/lopi999/Wan2.2-I2V_General-NSFW-LoRA",
+      "category": "扩充收录",
+      "author": "lopi999",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2-I2V_General-NSFW-LoRA",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/lopi999/Wan2.2-I2V_General-NSFW-LoRA"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/lopi999/Wan2.2-I2V_General-NSFW-LoRA"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-loras",
+      "name": "loras",
+      "repo": "https://huggingface.co/diff-interpretation-tuning/loras",
+      "category": "扩充收录",
+      "author": "diff-interpretation-tuning",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "loras",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/diff-interpretation-tuning/loras"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/diff-interpretation-tuning/loras"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-z-image-lora-2",
+      "name": "Z-Image-Lora",
+      "repo": "https://huggingface.co/qujincheng/Z-Image-Lora",
+      "category": "扩充收录",
+      "author": "qujincheng",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "Z-Image-Lora",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/qujincheng/Z-Image-Lora"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/qujincheng/Z-Image-Lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-tiny-optforcausallm-lora",
+      "name": "tiny-OPTForCausalLM-lora",
+      "repo": "https://huggingface.co/peft-internal-testing/tiny-OPTForCausalLM-lora",
+      "category": "扩充收录",
+      "author": "peft-internal-testing",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "tiny-OPTForCausalLM-lora",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/peft-internal-testing/tiny-OPTForCausalLM-lora"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/peft-internal-testing/tiny-OPTForCausalLM-lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2-distill-loras",
+      "name": "Wan2.2-Distill-Loras",
+      "repo": "https://huggingface.co/lightx2v/Wan2.2-Distill-Loras",
+      "category": "扩充收录",
+      "author": "lightx2v",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2-Distill-Loras",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/lightx2v/Wan2.2-Distill-Loras"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/lightx2v/Wan2.2-Distill-Loras"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-minimax-h3-realism-people-lora",
+      "name": "MiniMax-H3-Realism-People-LoRA",
+      "repo": "https://huggingface.co/fal/MiniMax-H3-Realism-People-LoRA",
+      "category": "扩充收录",
+      "author": "fal",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "MiniMax-H3-Realism-People-LoRA",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/fal/MiniMax-H3-Realism-People-LoRA"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/fal/MiniMax-H3-Realism-People-LoRA"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-lcm-lora-sdv1-5",
+      "name": "lcm-lora-sdv1-5",
+      "repo": "https://huggingface.co/latent-consistency/lcm-lora-sdv1-5",
+      "category": "扩充收录",
+      "author": "latent-consistency",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "lcm-lora-sdv1-5",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/latent-consistency/lcm-lora-sdv1-5"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/latent-consistency/lcm-lora-sdv1-5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-z-image-lora-3",
+      "name": "Z-Image-Lora",
+      "repo": "https://huggingface.co/blueflame749/Z-Image-Lora",
+      "category": "扩充收录",
+      "author": "blueflame749",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "Z-Image-Lora",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/blueflame749/Z-Image-Lora"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/blueflame749/Z-Image-Lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-z-image-lora-4",
+      "name": "Z-Image-Lora",
+      "repo": "https://huggingface.co/kukidevalml/Z-Image-Lora",
+      "category": "扩充收录",
+      "author": "kukidevalml",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "Z-Image-Lora",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/kukidevalml/Z-Image-Lora"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/kukidevalml/Z-Image-Lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-z-image-loras",
+      "name": "Z-Image-Loras",
+      "repo": "https://huggingface.co/SDim1973/Z-Image-Loras",
+      "category": "扩充收录",
+      "author": "SDim1973",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "lora"
+      ],
+      "models": [
+        {
+          "name": "Z-Image-Loras",
+          "type": "lora",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/SDim1973/Z-Image-Loras"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/SDim1973/Z-Image-Loras"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sdxl-turbo",
+      "name": "sdxl-turbo",
+      "repo": "https://huggingface.co/stabilityai/sdxl-turbo",
+      "category": "扩充收录",
+      "author": "stabilityai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "sdxl-turbo",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/sdxl-turbo"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/sdxl-turbo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sdxl-vae-fp16-fix",
+      "name": "sdxl-vae-fp16-fix",
+      "repo": "https://huggingface.co/madebyollin/sdxl-vae-fp16-fix",
+      "category": "扩充收录",
+      "author": "madebyollin",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "sdxl-vae-fp16-fix",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/madebyollin/sdxl-vae-fp16-fix"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/madebyollin/sdxl-vae-fp16-fix"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sdxl-vae",
+      "name": "sdxl-vae",
+      "repo": "https://huggingface.co/stabilityai/sdxl-vae",
+      "category": "扩充收录",
+      "author": "stabilityai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "sdxl-vae",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/sdxl-vae"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/sdxl-vae"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-controlnet-openpose-sdxl-1-0",
+      "name": "controlnet-openpose-sdxl-1.0",
+      "repo": "https://huggingface.co/xinsir/controlnet-openpose-sdxl-1.0",
+      "category": "扩充收录",
+      "author": "xinsir",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "controlnet-openpose-sdxl-1.0",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/xinsir/controlnet-openpose-sdxl-1.0"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/xinsir/controlnet-openpose-sdxl-1.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-nova-furry-xl-il-v120-sdxl",
+      "name": "nova-furry-xl-il-v120-sdxl",
+      "repo": "https://huggingface.co/John6666/nova-furry-xl-il-v120-sdxl",
+      "category": "扩充收录",
+      "author": "John6666",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "nova-furry-xl-il-v120-sdxl",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/John6666/nova-furry-xl-il-v120-sdxl"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/John6666/nova-furry-xl-il-v120-sdxl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-controlnet-union-sdxl-1-0",
+      "name": "controlnet-union-sdxl-1.0",
+      "repo": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0",
+      "category": "扩充收录",
+      "author": "xinsir",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "controlnet-union-sdxl-1.0",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/xinsir/controlnet-union-sdxl-1.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sdxl-lightning",
+      "name": "SDXL-Lightning",
+      "repo": "https://huggingface.co/ByteDance/SDXL-Lightning",
+      "category": "扩充收录",
+      "author": "ByteDance",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "SDXL-Lightning",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ByteDance/SDXL-Lightning"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/ByteDance/SDXL-Lightning"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-amanatsu-illustrious-v11-sdxl",
+      "name": "amanatsu-illustrious-v11-sdxl",
+      "repo": "https://huggingface.co/John6666/amanatsu-illustrious-v11-sdxl",
+      "category": "扩充收录",
+      "author": "John6666",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "amanatsu-illustrious-v11-sdxl",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/John6666/amanatsu-illustrious-v11-sdxl"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/John6666/amanatsu-illustrious-v11-sdxl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-janku-v5-nsfw-trained-noobai-rou-wei-illustrious-xl-v50-sdxl",
+      "name": "janku-v5-nsfw-trained-noobai-rou-wei-illustrious-xl-v50-sdxl",
+      "repo": "https://huggingface.co/John6666/janku-v5-nsfw-trained-noobai-rou-wei-illustrious-xl-v50-sdxl",
+      "category": "扩充收录",
+      "author": "John6666",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "janku-v5-nsfw-trained-noobai-rou-wei-illustrious-xl-v50-sdxl",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/John6666/janku-v5-nsfw-trained-noobai-rou-wei-illustrious-xl-v50-sdxl"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/John6666/janku-v5-nsfw-trained-noobai-rou-wei-illustrious-xl-v50-sdxl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sdxl-detector",
+      "name": "sdxl-detector",
+      "repo": "https://huggingface.co/Organika/sdxl-detector",
+      "category": "扩充收录",
+      "author": "Organika",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "sdxl-detector",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Organika/sdxl-detector"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Organika/sdxl-detector"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-diving-illustrious-real-asian-v50-sdxl",
+      "name": "diving-illustrious-real-asian-v50-sdxl",
+      "repo": "https://huggingface.co/John6666/diving-illustrious-real-asian-v50-sdxl",
+      "category": "扩充收录",
+      "author": "John6666",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "diving-illustrious-real-asian-v50-sdxl",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/John6666/diving-illustrious-real-asian-v50-sdxl"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/John6666/diving-illustrious-real-asian-v50-sdxl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-one-obsession-17-red-sdxl",
+      "name": "one-obsession-17-red-sdxl",
+      "repo": "https://huggingface.co/John6666/one-obsession-17-red-sdxl",
+      "category": "扩充收录",
+      "author": "John6666",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "one-obsession-17-red-sdxl",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/John6666/one-obsession-17-red-sdxl"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/John6666/one-obsession-17-red-sdxl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-controlnet-openpose-sdxl-1-0-2",
+      "name": "controlnet-openpose-sdxl-1.0",
+      "repo": "https://huggingface.co/thibaud/controlnet-openpose-sdxl-1.0",
+      "category": "扩充收录",
+      "author": "thibaud",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "controlnet-openpose-sdxl-1.0",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/thibaud/controlnet-openpose-sdxl-1.0"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/thibaud/controlnet-openpose-sdxl-1.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-obsession-illustriousxl-v10-sdxl",
+      "name": "obsession-illustriousxl-v10-sdxl",
+      "repo": "https://huggingface.co/John6666/obsession-illustriousxl-v10-sdxl",
+      "category": "扩充收录",
+      "author": "John6666",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "obsession-illustriousxl-v10-sdxl",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/John6666/obsession-illustriousxl-v10-sdxl"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/John6666/obsession-illustriousxl-v10-sdxl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-prefect-illustrious-xl-v3-sdxl",
+      "name": "prefect-illustrious-xl-v3-sdxl",
+      "repo": "https://huggingface.co/John6666/prefect-illustrious-xl-v3-sdxl",
+      "category": "扩充收录",
+      "author": "John6666",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "prefect-illustrious-xl-v3-sdxl",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/John6666/prefect-illustrious-xl-v3-sdxl"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/John6666/prefect-illustrious-xl-v3-sdxl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux2-dev",
+      "name": "flux2-dev",
+      "repo": "https://huggingface.co/Comfy-Org/flux2-dev",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "flux2-dev",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/flux2-dev"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/flux2-dev"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux1-dev",
+      "name": "flux1-dev",
+      "repo": "https://huggingface.co/Comfy-Org/flux1-dev",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "flux1-dev",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/flux1-dev"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/flux1-dev"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-vae-text-encorder-for-flux-klein-9b",
+      "name": "vae-text-encorder-for-flux-klein-9b",
+      "repo": "https://huggingface.co/Comfy-Org/vae-text-encorder-for-flux-klein-9b",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "vae-text-encorder-for-flux-klein-9b",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/vae-text-encorder-for-flux-klein-9b"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/vae-text-encorder-for-flux-klein-9b"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-1-dev",
+      "name": "FLUX.1-dev",
+      "repo": "https://huggingface.co/black-forest-labs/FLUX.1-dev",
+      "category": "扩充收录",
+      "author": "black-forest-labs",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "FLUX.1-dev",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/black-forest-labs/FLUX.1-dev"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/black-forest-labs/FLUX.1-dev"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-1-schnell",
+      "name": "FLUX.1-schnell",
+      "repo": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+      "category": "扩充收录",
+      "author": "black-forest-labs",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "FLUX.1-schnell",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/black-forest-labs/FLUX.1-schnell"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-vae-text-encorder-for-flux-klein-4b",
+      "name": "vae-text-encorder-for-flux-klein-4b",
+      "repo": "https://huggingface.co/Comfy-Org/vae-text-encorder-for-flux-klein-4b",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "vae-text-encorder-for-flux-klein-4b",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/vae-text-encorder-for-flux-klein-4b"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/vae-text-encorder-for-flux-klein-4b"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux1-schnell",
+      "name": "flux1-schnell",
+      "repo": "https://huggingface.co/Comfy-Org/flux1-schnell",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "flux1-schnell",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/flux1-schnell"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/flux1-schnell"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-2-dev",
+      "name": "FLUX.2-dev",
+      "repo": "https://huggingface.co/black-forest-labs/FLUX.2-dev",
+      "category": "扩充收录",
+      "author": "black-forest-labs",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "FLUX.2-dev",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/black-forest-labs/FLUX.2-dev"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/black-forest-labs/FLUX.2-dev"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-2-klein-4b",
+      "name": "FLUX.2-klein-4B",
+      "repo": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B",
+      "category": "扩充收录",
+      "author": "black-forest-labs",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "FLUX.2-klein-4B",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/black-forest-labs/FLUX.2-klein-4B"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-1-kontext-dev",
+      "name": "FLUX.1-Kontext-dev",
+      "repo": "https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev",
+      "category": "扩充收录",
+      "author": "black-forest-labs",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "FLUX.1-Kontext-dev",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/black-forest-labs/FLUX.1-Kontext-dev"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-2-klein-9b-gguf",
+      "name": "FLUX.2-klein-9B-GGUF",
+      "repo": "https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF",
+      "category": "扩充收录",
+      "author": "unsloth",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "FLUX.2-klein-9B-GGUF",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/unsloth/FLUX.2-klein-9B-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-2-klein-4b-gguf",
+      "name": "FLUX.2-klein-4B-GGUF",
+      "repo": "https://huggingface.co/unsloth/FLUX.2-klein-4B-GGUF",
+      "category": "扩充收录",
+      "author": "unsloth",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "FLUX.2-klein-4B-GGUF",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/unsloth/FLUX.2-klein-4B-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/unsloth/FLUX.2-klein-4B-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-2-klein-4b-fp8",
+      "name": "FLUX.2-klein-4b-fp8",
+      "repo": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4b-fp8",
+      "category": "扩充收录",
+      "author": "black-forest-labs",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "FLUX.2-klein-4b-fp8",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4b-fp8"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/black-forest-labs/FLUX.2-klein-4b-fp8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-2-klein-base-4b",
+      "name": "FLUX.2-klein-base-4B",
+      "repo": "https://huggingface.co/black-forest-labs/FLUX.2-klein-base-4B",
+      "category": "扩充收录",
+      "author": "black-forest-labs",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "FLUX.2-klein-base-4B",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-base-4B"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/black-forest-labs/FLUX.2-klein-base-4B"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-2-small-decoder",
+      "name": "FLUX.2-small-decoder",
+      "repo": "https://huggingface.co/black-forest-labs/FLUX.2-small-decoder",
+      "category": "扩充收录",
+      "author": "black-forest-labs",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "checkpoint"
+      ],
+      "models": [
+        {
+          "name": "FLUX.2-small-decoder",
+          "type": "checkpoint",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/black-forest-labs/FLUX.2-small-decoder"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/black-forest-labs/FLUX.2-small-decoder"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-z-image-turbo-fun-controlnet-union-2-1",
+      "name": "Z-Image-Turbo-Fun-Controlnet-Union-2.1",
+      "repo": "https://huggingface.co/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union-2.1",
+      "category": "扩充收录",
+      "author": "alibaba-pai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "Z-Image-Turbo-Fun-Controlnet-Union-2.1",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union-2.1"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union-2.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-z-image-turbo-fun-controlnet-union",
+      "name": "Z-Image-Turbo-Fun-Controlnet-Union",
+      "repo": "https://huggingface.co/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union",
+      "category": "扩充收录",
+      "author": "alibaba-pai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "Z-Image-Turbo-Fun-Controlnet-Union",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-stable-diffusion-3-5-large-controlnet-canny",
+      "name": "stable-diffusion-3.5-large-controlnet-canny",
+      "repo": "https://huggingface.co/stabilityai/stable-diffusion-3.5-large-controlnet-canny",
+      "category": "扩充收录",
+      "author": "stabilityai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-3.5-large-controlnet-canny",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/stable-diffusion-3.5-large-controlnet-canny"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/stable-diffusion-3.5-large-controlnet-canny"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-stable-diffusion-3-5-large-controlnet-depth",
+      "name": "stable-diffusion-3.5-large-controlnet-depth",
+      "repo": "https://huggingface.co/stabilityai/stable-diffusion-3.5-large-controlnet-depth",
+      "category": "扩充收录",
+      "author": "stabilityai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-3.5-large-controlnet-depth",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/stable-diffusion-3.5-large-controlnet-depth"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/stable-diffusion-3.5-large-controlnet-depth"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-controlnet-canny-sdxl-1-0",
+      "name": "controlnet-canny-sdxl-1.0",
+      "repo": "https://huggingface.co/xinsir/controlnet-canny-sdxl-1.0",
+      "category": "扩充收录",
+      "author": "xinsir",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "controlnet-canny-sdxl-1.0",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/xinsir/controlnet-canny-sdxl-1.0"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/xinsir/controlnet-canny-sdxl-1.0"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
