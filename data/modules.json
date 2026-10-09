@@ -7728,6 +7728,5265 @@
           ]
         }
       ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-comfyui",
+      "name": "Qwen-Image (千问图像) ComfyUI 单文件",
+      "repo": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "阿里千问 Qwen-Image 20B 文生图模型，ComfyUI 官方 repack 单文件（含 VAE/文本编码器）。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image (千问图像) ComfyUI 单文件",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/Qwen-Image_ComfyUI"
+            },
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/Qwen/Qwen-Image"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-edit-2511-comfyui",
+      "name": "Qwen-Image-Edit 2511 ComfyUI 单文件",
+      "repo": "https://huggingface.co/Comfy-Org/Qwen-Image-Edit_ComfyUI",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "千问图像编辑模型（2511 版），多图融合/换材质/重打光，ComfyUI 官方 repack（bf16/fp8/int8）。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-Edit 2511 ComfyUI 单文件",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/Qwen-Image-Edit_ComfyUI"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/Qwen-Image-Edit_ComfyUI"
+            },
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/Qwen/Qwen-Image-Edit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image",
+      "name": "Qwen-Image 官方权重",
+      "repo": "https://huggingface.co/Qwen/Qwen-Image",
+      "category": "扩充收录",
+      "author": "Qwen",
+      "official": false,
+      "maintenance": "active",
+      "description": "千问 Qwen-Image 官方 diffusers 权重仓库（文生图，中文文字渲染强）。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image 官方权重",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Qwen/Qwen-Image"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Qwen/Qwen-Image"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-1-krea-dev",
+      "name": "FLUX.1 Krea [dev]",
+      "repo": "https://huggingface.co/black-forest-labs/FLUX.1-Krea-dev",
+      "category": "扩充收录",
+      "author": "black-forest-labs",
+      "official": false,
+      "maintenance": "active",
+      "description": "FLUX.1 Krea dev：Krea 与 BFL 合作的真实感文生图模型。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "FLUX.1 Krea [dev]",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/black-forest-labs/FLUX.1-Krea-dev"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/black-forest-labs/FLUX.1-Krea-dev"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-hidream-i1-dev",
+      "name": "HiDream-I1 Dev",
+      "repo": "https://huggingface.co/HiDream-ai/HiDream-I1-Dev",
+      "category": "扩充收录",
+      "author": "HiDream-ai",
+      "official": false,
+      "maintenance": "active",
+      "description": "HiDream-I1 17B 开源图像模型（Dev 版），ComfyUI 原生支持。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "HiDream-I1 Dev",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/HiDream-ai/HiDream-I1-Dev"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/HiDream-ai/HiDream-I1-Dev"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-stable-diffusion-3-5-large",
+      "name": "Stable Diffusion 3.5 Large",
+      "repo": "https://huggingface.co/stabilityai/stable-diffusion-3.5-large",
+      "category": "扩充收录",
+      "author": "stabilityai",
+      "official": false,
+      "maintenance": "active",
+      "description": "SD3.5 Large 8B MMDiT 文生图模型（含 ControlNet 生态）。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Stable Diffusion 3.5 Large",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/stable-diffusion-3.5-large"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/stable-diffusion-3.5-large"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-lumina-image-2-0",
+      "name": "Lumina-Image 2.0",
+      "repo": "https://huggingface.co/Alpha-VLLM/Lumina-Image-2.0",
+      "category": "扩充收录",
+      "author": "Alpha-VLLM",
+      "official": false,
+      "maintenance": "active",
+      "description": "Lumina-Image 2.0 2.6B DiT 文生图模型，ComfyUI 原生支持。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Lumina-Image 2.0",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Alpha-VLLM/Lumina-Image-2.0"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Alpha-VLLM/Lumina-Image-2.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-2-1",
+      "name": "Qwen-Image-2.1",
+      "repo": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-2.1",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/Qwen-Image-2.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-2-1-uncensored-gguf",
+      "name": "Qwen-Image-2.1-Uncensored-GGUF",
+      "repo": "https://huggingface.co/abenzerps/Qwen-Image-2.1-Uncensored-GGUF",
+      "category": "扩充收录",
+      "author": "abenzerps",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-2.1-Uncensored-GGUF",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/abenzerps/Qwen-Image-2.1-Uncensored-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/abenzerps/Qwen-Image-2.1-Uncensored-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-2-1-gguf",
+      "name": "Qwen-Image-2.1-GGUF",
+      "repo": "https://huggingface.co/unsloth/Qwen-Image-2.1-GGUF",
+      "category": "扩充收录",
+      "author": "unsloth",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-2.1-GGUF",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/unsloth/Qwen-Image-2.1-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/unsloth/Qwen-Image-2.1-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-edit-2511-gguf",
+      "name": "Qwen-Image-Edit-2511-GGUF",
+      "repo": "https://huggingface.co/unsloth/Qwen-Image-Edit-2511-GGUF",
+      "category": "扩充收录",
+      "author": "unsloth",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-Edit-2511-GGUF",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/unsloth/Qwen-Image-Edit-2511-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/unsloth/Qwen-Image-Edit-2511-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-edit-2509",
+      "name": "Qwen-Image-Edit-2509",
+      "repo": "https://huggingface.co/Qwen/Qwen-Image-Edit-2509",
+      "category": "扩充收录",
+      "author": "Qwen",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-Edit-2509",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Qwen/Qwen-Image-Edit-2509"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Qwen/Qwen-Image-Edit-2509"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-2-1-viggle-turbo",
+      "name": "Qwen-Image-2.1-viggle-turbo",
+      "repo": "https://huggingface.co/Viggle/Qwen-Image-2.1-viggle-turbo",
+      "category": "扩充收录",
+      "author": "Viggle",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-2.1-viggle-turbo",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Viggle/Qwen-Image-2.1-viggle-turbo"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Viggle/Qwen-Image-2.1-viggle-turbo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-edit-2511-lightning",
+      "name": "Qwen-Image-Edit-2511-Lightning",
+      "repo": "https://huggingface.co/lightx2v/Qwen-Image-Edit-2511-Lightning",
+      "category": "扩充收录",
+      "author": "lightx2v",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-Edit-2511-Lightning",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/lightx2v/Qwen-Image-Edit-2511-Lightning"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/lightx2v/Qwen-Image-Edit-2511-Lightning"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-2512-gguf",
+      "name": "Qwen-Image-2512-GGUF",
+      "repo": "https://huggingface.co/unsloth/Qwen-Image-2512-GGUF",
+      "category": "扩充收录",
+      "author": "unsloth",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-2512-GGUF",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/unsloth/Qwen-Image-2512-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/unsloth/Qwen-Image-2512-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-pruna-qwen-image-2-1",
+      "name": "Pruna-Qwen-Image-2.1",
+      "repo": "https://huggingface.co/PrunaAI/Pruna-Qwen-Image-2.1",
+      "category": "扩充收录",
+      "author": "PrunaAI",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Pruna-Qwen-Image-2.1",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/PrunaAI/Pruna-Qwen-Image-2.1"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/PrunaAI/Pruna-Qwen-Image-2.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-lightning",
+      "name": "Qwen-Image-Lightning",
+      "repo": "https://huggingface.co/lightx2v/Qwen-Image-Lightning",
+      "category": "扩充收录",
+      "author": "lightx2v",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-Lightning",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/lightx2v/Qwen-Image-Lightning"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-edit-2511",
+      "name": "Qwen-Image-Edit-2511",
+      "repo": "https://huggingface.co/Qwen/Qwen-Image-Edit-2511",
+      "category": "扩充收录",
+      "author": "Qwen",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-Edit-2511",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Qwen/Qwen-Image-Edit-2511"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Qwen/Qwen-Image-Edit-2511"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-2-1-text-encoder-heretic-gguf",
+      "name": "Qwen-Image-2.1-Text-Encoder-Heretic-GGUF",
+      "repo": "https://huggingface.co/pottokao/Qwen-Image-2.1-Text-Encoder-Heretic-GGUF",
+      "category": "扩充收录",
+      "author": "pottokao",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-2.1-Text-Encoder-Heretic-GGUF",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/pottokao/Qwen-Image-2.1-Text-Encoder-Heretic-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/pottokao/Qwen-Image-2.1-Text-Encoder-Heretic-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-2512-lightning",
+      "name": "Qwen-Image-2512-Lightning",
+      "repo": "https://huggingface.co/lightx2v/Qwen-Image-2512-Lightning",
+      "category": "扩充收录",
+      "author": "lightx2v",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-2512-Lightning",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/lightx2v/Qwen-Image-2512-Lightning"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/lightx2v/Qwen-Image-2512-Lightning"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-2-1-gguf-2",
+      "name": "Qwen-Image-2.1-GGUF",
+      "repo": "https://huggingface.co/leejet/Qwen-Image-2.1-GGUF",
+      "category": "扩充收录",
+      "author": "leejet",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-2.1-GGUF",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/leejet/Qwen-Image-2.1-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/leejet/Qwen-Image-2.1-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-2-1-2",
+      "name": "Qwen-Image-2.1",
+      "repo": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+      "category": "扩充收录",
+      "author": "Qwen",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-2.1",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Qwen/Qwen-Image-2.1"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Qwen/Qwen-Image-2.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-edit",
+      "name": "Qwen-Image-Edit",
+      "repo": "https://huggingface.co/Qwen/Qwen-Image-Edit",
+      "category": "扩充收录",
+      "author": "Qwen",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-Edit",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Qwen/Qwen-Image-Edit"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Qwen/Qwen-Image-Edit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-2-1-fp8",
+      "name": "Qwen-Image-2.1-FP8",
+      "repo": "https://huggingface.co/unsloth/Qwen-Image-2.1-FP8",
+      "category": "扩充收录",
+      "author": "unsloth",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "diffusion_model"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-2.1-FP8",
+          "type": "diffusion_model",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/unsloth/Qwen-Image-2.1-FP8"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/unsloth/Qwen-Image-2.1-FP8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-minimax-h3-comfyui",
+      "name": "MiniMax H3 ComfyUI 单文件",
+      "repo": "https://huggingface.co/Comfy-Org/MiniMax-H3",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "MiniMax H3 33B 视频+音频联合生成模型（最长 15 秒带立体声），ComfyUI 官方 repack 量化单文件（INT8 pruned 约 42.5GB）。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "MiniMax H3 ComfyUI 单文件",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/MiniMax-H3",
+              "size": "约 42.5 GB（量化单文件）"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/MiniMax-H3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-minimax-h3",
+      "name": "MiniMax H3 官方权重",
+      "repo": "https://huggingface.co/MiniMaxAI/MiniMax-H3",
+      "category": "扩充收录",
+      "author": "MiniMaxAI",
+      "official": false,
+      "maintenance": "active",
+      "description": "MiniMax H3 官方开源权重（diffusers 全量约 498GB），文本编码器 Qwen3-VL-32B。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "MiniMax H3 官方权重",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/MiniMaxAI/MiniMax-H3"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/MiniMaxAI/MiniMax-H3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2-ti2v-5b-2-2",
+      "name": "Wan2.2 TI2V 5B (万相2.2)",
+      "repo": "https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B",
+      "category": "扩充收录",
+      "author": "Wan-AI",
+      "official": false,
+      "maintenance": "active",
+      "description": "万相 2.2 5B 图文生视频一体模型，消费级显卡可跑，ComfyUI 原生支持。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2 TI2V 5B (万相2.2)",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Wan-AI/Wan2.2-TI2V-5B"
+            },
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/Wan-AI/Wan2.2-TI2V-5B"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2-t2v-a14b-2-2",
+      "name": "Wan2.2 T2V A14B (万相2.2)",
+      "repo": "https://huggingface.co/Wan-AI/Wan2.2-T2V-A14B",
+      "category": "扩充收录",
+      "author": "Wan-AI",
+      "official": false,
+      "maintenance": "active",
+      "description": "万相 2.2 14B 文生视频（MoE 双专家架构），电影级镜头控制。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2 T2V A14B (万相2.2)",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Wan-AI/Wan2.2-T2V-A14B"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Wan-AI/Wan2.2-T2V-A14B"
+            },
+            {
+              "platform": "modelscope",
+              "url": "https://modelscope.cn/models/Wan-AI/Wan2.2-T2V-A14B"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-hunyuanvideo",
+      "name": "HunyuanVideo (混元视频)",
+      "repo": "https://huggingface.co/tencent/HunyuanVideo",
+      "category": "扩充收录",
+      "author": "tencent",
+      "official": false,
+      "maintenance": "active",
+      "description": "腾讯混元视频开源 13B 文生视频模型，ComfyUI 原生支持。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "HunyuanVideo (混元视频)",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/tencent/HunyuanVideo"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/tencent/HunyuanVideo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ltx-video",
+      "name": "LTX-Video",
+      "repo": "https://huggingface.co/Lightricks/LTX-Video",
+      "category": "扩充收录",
+      "author": "Lightricks",
+      "official": false,
+      "maintenance": "active",
+      "description": "LTX-Video 实时级视频生成模型（DiT，2B），速度优先。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "LTX-Video",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Lightricks/LTX-Video"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Lightricks/LTX-Video"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan-2-2-comfyui-repackaged",
+      "name": "Wan_2.2_ComfyUI_Repackaged",
+      "repo": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan_2.2_ComfyUI_Repackaged",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/Wan_2.2_ComfyUI_Repackaged"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan-2-1-comfyui-repackaged",
+      "name": "Wan_2.1_ComfyUI_repackaged",
+      "repo": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan_2.1_ComfyUI_repackaged",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/Wan_2.1_ComfyUI_repackaged"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wanvideo-comfy",
+      "name": "WanVideo_comfy",
+      "repo": "https://huggingface.co/Kijai/WanVideo_comfy",
+      "category": "扩充收录",
+      "author": "Kijai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "WanVideo_comfy",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Kijai/WanVideo_comfy"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Kijai/WanVideo_comfy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-1",
+      "name": "Wan2.1",
+      "repo": "https://huggingface.co/DeepBeepMeep/Wan2.1",
+      "category": "扩充收录",
+      "author": "DeepBeepMeep",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.1",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/DeepBeepMeep/Wan2.1"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/DeepBeepMeep/Wan2.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wanvideo-comfy-fp8-scaled",
+      "name": "WanVideo_comfy_fp8_scaled",
+      "repo": "https://huggingface.co/Kijai/WanVideo_comfy_fp8_scaled",
+      "category": "扩充收录",
+      "author": "Kijai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "WanVideo_comfy_fp8_scaled",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Kijai/WanVideo_comfy_fp8_scaled"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Kijai/WanVideo_comfy_fp8_scaled"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan-animate-2",
+      "name": "Wan-Animate-2",
+      "repo": "https://huggingface.co/Comfy-Org/Wan-Animate-2",
+      "category": "扩充收录",
+      "author": "Comfy-Org",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan-Animate-2",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Comfy-Org/Wan-Animate-2"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Comfy-Org/Wan-Animate-2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2-i2v-a14b-gguf",
+      "name": "Wan2.2-I2V-A14B-GGUF",
+      "repo": "https://huggingface.co/QuantStack/Wan2.2-I2V-A14B-GGUF",
+      "category": "扩充收录",
+      "author": "QuantStack",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2-I2V-A14B-GGUF",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/QuantStack/Wan2.2-I2V-A14B-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/QuantStack/Wan2.2-I2V-A14B-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-gemma-4-31b-it-abliterated",
+      "name": "gemma-4-31B-it-abliterated",
+      "repo": "https://huggingface.co/wangzhang/gemma-4-31B-it-abliterated",
+      "category": "扩充收录",
+      "author": "wangzhang",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "gemma-4-31B-it-abliterated",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/wangzhang/gemma-4-31B-it-abliterated"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/wangzhang/gemma-4-31B-it-abliterated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2-ti2v-5b-gguf",
+      "name": "Wan2.2-TI2V-5B-GGUF",
+      "repo": "https://huggingface.co/unsloth/Wan2.2-TI2V-5B-GGUF",
+      "category": "扩充收录",
+      "author": "unsloth",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2-TI2V-5B-GGUF",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/unsloth/Wan2.2-TI2V-5B-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/unsloth/Wan2.2-TI2V-5B-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2",
+      "name": "Wan2.2",
+      "repo": "https://huggingface.co/DeepBeepMeep/Wan2.2",
+      "category": "扩充收录",
+      "author": "DeepBeepMeep",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/DeepBeepMeep/Wan2.2"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/DeepBeepMeep/Wan2.2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-1-t2v-1-3b-diffusers",
+      "name": "Wan2.1-T2V-1.3B-Diffusers",
+      "repo": "https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B-Diffusers",
+      "category": "扩充收录",
+      "author": "Wan-AI",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.1-T2V-1.3B-Diffusers",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B-Diffusers"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Wan-AI/Wan2.1-T2V-1.3B-Diffusers"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2-ti2v-5b-gguf-2",
+      "name": "Wan2.2-TI2V-5B-GGUF",
+      "repo": "https://huggingface.co/QuantStack/Wan2.2-TI2V-5B-GGUF",
+      "category": "扩充收录",
+      "author": "QuantStack",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2-TI2V-5B-GGUF",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/QuantStack/Wan2.2-TI2V-5B-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/QuantStack/Wan2.2-TI2V-5B-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2-animate-14b-gguf",
+      "name": "Wan2.2-Animate-14B-GGUF",
+      "repo": "https://huggingface.co/QuantStack/Wan2.2-Animate-14B-GGUF",
+      "category": "扩充收录",
+      "author": "QuantStack",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2-Animate-14B-GGUF",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/QuantStack/Wan2.2-Animate-14B-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/QuantStack/Wan2.2-Animate-14B-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-animatelcm",
+      "name": "AnimateLCM",
+      "repo": "https://huggingface.co/wangfuyun/AnimateLCM",
+      "category": "扩充收录",
+      "author": "wangfuyun",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "AnimateLCM",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/wangfuyun/AnimateLCM"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/wangfuyun/AnimateLCM"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2-animate-14b",
+      "name": "Wan2.2-Animate-14B",
+      "repo": "https://huggingface.co/Wan-AI/Wan2.2-Animate-14B",
+      "category": "扩充收录",
+      "author": "Wan-AI",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2-Animate-14B",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Wan-AI/Wan2.2-Animate-14B"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Wan-AI/Wan2.2-Animate-14B"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2-ti2v-5b-diffusers",
+      "name": "Wan2.2-TI2V-5B-Diffusers",
+      "repo": "https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B-Diffusers",
+      "category": "扩充收录",
+      "author": "Wan-AI",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2-TI2V-5B-Diffusers",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B-Diffusers"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Wan-AI/Wan2.2-TI2V-5B-Diffusers"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2-i2v-a14b-diffusers",
+      "name": "Wan2.2-I2V-A14B-Diffusers",
+      "repo": "https://huggingface.co/Wan-AI/Wan2.2-I2V-A14B-Diffusers",
+      "category": "扩充收录",
+      "author": "Wan-AI",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2-I2V-A14B-Diffusers",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Wan-AI/Wan2.2-I2V-A14B-Diffusers"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Wan-AI/Wan2.2-I2V-A14B-Diffusers"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-2-t2v-a14b-gguf",
+      "name": "Wan2.2-T2V-A14B-GGUF",
+      "repo": "https://huggingface.co/QuantStack/Wan2.2-T2V-A14B-GGUF",
+      "category": "扩充收录",
+      "author": "QuantStack",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "video"
+      ],
+      "models": [
+        {
+          "name": "Wan2.2-T2V-A14B-GGUF",
+          "type": "video",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/QuantStack/Wan2.2-T2V-A14B-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/QuantStack/Wan2.2-T2V-A14B-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sd1-5-vae-ft-mse",
+      "name": "SD1.5 VAE ft-MSE",
+      "repo": "https://huggingface.co/stabilityai/sd-vae-ft-mse",
+      "category": "扩充收录",
+      "author": "stabilityai",
+      "official": false,
+      "maintenance": "active",
+      "description": "SD1.5 官方精调 VAE（MSE 版），替代原版减少面部/眼睛模糊。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "SD1.5 VAE ft-MSE",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/sd-vae-ft-mse"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/sd-vae-ft-mse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-taesd-sd1-5-vae",
+      "name": "TAESD (SD1.5 预览 VAE)",
+      "repo": "https://huggingface.co/madebyollin/taesd",
+      "category": "扩充收录",
+      "author": "madebyollin",
+      "official": false,
+      "maintenance": "active",
+      "description": "极小快速编码/解码 VAE，ComfyUI 实时预览用。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "TAESD (SD1.5 预览 VAE)",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/madebyollin/taesd"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/madebyollin/taesd"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-taesdxl-sdxl-vae",
+      "name": "TAESDXL (SDXL 预览 VAE)",
+      "repo": "https://huggingface.co/madebyollin/taesdxl",
+      "category": "扩充收录",
+      "author": "madebyollin",
+      "official": false,
+      "maintenance": "active",
+      "description": "SDXL 版轻量预览 VAE（taesd 家族）。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "TAESDXL (SDXL 预览 VAE)",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/madebyollin/taesdxl"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/madebyollin/taesdxl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-anzhcs-vaes",
+      "name": "Anzhcs-VAEs",
+      "repo": "https://huggingface.co/Anzhc/Anzhcs-VAEs",
+      "category": "扩充收录",
+      "author": "Anzhc",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "Anzhcs-VAEs",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Anzhc/Anzhcs-VAEs"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Anzhc/Anzhcs-VAEs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-yue2-vae",
+      "name": "YuE2-Vae",
+      "repo": "https://huggingface.co/m-a-p/YuE2-Vae",
+      "category": "扩充收录",
+      "author": "m-a-p",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "YuE2-Vae",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/m-a-p/YuE2-Vae"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/m-a-p/YuE2-Vae"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-texture-fix-vae-for-qwen-image-2-1",
+      "name": "texture-fix-vae-for-qwen-image-2.1",
+      "repo": "https://huggingface.co/madebyollin/texture-fix-vae-for-qwen-image-2.1",
+      "category": "扩充收录",
+      "author": "madebyollin",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "texture-fix-vae-for-qwen-image-2.1",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/madebyollin/texture-fix-vae-for-qwen-image-2.1"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/madebyollin/texture-fix-vae-for-qwen-image-2.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wan2-1-vae-upscale2x",
+      "name": "Wan2.1-VAE-upscale2x",
+      "repo": "https://huggingface.co/spacepxl/Wan2.1-VAE-upscale2x",
+      "category": "扩充收录",
+      "author": "spacepxl",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "Wan2.1-VAE-upscale2x",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/spacepxl/Wan2.1-VAE-upscale2x"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/spacepxl/Wan2.1-VAE-upscale2x"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-gestura-minimax-h3-vae-litert",
+      "name": "Gestura-MiniMax-H3-VAE-LiteRT",
+      "repo": "https://huggingface.co/ZawShiShawn/Gestura-MiniMax-H3-VAE-LiteRT",
+      "category": "扩充收录",
+      "author": "ZawShiShawn",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "Gestura-MiniMax-H3-VAE-LiteRT",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ZawShiShawn/Gestura-MiniMax-H3-VAE-LiteRT"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/ZawShiShawn/Gestura-MiniMax-H3-VAE-LiteRT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-minimax-h3-x2-detail-vae",
+      "name": "MiniMax-H3-X2-Detail-VAE",
+      "repo": "https://huggingface.co/speach1sdef178/MiniMax-H3-X2-Detail-VAE",
+      "category": "扩充收录",
+      "author": "speach1sdef178",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "MiniMax-H3-X2-Detail-VAE",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/speach1sdef178/MiniMax-H3-X2-Detail-VAE"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/speach1sdef178/MiniMax-H3-X2-Detail-VAE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-wulver",
+      "name": "Wulver",
+      "repo": "https://huggingface.co/Vaelico/Wulver",
+      "category": "扩充收录",
+      "author": "Vaelico",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "Wulver",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Vaelico/Wulver"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Vaelico/Wulver"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sd-vae-ft-ema",
+      "name": "sd-vae-ft-ema",
+      "repo": "https://huggingface.co/stabilityai/sd-vae-ft-ema",
+      "category": "扩充收录",
+      "author": "stabilityai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "sd-vae-ft-ema",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/sd-vae-ft-ema"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/sd-vae-ft-ema"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-pig-vae",
+      "name": "pig-vae",
+      "repo": "https://huggingface.co/calcuis/pig-vae",
+      "category": "扩充收录",
+      "author": "calcuis",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "pig-vae",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/calcuis/pig-vae"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/calcuis/pig-vae"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-2-vae",
+      "name": "FLUX.2-VAE",
+      "repo": "https://huggingface.co/unsloth/FLUX.2-VAE",
+      "category": "扩充收录",
+      "author": "unsloth",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "FLUX.2-VAE",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/unsloth/FLUX.2-VAE"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/unsloth/FLUX.2-VAE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-realistic-vision-v3-0-vae",
+      "name": "Realistic_Vision_V3.0_VAE",
+      "repo": "https://huggingface.co/SG161222/Realistic_Vision_V3.0_VAE",
+      "category": "扩充收录",
+      "author": "SG161222",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "Realistic_Vision_V3.0_VAE",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/SG161222/Realistic_Vision_V3.0_VAE"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/SG161222/Realistic_Vision_V3.0_VAE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-anything-v4-5-vae-swapped",
+      "name": "anything-v4.5-vae-swapped",
+      "repo": "https://huggingface.co/ckpt/anything-v4.5-vae-swapped",
+      "category": "扩充收录",
+      "author": "ckpt",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "anything-v4.5-vae-swapped",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ckpt/anything-v4.5-vae-swapped"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/ckpt/anything-v4.5-vae-swapped"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-lynnreal-onmi-light-vae",
+      "name": "LynnReal-Onmi-light-vae",
+      "repo": "https://huggingface.co/stdstu123/LynnReal-Onmi-light-vae",
+      "category": "扩充收录",
+      "author": "stdstu123",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "LynnReal-Onmi-light-vae",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stdstu123/LynnReal-Onmi-light-vae"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stdstu123/LynnReal-Onmi-light-vae"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sd-vae-ft-mse-flax",
+      "name": "sd-vae-ft-mse-flax",
+      "repo": "https://huggingface.co/enterprise-explorers/sd-vae-ft-mse-flax",
+      "category": "扩充收录",
+      "author": "enterprise-explorers",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "sd-vae-ft-mse-flax",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/enterprise-explorers/sd-vae-ft-mse-flax"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/enterprise-explorers/sd-vae-ft-mse-flax"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-1-vae",
+      "name": "FLUX.1-vae",
+      "repo": "https://huggingface.co/diffusers/FLUX.1-vae",
+      "category": "扩充收录",
+      "author": "diffusers",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "FLUX.1-vae",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/diffusers/FLUX.1-vae"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/diffusers/FLUX.1-vae"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-hybrid-sd-small-vae",
+      "name": "hybrid-sd-small-vae",
+      "repo": "https://huggingface.co/cqyan/hybrid-sd-small-vae",
+      "category": "扩充收录",
+      "author": "cqyan",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "hybrid-sd-small-vae",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/cqyan/hybrid-sd-small-vae"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/cqyan/hybrid-sd-small-vae"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-2-1-hdr-vae",
+      "name": "QWEN_2.1_HDR_VAE",
+      "repo": "https://huggingface.co/Felldude/QWEN_2.1_HDR_VAE",
+      "category": "扩充收录",
+      "author": "Felldude",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "QWEN_2.1_HDR_VAE",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Felldude/QWEN_2.1_HDR_VAE"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Felldude/QWEN_2.1_HDR_VAE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-blessed-sdxl-vae-fp16-fix",
+      "name": "blessed-sdxl-vae-fp16-fix",
+      "repo": "https://huggingface.co/nubby/blessed-sdxl-vae-fp16-fix",
+      "category": "扩充收录",
+      "author": "nubby",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "blessed-sdxl-vae-fp16-fix",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/nubby/blessed-sdxl-vae-fp16-fix"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/nubby/blessed-sdxl-vae-fp16-fix"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-vae-ft-mse-840000-ema-pruned-840000-840k-sd1-5-vae",
+      "name": "vae-ft-mse-840000-ema-pruned | 840000 | 840k SD1.5 VAE",
+      "repo": "https://civitai.com/models/276082",
+      "category": "扩充收录",
+      "author": "richyrich515",
+      "official": false,
+      "maintenance": "active",
+      "description": "vae-ft-mse-840000-ema-pruned   This is an upload of StabilityAI's vae-ft-mse-840000-ema-pruned/840000/840k SD1.5 VAE because the existing ones do not work cor",
+      "tags": [
+        "auto",
+        "civitai",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "vae-ft-mse-840000-ema-pruned | 840000 | 840k SD1.5 VAE",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/276082"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-sdxl-vae",
+      "name": "SDXL VAE",
+      "repo": "https://civitai.com/models/296576",
+      "category": "扩充收录",
+      "author": "",
+      "official": false,
+      "maintenance": "active",
+      "description": "Office Stability SDXL-VAE   Original file  on Huggingface.",
+      "tags": [
+        "auto",
+        "civitai",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "SDXL VAE",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/296576"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-clearvae-sd1-5",
+      "name": "ClearVAE(SD1.5)",
+      "repo": "https://civitai.com/models/22354",
+      "category": "扩充收录",
+      "author": "RedRayz",
+      "official": false,
+      "maintenance": "active",
+      "description": "概要/About  This is a merged VAE that is slightly more vivid than animevae and does not bleed like kl-f8-anime2.  animevaeより若干鮮やかで赤みをへらしつつWDのようににじまないマージVAEです。",
+      "tags": [
+        "auto",
+        "civitai",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "ClearVAE(SD1.5)",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/22354"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-vae-kl-f8-anime2",
+      "name": "VAE-kl-f8-anime2",
+      "repo": "https://civitai.com/models/23906",
+      "category": "扩充收录",
+      "author": "Migatez",
+      "official": false,
+      "maintenance": "active",
+      "description": "I FINALLY UPDATE THE FILE!   This file is VAE, it's one of the best so use it if you like! Many models here at Civitai use kl-f8-anime2.ckpt I uploaded it he",
+      "tags": [
+        "auto",
+        "civitai",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "VAE-kl-f8-anime2",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/23906"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-xl-vae-c",
+      "name": "XL_VAE_C",
+      "repo": "https://civitai.com/models/152040",
+      "category": "扩充收录",
+      "author": "atw44qb",
+      "official": false,
+      "maintenance": "active",
+      "description": "・実験的VAE  ・エンコーダーは調整していません  ・画像にRefinerは使用していません  ・NansException",
+      "tags": [
+        "auto",
+        "civitai",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "XL_VAE_C",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/152040"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-fix-fp16-errors-sdxl-lower-memory-use-sdxl-vae-fp16-fix-by-madebyollin",
+      "name": "FIX FP16 Errors SDXL - Lower Memory use! --- sdxl-vae-fp16-fix by madebyollin",
+      "repo": "https://civitai.com/models/140686",
+      "category": "扩充收录",
+      "author": "nucleardiffusion",
+      "official": false,
+      "maintenance": "active",
+      "description": "\"As good as SDXL VAE but runs twice as fast and uses significantly less memory.\"   https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/discussions/7   \"Same",
+      "tags": [
+        "auto",
+        "civitai",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "FIX FP16 Errors SDXL - Lower Memory use! --- sdxl-vae-fp16-fix by madebyollin",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/140686"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-civitai-flux-vae-sft",
+      "name": "Flux vae.sft",
+      "repo": "https://civitai.com/models/636193",
+      "category": "扩充收录",
+      "author": "Ragnar890",
+      "official": false,
+      "maintenance": "active",
+      "description": "Flux VAe.sft",
+      "tags": [
+        "auto",
+        "civitai",
+        "vae"
+      ],
+      "models": [
+        {
+          "name": "Flux vae.sft",
+          "type": "vae",
+          "sources": [
+            {
+              "platform": "civitai",
+              "url": "https://civitai.com/models/636193"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-pulid-sdxl",
+      "name": "PuLID (SDXL 人脸一致)",
+      "repo": "https://huggingface.co/ToTheBeginning/PuLID",
+      "category": "扩充收录",
+      "author": "ToTheBeginning",
+      "official": false,
+      "maintenance": "active",
+      "description": "PuLID SDXL 人脸一致性模型（依赖 insightface 编码）。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "PuLID (SDXL 人脸一致)",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ToTheBeginning/PuLID"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/ToTheBeginning/PuLID"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-pulid-for-flux",
+      "name": "PuLID for FLUX",
+      "repo": "https://huggingface.co/yanze/PuLID-FLUX",
+      "category": "扩充收录",
+      "author": "yanze",
+      "official": false,
+      "maintenance": "active",
+      "description": "PuLID 的 FLUX 版本权重（人脸一致性注入）。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "PuLID for FLUX",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/yanze/PuLID-FLUX"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/yanze/PuLID-FLUX"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface",
+      "name": "Insightface",
+      "repo": "https://huggingface.co/AXERA-TECH/Insightface",
+      "category": "扩充收录",
+      "author": "AXERA-TECH",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "Insightface",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/AXERA-TECH/Insightface"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/AXERA-TECH/Insightface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-2",
+      "name": "insightface",
+      "repo": "https://huggingface.co/ApacheOne/insightface",
+      "category": "扩充收录",
+      "author": "ApacheOne",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ApacheOne/insightface"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/ApacheOne/insightface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-glintr100-coreml",
+      "name": "InsightFace-glintr100-CoreML",
+      "repo": "https://huggingface.co/RuiSumida/InsightFace-glintr100-CoreML",
+      "category": "扩充收录",
+      "author": "RuiSumida",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "InsightFace-glintr100-CoreML",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/RuiSumida/InsightFace-glintr100-CoreML"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/RuiSumida/InsightFace-glintr100-CoreML"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-autotrain-deepfakeface-only-faces-insightface-94902146221",
+      "name": "autotrain-deepfakeface_only_faces_insightface-94902146221",
+      "repo": "https://huggingface.co/romitbarua/autotrain-deepfakeface_only_faces_insightface-94902146221",
+      "category": "扩充收录",
+      "author": "romitbarua",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "autotrain-deepfakeface_only_faces_insightface-94902146221",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/romitbarua/autotrain-deepfakeface_only_faces_insightface-94902146221"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/romitbarua/autotrain-deepfakeface_only_faces_insightface-94902146221"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-inswapper-coreml",
+      "name": "insightface_inswapper_coreml",
+      "repo": "https://huggingface.co/SanderGi/insightface_inswapper_coreml",
+      "category": "扩充收录",
+      "author": "SanderGi",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface_inswapper_coreml",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/SanderGi/insightface_inswapper_coreml"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/SanderGi/insightface_inswapper_coreml"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-3",
+      "name": "insightface",
+      "repo": "https://huggingface.co/public-data/insightface",
+      "category": "扩充收录",
+      "author": "public-data",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/public-data/insightface"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/public-data/insightface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-4",
+      "name": "insightface",
+      "repo": "https://huggingface.co/ddrfan/insightface",
+      "category": "扩充收录",
+      "author": "ddrfan",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ddrfan/insightface"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/ddrfan/insightface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-5",
+      "name": "_insightface",
+      "repo": "https://huggingface.co/menglaoda/_insightface",
+      "category": "扩充收录",
+      "author": "menglaoda",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "_insightface",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/menglaoda/_insightface"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/menglaoda/_insightface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-6",
+      "name": "insightface",
+      "repo": "https://huggingface.co/yongliangxie/insightface",
+      "category": "扩充收录",
+      "author": "yongliangxie",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/yongliangxie/insightface"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/yongliangxie/insightface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insight-face",
+      "name": "insight_face",
+      "repo": "https://huggingface.co/sleepfin/insight_face",
+      "category": "扩充收录",
+      "author": "sleepfin",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insight_face",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/sleepfin/insight_face"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/sleepfin/insight_face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insight-face-2",
+      "name": "insight-face",
+      "repo": "https://huggingface.co/Cathy0908/insight-face",
+      "category": "扩充收录",
+      "author": "Cathy0908",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insight-face",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Cathy0908/insight-face"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Cathy0908/insight-face"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-faceanalysis",
+      "name": "insightface-faceanalysis",
+      "repo": "https://huggingface.co/vladmandic/insightface-faceanalysis",
+      "category": "扩充收录",
+      "author": "vladmandic",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface-faceanalysis",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/vladmandic/insightface-faceanalysis"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/vladmandic/insightface-faceanalysis"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-7",
+      "name": "insightface",
+      "repo": "https://huggingface.co/Sololeveling/insightface",
+      "category": "扩充收录",
+      "author": "Sololeveling",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Sololeveling/insightface"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Sololeveling/insightface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-releases",
+      "name": "insightface-releases",
+      "repo": "https://huggingface.co/hanamizuki-ai/insightface-releases",
+      "category": "扩充收录",
+      "author": "hanamizuki-ai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface-releases",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/hanamizuki-ai/insightface-releases"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/hanamizuki-ai/insightface-releases"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-weights",
+      "name": "insightface_weights",
+      "repo": "https://huggingface.co/karanjakhar/insightface_weights",
+      "category": "扩充收录",
+      "author": "karanjakhar",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface_weights",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/karanjakhar/insightface_weights"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/karanjakhar/insightface_weights"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-marduk191-insightface-face-models",
+      "name": "marduk191_insightface_face_models",
+      "repo": "https://huggingface.co/marduk191/marduk191_insightface_face_models",
+      "category": "扩充收录",
+      "author": "marduk191",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "marduk191_insightface_face_models",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/marduk191/marduk191_insightface_face_models"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/marduk191/marduk191_insightface_face_models"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-embeddings",
+      "name": "insightface_embeddings",
+      "repo": "https://huggingface.co/umuteren/insightface_embeddings",
+      "category": "扩充收录",
+      "author": "umuteren",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface_embeddings",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/umuteren/insightface_embeddings"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/umuteren/insightface_embeddings"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-8",
+      "name": "insightface",
+      "repo": "https://huggingface.co/lithiumice/insightface",
+      "category": "扩充收录",
+      "author": "lithiumice",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/lithiumice/insightface"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/lithiumice/insightface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-9",
+      "name": "insightface",
+      "repo": "https://huggingface.co/lytanshade/insightface",
+      "category": "扩充收录",
+      "author": "lytanshade",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/lytanshade/insightface"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/lytanshade/insightface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-insightface-10",
+      "name": "insightface",
+      "repo": "https://huggingface.co/Zameera/insightface",
+      "category": "扩充收录",
+      "author": "Zameera",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "insightface"
+      ],
+      "models": [
+        {
+          "name": "insightface",
+          "type": "insightface",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Zameera/insightface"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Zameera/insightface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-granite-embedding-small-english-r2",
+      "name": "granite-embedding-small-english-r2",
+      "repo": "https://huggingface.co/ibm-granite/granite-embedding-small-english-r2",
+      "category": "扩充收录",
+      "author": "ibm-granite",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "granite-embedding-small-english-r2",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ibm-granite/granite-embedding-small-english-r2"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/ibm-granite/granite-embedding-small-english-r2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-embeddinggemma-300m",
+      "name": "embeddinggemma-300m",
+      "repo": "https://huggingface.co/google/embeddinggemma-300m",
+      "category": "扩充收录",
+      "author": "google",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "embeddinggemma-300m",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/google/embeddinggemma-300m"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/google/embeddinggemma-300m"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-jina-embeddings-v3",
+      "name": "jina-embeddings-v3",
+      "repo": "https://huggingface.co/jinaai/jina-embeddings-v3",
+      "category": "扩充收录",
+      "author": "jinaai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "jina-embeddings-v3",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/jinaai/jina-embeddings-v3"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/jinaai/jina-embeddings-v3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-octen-embedding-8b",
+      "name": "Octen-Embedding-8B",
+      "repo": "https://huggingface.co/Octen/Octen-Embedding-8B",
+      "category": "扩充收录",
+      "author": "Octen",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "Octen-Embedding-8B",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Octen/Octen-Embedding-8B"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Octen/Octen-Embedding-8B"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-jina-embeddings-v5-omni-small",
+      "name": "jina-embeddings-v5-omni-small",
+      "repo": "https://huggingface.co/jinaai/jina-embeddings-v5-omni-small",
+      "category": "扩充收录",
+      "author": "jinaai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "jina-embeddings-v5-omni-small",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/jinaai/jina-embeddings-v5-omni-small"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/jinaai/jina-embeddings-v5-omni-small"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-jina-embeddings-v2-small-en",
+      "name": "jina-embeddings-v2-small-en",
+      "repo": "https://huggingface.co/jinaai/jina-embeddings-v2-small-en",
+      "category": "扩充收录",
+      "author": "jinaai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "jina-embeddings-v2-small-en",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/jinaai/jina-embeddings-v2-small-en"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/jinaai/jina-embeddings-v2-small-en"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-embedding",
+      "name": "embedding",
+      "repo": "https://huggingface.co/pyannote/embedding",
+      "category": "扩充收录",
+      "author": "pyannote",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "embedding",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/pyannote/embedding"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/pyannote/embedding"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-embeddinggemma-300m-onnx",
+      "name": "embeddinggemma-300m-ONNX",
+      "repo": "https://huggingface.co/onnx-community/embeddinggemma-300m-ONNX",
+      "category": "扩充收录",
+      "author": "onnx-community",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "embeddinggemma-300m-ONNX",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/onnx-community/embeddinggemma-300m-ONNX"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/onnx-community/embeddinggemma-300m-ONNX"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-giga-embeddings-instruct",
+      "name": "Giga-Embeddings-instruct",
+      "repo": "https://huggingface.co/ai-sage/Giga-Embeddings-instruct",
+      "category": "扩充收录",
+      "author": "ai-sage",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "Giga-Embeddings-instruct",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ai-sage/Giga-Embeddings-instruct"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/ai-sage/Giga-Embeddings-instruct"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-conan-embedding-v1",
+      "name": "Conan-embedding-v1",
+      "repo": "https://huggingface.co/TencentBAC/Conan-embedding-v1",
+      "category": "扩充收录",
+      "author": "TencentBAC",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "Conan-embedding-v1",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/TencentBAC/Conan-embedding-v1"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/TencentBAC/Conan-embedding-v1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-jina-embeddings-v2-base-en",
+      "name": "jina-embeddings-v2-base-en",
+      "repo": "https://huggingface.co/jinaai/jina-embeddings-v2-base-en",
+      "category": "扩充收录",
+      "author": "jinaai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "jina-embeddings-v2-base-en",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/jinaai/jina-embeddings-v2-base-en"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/jinaai/jina-embeddings-v2-base-en"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-solon-embeddings-large-0-1",
+      "name": "Solon-embeddings-large-0.1",
+      "repo": "https://huggingface.co/OrdalieTech/Solon-embeddings-large-0.1",
+      "category": "扩充收录",
+      "author": "OrdalieTech",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "Solon-embeddings-large-0.1",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/OrdalieTech/Solon-embeddings-large-0.1"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/OrdalieTech/Solon-embeddings-large-0.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-embeddinggemma-300m-gguf",
+      "name": "embeddinggemma-300M-GGUF",
+      "repo": "https://huggingface.co/ggml-org/embeddinggemma-300M-GGUF",
+      "category": "扩充收录",
+      "author": "ggml-org",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "embeddinggemma-300M-GGUF",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ggml-org/embeddinggemma-300M-GGUF"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/ggml-org/embeddinggemma-300M-GGUF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-jina-embeddings-v5-text-small",
+      "name": "jina-embeddings-v5-text-small",
+      "repo": "https://huggingface.co/jinaai/jina-embeddings-v5-text-small",
+      "category": "扩充收录",
+      "author": "jinaai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "jina-embeddings-v5-text-small",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/jinaai/jina-embeddings-v5-text-small"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/jinaai/jina-embeddings-v5-text-small"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-jina-embeddings-v3-hf",
+      "name": "jina-embeddings-v3-hf",
+      "repo": "https://huggingface.co/jinaai/jina-embeddings-v3-hf",
+      "category": "扩充收录",
+      "author": "jinaai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "jina-embeddings-v3-hf",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/jinaai/jina-embeddings-v3-hf"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/jinaai/jina-embeddings-v3-hf"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-granite-embedding-311m-multilingual-r2",
+      "name": "granite-embedding-311m-multilingual-r2",
+      "repo": "https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2",
+      "category": "扩充收录",
+      "author": "ibm-granite",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "granite-embedding-311m-multilingual-r2",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/ibm-granite/granite-embedding-311m-multilingual-r2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-plamo-embedding-1b",
+      "name": "plamo-embedding-1b",
+      "repo": "https://huggingface.co/pfnet/plamo-embedding-1b",
+      "category": "扩充收录",
+      "author": "pfnet",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "plamo-embedding-1b",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/pfnet/plamo-embedding-1b"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/pfnet/plamo-embedding-1b"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-tiny-stable-diffusion-with-textual-inversion",
+      "name": "tiny-stable-diffusion-with-textual-inversion",
+      "repo": "https://huggingface.co/optimum-intel-internal-testing/tiny-stable-diffusion-with-textual-inversion",
+      "category": "扩充收录",
+      "author": "optimum-intel-internal-testing",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "tiny-stable-diffusion-with-textual-inversion",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/optimum-intel-internal-testing/tiny-stable-diffusion-with-textual-inversion"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/optimum-intel-internal-testing/tiny-stable-diffusion-with-textual-inversion"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-textual-inversion-out",
+      "name": "textual_inversion_out",
+      "repo": "https://huggingface.co/zzz45645615/textual_inversion_out",
+      "category": "扩充收录",
+      "author": "zzz45645615",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "textual_inversion_out",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/zzz45645615/textual_inversion_out"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/zzz45645615/textual_inversion_out"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-textual-inversion",
+      "name": "textual_inversion",
+      "repo": "https://huggingface.co/briannlongzhao/textual_inversion",
+      "category": "扩充收录",
+      "author": "briannlongzhao",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "textual_inversion",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/briannlongzhao/textual_inversion"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/briannlongzhao/textual_inversion"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-textual-inversion-place9",
+      "name": "textual_inversion_place9",
+      "repo": "https://huggingface.co/abhipsabasu/textual_inversion_place9",
+      "category": "扩充收录",
+      "author": "abhipsabasu",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "embedding"
+      ],
+      "models": [
+        {
+          "name": "textual_inversion_place9",
+          "type": "embedding",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/abhipsabasu/textual_inversion_place9"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/abhipsabasu/textual_inversion_place9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-minimax-h3-latent-upscaler",
+      "name": "Minimax_h3_latent_Upscaler",
+      "repo": "https://huggingface.co/LBH-123-AI/Minimax_h3_latent_Upscaler",
+      "category": "扩充收录",
+      "author": "LBH-123-AI",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "Minimax_h3_latent_Upscaler",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/LBH-123-AI/Minimax_h3_latent_Upscaler"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/LBH-123-AI/Minimax_h3_latent_Upscaler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ltx-2-5-22b-ic-lora-pixel-spatial-upscaler",
+      "name": "LTX-2.5-22b-IC-LoRA-Pixel-Spatial-Upscaler",
+      "repo": "https://huggingface.co/Lightricks/LTX-2.5-22b-IC-LoRA-Pixel-Spatial-Upscaler",
+      "category": "扩充收录",
+      "author": "Lightricks",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "LTX-2.5-22b-IC-LoRA-Pixel-Spatial-Upscaler",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Lightricks/LTX-2.5-22b-IC-LoRA-Pixel-Spatial-Upscaler"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Lightricks/LTX-2.5-22b-IC-LoRA-Pixel-Spatial-Upscaler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-stable-diffusion-x4-upscaler",
+      "name": "stable-diffusion-x4-upscaler",
+      "repo": "https://huggingface.co/stabilityai/stable-diffusion-x4-upscaler",
+      "category": "扩充收录",
+      "author": "stabilityai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "stable-diffusion-x4-upscaler",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/stable-diffusion-x4-upscaler"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/stable-diffusion-x4-upscaler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sd-x2-latent-upscaler",
+      "name": "sd-x2-latent-upscaler",
+      "repo": "https://huggingface.co/stabilityai/sd-x2-latent-upscaler",
+      "category": "扩充收录",
+      "author": "stabilityai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "sd-x2-latent-upscaler",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/stabilityai/sd-x2-latent-upscaler"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/stabilityai/sd-x2-latent-upscaler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-1-dev-controlnet-upscaler",
+      "name": "Flux.1-dev-Controlnet-Upscaler",
+      "repo": "https://huggingface.co/R1000/Flux.1-dev-Controlnet-Upscaler",
+      "category": "扩充收录",
+      "author": "R1000",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "Flux.1-dev-Controlnet-Upscaler",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/R1000/Flux.1-dev-Controlnet-Upscaler"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/R1000/Flux.1-dev-Controlnet-Upscaler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-1-dev-controlnet-upscaler-2",
+      "name": "Flux.1-dev-Controlnet-Upscaler",
+      "repo": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Upscaler",
+      "category": "扩充收录",
+      "author": "jasperai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "Flux.1-dev-Controlnet-Upscaler",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Upscaler"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/jasperai/Flux.1-dev-Controlnet-Upscaler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ltx-2-3-22b-ic-lora-pixel-spatial-upscaler",
+      "name": "LTX-2.3-22b-IC-LoRA-Pixel-Spatial-Upscaler",
+      "repo": "https://huggingface.co/Lightricks/LTX-2.3-22b-IC-LoRA-Pixel-Spatial-Upscaler",
+      "category": "扩充收录",
+      "author": "Lightricks",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "LTX-2.3-22b-IC-LoRA-Pixel-Spatial-Upscaler",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Lightricks/LTX-2.3-22b-IC-LoRA-Pixel-Spatial-Upscaler"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Lightricks/LTX-2.3-22b-IC-LoRA-Pixel-Spatial-Upscaler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-upscalers-sdcpp-gguf",
+      "name": "upscalers-sdcpp-gguf",
+      "repo": "https://huggingface.co/wbruna/upscalers-sdcpp-gguf",
+      "category": "扩充收录",
+      "author": "wbruna",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "upscalers-sdcpp-gguf",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/wbruna/upscalers-sdcpp-gguf"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/wbruna/upscalers-sdcpp-gguf"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-upscalers",
+      "name": "Upscalers",
+      "repo": "https://huggingface.co/Isi99999/Upscalers",
+      "category": "扩充收录",
+      "author": "Isi99999",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "Upscalers",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Isi99999/Upscalers"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Isi99999/Upscalers"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-minimax-h3-latent-upscaler-2",
+      "name": "Minimax_h3_latent_Upscaler",
+      "repo": "https://huggingface.co/b-rosel/Minimax_h3_latent_Upscaler",
+      "category": "扩充收录",
+      "author": "b-rosel",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "Minimax_h3_latent_Upscaler",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/b-rosel/Minimax_h3_latent_Upscaler"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/b-rosel/Minimax_h3_latent_Upscaler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-minimax-h3-latent-upscaler-bf16-maxquality",
+      "name": "Minimax-H3-Latent-Upscaler-BF16-MAXQUALITY",
+      "repo": "https://huggingface.co/Asirus/Minimax-H3-Latent-Upscaler-BF16-MAXQUALITY",
+      "category": "扩充收录",
+      "author": "Asirus",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "Minimax-H3-Latent-Upscaler-BF16-MAXQUALITY",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Asirus/Minimax-H3-Latent-Upscaler-BF16-MAXQUALITY"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Asirus/Minimax-H3-Latent-Upscaler-BF16-MAXQUALITY"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ltxv-spatial-upscaler-0-9-7",
+      "name": "ltxv-spatial-upscaler-0.9.7",
+      "repo": "https://huggingface.co/Lightricks/ltxv-spatial-upscaler-0.9.7",
+      "category": "扩充收录",
+      "author": "Lightricks",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "ltxv-spatial-upscaler-0.9.7",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Lightricks/ltxv-spatial-upscaler-0.9.7"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Lightricks/ltxv-spatial-upscaler-0.9.7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-p-image-edit-photo-upscaler-lora",
+      "name": "p-image-edit-photo-upscaler-lora",
+      "repo": "https://huggingface.co/PrunaAI/p-image-edit-photo-upscaler-lora",
+      "category": "扩充收录",
+      "author": "PrunaAI",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "p-image-edit-photo-upscaler-lora",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/PrunaAI/p-image-edit-photo-upscaler-lora"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/PrunaAI/p-image-edit-photo-upscaler-lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-chronoedit-14b-diffusers-upscaler-lora",
+      "name": "ChronoEdit-14B-Diffusers-Upscaler-Lora",
+      "repo": "https://huggingface.co/nvidia/ChronoEdit-14B-Diffusers-Upscaler-Lora",
+      "category": "扩充收录",
+      "author": "nvidia",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "ChronoEdit-14B-Diffusers-Upscaler-Lora",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/nvidia/ChronoEdit-14B-Diffusers-Upscaler-Lora"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/nvidia/ChronoEdit-14B-Diffusers-Upscaler-Lora"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-pid-upscaler-image-restoration-tutorial-video",
+      "name": "PiD_upscaler_image_restoration_tutorial_video",
+      "repo": "https://huggingface.co/b-rosel/PiD_upscaler_image_restoration_tutorial_video",
+      "category": "扩充收录",
+      "author": "b-rosel",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "PiD_upscaler_image_restoration_tutorial_video",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/b-rosel/PiD_upscaler_image_restoration_tutorial_video"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/b-rosel/PiD_upscaler_image_restoration_tutorial_video"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-taesd-x4-upscaler",
+      "name": "taesd-x4-upscaler",
+      "repo": "https://huggingface.co/madebyollin/taesd-x4-upscaler",
+      "category": "扩充收录",
+      "author": "madebyollin",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "taesd-x4-upscaler",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/madebyollin/taesd-x4-upscaler"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/madebyollin/taesd-x4-upscaler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-safetensored-upscalers",
+      "name": "safetensored-upscalers",
+      "repo": "https://huggingface.co/AshtakaOOf/safetensored-upscalers",
+      "category": "扩充收录",
+      "author": "AshtakaOOf",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "safetensored-upscalers",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/AshtakaOOf/safetensored-upscalers"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/AshtakaOOf/safetensored-upscalers"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-minimax-h3-latent-upscaler-3",
+      "name": "Minimax_h3_latent_Upscaler",
+      "repo": "https://huggingface.co/mcbibi/Minimax_h3_latent_Upscaler",
+      "category": "扩充收录",
+      "author": "mcbibi",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "Minimax_h3_latent_Upscaler",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/mcbibi/Minimax_h3_latent_Upscaler"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/mcbibi/Minimax_h3_latent_Upscaler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ltx-video-spatial-upscaler-0-9-8",
+      "name": "LTX-Video-spatial-upscaler-0.9.8",
+      "repo": "https://huggingface.co/linoyts/LTX-Video-spatial-upscaler-0.9.8",
+      "category": "扩充收录",
+      "author": "linoyts",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "LTX-Video-spatial-upscaler-0.9.8",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/linoyts/LTX-Video-spatial-upscaler-0.9.8"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/linoyts/LTX-Video-spatial-upscaler-0.9.8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-minimax-h3-latent-upscaler-4",
+      "name": "Minimax_h3_latent_Upscaler",
+      "repo": "https://huggingface.co/zhangccccc/Minimax_h3_latent_Upscaler",
+      "category": "扩充收录",
+      "author": "zhangccccc",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "Minimax_h3_latent_Upscaler",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/zhangccccc/Minimax_h3_latent_Upscaler"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/zhangccccc/Minimax_h3_latent_Upscaler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ltx-2-3-spatial-upscaler-x2-v1-1-diffusers",
+      "name": "LTX-2.3-spatial-upscaler-x2-v1.1-Diffusers",
+      "repo": "https://huggingface.co/rootonchair/LTX-2.3-spatial-upscaler-x2-v1.1-Diffusers",
+      "category": "扩充收录",
+      "author": "rootonchair",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "upscale"
+      ],
+      "models": [
+        {
+          "name": "LTX-2.3-spatial-upscaler-x2-v1.1-Diffusers",
+          "type": "upscale",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/rootonchair/LTX-2.3-spatial-upscaler-x2-v1.1-Diffusers"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/rootonchair/LTX-2.3-spatial-upscaler-x2-v1.1-Diffusers"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter",
+      "name": "IP-Adapter 官方全家桶",
+      "repo": "https://huggingface.co/h94/IP-Adapter",
+      "category": "扩充收录",
+      "author": "h94",
+      "official": false,
+      "maintenance": "active",
+      "description": "IP-Adapter 官方权重合集（SD1.5/SDXL/FaceID/Plus 全系列）。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "IP-Adapter 官方全家桶",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/h94/IP-Adapter"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/h94/IP-Adapter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-1-dev-ip-adapter",
+      "name": "FLUX.1-dev IP-Adapter",
+      "repo": "https://huggingface.co/InstantX/FLUX.1-dev-IP-Adapter",
+      "category": "扩充收录",
+      "author": "InstantX",
+      "official": false,
+      "maintenance": "active",
+      "description": "FLUX.1-dev 的 InstantX IP-Adapter 权重。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "FLUX.1-dev IP-Adapter",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/InstantX/FLUX.1-dev-IP-Adapter"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/InstantX/FLUX.1-dev-IP-Adapter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-ip-adapter-xlabs",
+      "name": "FLUX IP-Adapter (XLabs)",
+      "repo": "https://huggingface.co/XLabs-AI/flux-ip-adapter",
+      "category": "扩充收录",
+      "author": "XLabs-AI",
+      "official": false,
+      "maintenance": "active",
+      "description": "XLabs 出品的 FLUX IP-Adapter v2 权重。",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "FLUX IP-Adapter (XLabs)",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/XLabs-AI/flux-ip-adapter"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/XLabs-AI/flux-ip-adapter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter-faceid",
+      "name": "IP-Adapter-FaceID",
+      "repo": "https://huggingface.co/h94/IP-Adapter-FaceID",
+      "category": "扩充收录",
+      "author": "h94",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "IP-Adapter-FaceID",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/h94/IP-Adapter-FaceID"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/h94/IP-Adapter-FaceID"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-ip-adapter-v2",
+      "name": "flux-ip-adapter-v2",
+      "repo": "https://huggingface.co/XLabs-AI/flux-ip-adapter-v2",
+      "category": "扩充收录",
+      "author": "XLabs-AI",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "flux-ip-adapter-v2",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/XLabs-AI/flux-ip-adapter-v2"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/XLabs-AI/flux-ip-adapter-v2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter-sd-image-encoder",
+      "name": "ip_adapter_sd_image_encoder",
+      "repo": "https://huggingface.co/InvokeAI/ip_adapter_sd_image_encoder",
+      "category": "扩充收录",
+      "author": "InvokeAI",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "ip_adapter_sd_image_encoder",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/InvokeAI/ip_adapter_sd_image_encoder"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/InvokeAI/ip_adapter_sd_image_encoder"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter-sdxl-image-encoder",
+      "name": "ip_adapter_sdxl_image_encoder",
+      "repo": "https://huggingface.co/InvokeAI/ip_adapter_sdxl_image_encoder",
+      "category": "扩充收录",
+      "author": "InvokeAI",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "ip_adapter_sdxl_image_encoder",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/InvokeAI/ip_adapter_sdxl_image_encoder"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/InvokeAI/ip_adapter_sdxl_image_encoder"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sd3-5-large-ip-adapter",
+      "name": "SD3.5-Large-IP-Adapter",
+      "repo": "https://huggingface.co/InstantX/SD3.5-Large-IP-Adapter",
+      "category": "扩充收录",
+      "author": "InstantX",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "SD3.5-Large-IP-Adapter",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/InstantX/SD3.5-Large-IP-Adapter"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/InstantX/SD3.5-Large-IP-Adapter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-kolors-ip-adapter-plus",
+      "name": "Kolors-IP-Adapter-Plus",
+      "repo": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus",
+      "category": "扩充收录",
+      "author": "Kwai-Kolors",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "Kolors-IP-Adapter-Plus",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Kwai-Kolors/Kolors-IP-Adapter-Plus"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter-faceid-plusv2-sdxl-bin",
+      "name": "ip-adapter-faceid-plusv2_sdxl.bin",
+      "repo": "https://huggingface.co/kristian1515/ip-adapter-faceid-plusv2_sdxl.bin",
+      "category": "扩充收录",
+      "author": "kristian1515",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "ip-adapter-faceid-plusv2_sdxl.bin",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/kristian1515/ip-adapter-faceid-plusv2_sdxl.bin"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/kristian1515/ip-adapter-faceid-plusv2_sdxl.bin"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-kolors-ip-adapter-faceid-plus",
+      "name": "Kolors-IP-Adapter-FaceID-Plus",
+      "repo": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-FaceID-Plus",
+      "category": "扩充收录",
+      "author": "Kwai-Kolors",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "Kolors-IP-Adapter-FaceID-Plus",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-FaceID-Plus"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Kwai-Kolors/Kolors-IP-Adapter-FaceID-Plus"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter-instruct",
+      "name": "IP-Adapter-Instruct",
+      "repo": "https://huggingface.co/CiaraRowles/IP-Adapter-Instruct",
+      "category": "扩充收录",
+      "author": "CiaraRowles",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "IP-Adapter-Instruct",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/CiaraRowles/IP-Adapter-Instruct"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/CiaraRowles/IP-Adapter-Instruct"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sdxl-ip-adapter",
+      "name": "sdxl-ip-adapter",
+      "repo": "https://huggingface.co/OzzyGT/sdxl-ip-adapter",
+      "category": "扩充收录",
+      "author": "OzzyGT",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "sdxl-ip-adapter",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/OzzyGT/sdxl-ip-adapter"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/OzzyGT/sdxl-ip-adapter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter-faceid-plusv2-sdxl-bin-2",
+      "name": "ip-adapter-faceid-plusv2_sdxl.bin",
+      "repo": "https://huggingface.co/Amani007/ip-adapter-faceid-plusv2_sdxl.bin",
+      "category": "扩充收录",
+      "author": "Amani007",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "ip-adapter-faceid-plusv2_sdxl.bin",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Amani007/ip-adapter-faceid-plusv2_sdxl.bin"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Amani007/ip-adapter-faceid-plusv2_sdxl.bin"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter-faceid-2",
+      "name": "IP-Adapter-FaceID",
+      "repo": "https://huggingface.co/argzr/IP-Adapter-FaceID",
+      "category": "扩充收录",
+      "author": "argzr",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "IP-Adapter-FaceID",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/argzr/IP-Adapter-FaceID"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/argzr/IP-Adapter-FaceID"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter-faceid-plusv2-sdxl-bin-3",
+      "name": "ip-adapter-faceid-plusv2_sdxl.bin",
+      "repo": "https://huggingface.co/aixuex/ip-adapter-faceid-plusv2_sdxl.bin",
+      "category": "扩充收录",
+      "author": "aixuex",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "ip-adapter-faceid-plusv2_sdxl.bin",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/aixuex/ip-adapter-faceid-plusv2_sdxl.bin"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/aixuex/ip-adapter-faceid-plusv2_sdxl.bin"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-tokforge-sd15-ipadapter",
+      "name": "TokForge-SD15-IPAdapter",
+      "repo": "https://huggingface.co/darkmaniac7/TokForge-SD15-IPAdapter",
+      "category": "扩充收录",
+      "author": "darkmaniac7",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "TokForge-SD15-IPAdapter",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/darkmaniac7/TokForge-SD15-IPAdapter"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/darkmaniac7/TokForge-SD15-IPAdapter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter-flux",
+      "name": "ip-adapter-flux",
+      "repo": "https://huggingface.co/Muapi/ip-adapter-flux",
+      "category": "扩充收录",
+      "author": "Muapi",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "ip-adapter-flux",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Muapi/ip-adapter-flux"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Muapi/ip-adapter-flux"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter-faceid-3",
+      "name": "IP-Adapter-FaceID",
+      "repo": "https://huggingface.co/philgram/IP-Adapter-FaceID",
+      "category": "扩充收录",
+      "author": "philgram",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "IP-Adapter-FaceID",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/philgram/IP-Adapter-FaceID"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/philgram/IP-Adapter-FaceID"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter-faceid-4",
+      "name": "IP-Adapter-FaceID",
+      "repo": "https://huggingface.co/JCTN/IP-Adapter-FaceID",
+      "category": "扩充收录",
+      "author": "JCTN",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "IP-Adapter-FaceID",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/JCTN/IP-Adapter-FaceID"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/JCTN/IP-Adapter-FaceID"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-ip-adapter-faceid-bin-conversion-xl",
+      "name": "IP-Adapter-FaceID-Bin-Conversion-XL",
+      "repo": "https://huggingface.co/RGArt/IP-Adapter-FaceID-Bin-Conversion-XL",
+      "category": "扩充收录",
+      "author": "RGArt",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "ipadapter"
+      ],
+      "models": [
+        {
+          "name": "IP-Adapter-FaceID-Bin-Conversion-XL",
+          "type": "ipadapter",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/RGArt/IP-Adapter-FaceID-Bin-Conversion-XL"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/RGArt/IP-Adapter-FaceID-Bin-Conversion-XL"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-1-dev-controlnet-union-pro",
+      "name": "FLUX.1-dev-ControlNet-Union-Pro",
+      "repo": "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro",
+      "category": "扩充收录",
+      "author": "Shakker-Labs",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "FLUX.1-dev-ControlNet-Union-Pro",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-sd-controlnet-openpose",
+      "name": "sd-controlnet-openpose",
+      "repo": "https://huggingface.co/lllyasviel/sd-controlnet-openpose",
+      "category": "扩充收录",
+      "author": "lllyasviel",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "sd-controlnet-openpose",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/lllyasviel/sd-controlnet-openpose"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/lllyasviel/sd-controlnet-openpose"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-controlnet-sd21",
+      "name": "controlnet-sd21",
+      "repo": "https://huggingface.co/thibaud/controlnet-sd21",
+      "category": "扩充收录",
+      "author": "thibaud",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "controlnet-sd21",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/thibaud/controlnet-sd21"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/thibaud/controlnet-sd21"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-controlnet-scribble-sdxl-1-0",
+      "name": "controlnet-scribble-sdxl-1.0",
+      "repo": "https://huggingface.co/xinsir/controlnet-scribble-sdxl-1.0",
+      "category": "扩充收录",
+      "author": "xinsir",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "controlnet-scribble-sdxl-1.0",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/xinsir/controlnet-scribble-sdxl-1.0"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/xinsir/controlnet-scribble-sdxl-1.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-minimax-h3-fun-controlnet-union-2-0",
+      "name": "MiniMax-H3-Fun-Controlnet-Union-2.0",
+      "repo": "https://huggingface.co/alibaba-pai/MiniMax-H3-Fun-Controlnet-Union-2.0",
+      "category": "扩充收录",
+      "author": "alibaba-pai",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "MiniMax-H3-Fun-Controlnet-Union-2.0",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/alibaba-pai/MiniMax-H3-Fun-Controlnet-Union-2.0"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/alibaba-pai/MiniMax-H3-Fun-Controlnet-Union-2.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-qwen-image-controlnet-union",
+      "name": "Qwen-Image-ControlNet-Union",
+      "repo": "https://huggingface.co/InstantX/Qwen-Image-ControlNet-Union",
+      "category": "扩充收录",
+      "author": "InstantX",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "Qwen-Image-ControlNet-Union",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/InstantX/Qwen-Image-ControlNet-Union"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/InstantX/Qwen-Image-ControlNet-Union"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-1-dev-controlnet-union-pro-2-0",
+      "name": "FLUX.1-dev-ControlNet-Union-Pro-2.0",
+      "repo": "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro-2.0",
+      "category": "扩充收录",
+      "author": "Shakker-Labs",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "FLUX.1-dev-ControlNet-Union-Pro-2.0",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro-2.0"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro-2.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-controlnet-tile-sdxl-1-0",
+      "name": "controlnet-tile-sdxl-1.0",
+      "repo": "https://huggingface.co/xinsir/controlnet-tile-sdxl-1.0",
+      "category": "扩充收录",
+      "author": "xinsir",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "controlnet-tile-sdxl-1.0",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/xinsir/controlnet-tile-sdxl-1.0"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/xinsir/controlnet-tile-sdxl-1.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auto-huggingface-flux-1-dev-controlnet-union",
+      "name": "FLUX.1-dev-Controlnet-Union",
+      "repo": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union",
+      "category": "扩充收录",
+      "author": "InstantX",
+      "official": false,
+      "maintenance": "active",
+      "description": "",
+      "tags": [
+        "auto",
+        "huggingface",
+        "controlnet"
+      ],
+      "models": [
+        {
+          "name": "FLUX.1-dev-Controlnet-Union",
+          "type": "controlnet",
+          "sources": [
+            {
+              "platform": "huggingface",
+              "url": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union"
+            },
+            {
+              "platform": "hf-mirror",
+              "url": "https://hf-mirror.com/InstantX/FLUX.1-dev-Controlnet-Union"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
