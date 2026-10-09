@@ -566,7 +566,7 @@ def main():
     if not os.path.exists(args.data):
         print(f"找不到数据文件：{args.data}", file=sys.stderr)
         return 2
-    return run(platforms, args.max, args.data, args.target_per_type)
+    return run(platforms, args.max, args.data, args.dry_run, args.target_per_type)
 
 
 if __name__ == "__main__":
