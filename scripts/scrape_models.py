@@ -134,7 +134,7 @@ def fetch_civitai(limit=100):
     out = []
     # 不传 types（该参数易触发 400），改为拉取 MostDownloaded 后按 type 客户端过滤
     data = http_get("https://civitai.com/api/v1/models", {
-        "limit": limit, "sort": "MostDownloaded",
+        "limit": limit, "sort": "Most Downloaded",
     })
     items = (data or {}).get("items") or []
     for it in items:
