@@ -3,6 +3,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    # 每日 05:30 UTC（北京时间 13:30）兜底部署最新 main：
+    # GITHUB_TOKEN 的自动提交（爬虫/数据更新）不会触发 push 部署，此 cron 保证每天必定上线一次
+    - cron: "30 5 * * *"
   workflow_dispatch:
 
 permissions:
