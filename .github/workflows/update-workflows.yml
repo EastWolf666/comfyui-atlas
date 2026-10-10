@@ -34,6 +34,8 @@ concurrency:
 
 jobs:
   update:
+    outputs:
+      CHANGED: ${{ steps.commit.outputs.CHANGED }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -129,10 +131,47 @@ jobs:
             if [ "${{ steps.commit.outputs.CHANGED }}" = "true" ]; then
               echo "- 结果: 已更新并提交 → ${{ steps.commit.outputs.COMMIT_MSG }}"
               echo "- 提交: \`$(git log -1 --format='%h %s')\`"
-              echo "- 下次自动触发: 3 天后"
+              echo "- 下次自动触发: 明天 11:10（WorkBuddy 定时任务）"
             else
               echo "- 结果: 数据无变化（平台暂无新工作流）"
             fi
             echo ""
-            echo "> 提交会自动触发 Deploy to GitHub Pages，约 1~2 分钟后生效。"
+            echo "> 数据已提交，下方 deploy-site job 将自动把本次更新部署到 GitHub Pages（约 1~2 分钟生效）。"
           } >> "$GITHUB_STEP_SUMMARY"
+
+  # 注意：本 workflow 的提交使用 GITHUB_TOKEN，按 GitHub 规则不会触发其他 workflow，
+  # 因此在这里内联部署，数据更新后立即上线。
+  build-site:
+    needs: update
+    if: needs.update.outputs.CHANGED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate data
+        run: python3 scripts/validate.py data/modules.json
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy-site:
+    needs: build-site
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
