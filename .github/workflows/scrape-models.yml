@@ -25,6 +25,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   scrape:
@@ -49,6 +51,7 @@ jobs:
             --platforms "${{ github.event.inputs.platforms || 'hf,civitai,modelscope' }}"
 
       - name: Commit if changed
+        id: commit
         run: |
           if git diff --quiet data/modules.json; then
             echo "无新增，跳过提交。"
@@ -59,3 +62,40 @@ jobs:
           git add data/modules.json
           git commit -m "[auto] scrape models: 扩充模块索引模型条目"
           git push
+          echo "CHANGED=true" >> "$GITHUB_OUTPUT"
+
+  # GITHUB_TOKEN 的提交不会触发其他 workflow，数据提交后在此内联部署上线
+  build-site:
+    needs: scrape
+    if: needs.scrape.outputs.CHANGED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate data
+        run: python3 scripts/validate.py data/modules.json
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy-site:
+    needs: build-site
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
