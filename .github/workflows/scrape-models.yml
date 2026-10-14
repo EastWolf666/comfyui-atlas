@@ -30,6 +30,8 @@ permissions:
 
 jobs:
   scrape:
+    outputs:
+      CHANGED: ${{ steps.commit.outputs.CHANGED }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
