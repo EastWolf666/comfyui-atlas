@@ -148,6 +148,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # 必须检出 main：默认会检出本次触发的 ref（不含上一步刚 push 的数据提交）
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
