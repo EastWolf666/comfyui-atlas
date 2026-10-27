@@ -161,11 +161,15 @@ def main():
             records = payload.get("records") or []
             if not records:
                 break
-            if total is None:
-                try:
-                    total = int(payload.get("total"))
-                except (TypeError, ValueError):
-                    pass
+            # 每次都采用接口返回的最新总数：旧逻辑"仅 total 为空时刷新"
+            # 会把首次快照永久冻结，导致 count 追平并反超 platformTotal、
+            # 页面显示覆盖率 >100%（2026-10 实测：快照 88571 vs 实际 95297）。
+            try:
+                _t = int(payload.get("total"))
+            except (TypeError, ValueError):
+                _t = None
+            if _t:
+                total = _t
             added = 0
             for r in records:
                 rid = r.get("id")
@@ -200,11 +204,13 @@ def main():
                 print(f"  [页 {p}] 接口返回 code={data.get('code')}，停止", file=sys.stderr)
                 break
             payload = data.get("data") or {}
-            if total is None:
-                try:
-                    total = int(payload.get("total"))
-                except (TypeError, ValueError):
-                    total = payload.get("total")
+            # 同上：每页都刷新为接口最新总数，避免沿用首次快照导致分母过期
+            try:
+                _t = int(payload.get("total"))
+            except (TypeError, ValueError):
+                _t = None
+            if _t:
+                total = _t
             records = payload.get("records") or []
             if not records:
                 print(f"  [页 {p}] 无记录，停止翻页", file=sys.stderr)

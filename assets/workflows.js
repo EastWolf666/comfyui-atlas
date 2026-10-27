@@ -993,7 +993,8 @@ function renderHeader() {
   document.getElementById("stat-total").textContent = total ? total.toLocaleString("zh-CN") : "–";
   document.getElementById("stat-indexed").textContent = indexed ? indexed.toLocaleString("zh-CN") : "–";
   document.getElementById("stat-source").textContent = MANIFEST.source || "–";
-  const pct = total && indexed ? ((indexed / total) * 100).toFixed(1) : null;
+  // 钳制到 100：platformTotal 是采集时的快照，若快照过期会出现 >100% 的怪值
+  const pct = total && indexed ? Math.min(100, (indexed / total) * 100).toFixed(1) : null;
   document.getElementById("note").innerHTML =
     "数据更新于 " + esc(fmtDate(MANIFEST.updatedAt)) +
     (pct ? "，已收录约 " + pct + "% 的平台工作流" : "") +

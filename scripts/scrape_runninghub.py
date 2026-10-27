@@ -152,11 +152,14 @@ def main():
             break
 
         payload = data.get("data") or {}
-        if total is None:
-            try:
-                total = int(payload.get("total"))
-            except (TypeError, ValueError):
-                total = payload.get("total")
+        # 每页都刷新为接口最新总数；旧逻辑仅在首次为空时写入，
+        # 会让续采/增量沿用过期快照（已收录数反超"平台总量"）。
+        try:
+            _t = int(payload.get("total"))
+        except (TypeError, ValueError):
+            _t = None
+        if _t:
+            total = _t
         records = payload.get("records") or []
         if not records:
             print(f"  [页 {p}] 无记录，停止翻页", file=sys.stderr)
